@@ -1,0 +1,7 @@
+{
+    "browser": true,
+    "globalstrict": true,
+
+    // to allow CommonJS syntax
+    "browserify": true
+}

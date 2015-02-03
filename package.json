@@ -1,0 +1,13 @@
+{
+  "name": "home-assistant-js",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "webpack"
+  },
+  "devDependencies": {
+    "flux": "^2.0.1",
+    "lodash": "^3.0.1",
+    "moment": "^2.9.0",
+    "webpack": "^1.0.0"
+  }
+}

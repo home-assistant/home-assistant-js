@@ -21,6 +21,26 @@ var syncActions = {
 
 };
 
+var syncInterval = null;
+
+/**
+ * See if dispatcher is available to trigger reloads of the data
+ * Waits .1 second if unavailable.
+ */
+var trySync = function() {
+  if(dispatcher.isDispatching()) {
+    setTimeout(trySync, 100);
+  } else {
+    syncActions.sync();
+  }
+};
+
+var scheduleSync = function() {
+  clearTimeout(syncInterval);
+
+  syncInterval = setTimeout(trySync, 30000);
+};
+
 syncActions.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
     case actions.ACTION_VALID_AUTH_TOKEN:
@@ -31,6 +51,16 @@ syncActions.dispatchToken = dispatcher.register(function(payload) {
       stateActions.fetchAll();
       serviceActions.fetchAll();
       break;
+
+    case actions.ACTION_NEW_STATES:
+      // If replace == true this is a full sync.
+      if (payload.replace) {
+        scheduleSync();
+      }
+      break;
+
+    case actions.ACTION_LOG_OUT:
+      clearTimeout(syncInterval);
   }
 });
 

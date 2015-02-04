@@ -1,5 +1,13 @@
 'use strict';
 
+var dispatcher = require('./app_dispatcher');
+
+if (__DEV__) {
+  dispatcher.register(function(payload) {
+    console.log(payload);
+  });
+}
+
 if (!window.hass) {
   window.hass = {
     callApi: require('./call_api'),

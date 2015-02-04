@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "webpack --colors --progress -d --watch",
-    "prod": "webpack --colors --progress -p -d"
+    "prod": "BUILD_DEV=0 webpack --colors --progress -p -d"
   },
   "devDependencies": {
     "flux": "^2.0.1",

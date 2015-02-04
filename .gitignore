@@ -1,5 +1,4 @@
-# Build
-dist
+dist/homeassistant.min.js.map
 
 # Logs
 logs

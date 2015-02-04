@@ -1,6 +1,5 @@
 'use strict';
 
-var callApi = require('../call_api');
 var dispatcher = require('../app_dispatcher');
 
 var authStore = require('../stores/auth');

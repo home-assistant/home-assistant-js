@@ -9,19 +9,19 @@ var DOMAINS_WITH_MORE_INFO = ['light', 'group', 'sun', 'configurator'];
 var State = function(json) {
     this.attributes = json.attributes;
 
-    this.entity_id = json.entity_id;
+    this.entityId = json.entity_id;
     var parts = json.entity_id.split(".");
     this.domain = parts[0];
-    this.object_id = parts[1];
+    this.objectId = parts[1];
 
     if(this.attributes.friendly_name) {
       this.entityDisplay = this.attributes.friendly_name;
     } else {
-      this.entityDisplay = this.object_id.replace(/_/g, " ");
+      this.entityDisplay = this.objectId.replace(/_/g, " ");
     }
 
     this.state = json.state;
-    this.last_changed = json.last_changed;
+    this.lastChanged = json.last_changed;
 };
 
 Object.defineProperties(State.prototype, {
@@ -78,7 +78,7 @@ Object.defineProperties(State.prototype, {
 
   relativeLastChanged: {
     get: function() {
-      return util.relativeTime(this.last_changed);
+      return util.relativeTime(this.lastChanged);
     }
   },
 

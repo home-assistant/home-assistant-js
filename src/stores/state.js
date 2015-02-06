@@ -12,7 +12,7 @@ var states = {};
  * Sort a list of states
  */
 var sortStates = function(toSortStates) {
-  return _.sortBy(toSortStates, 'entity_id');
+  return _.sortBy(toSortStates, 'entityId');
 };
 
 /**

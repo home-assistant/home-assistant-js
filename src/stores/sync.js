@@ -5,16 +5,25 @@ var dispatcher = require('../app_dispatcher');
 var actions = require('../actions/actions');
 var Store = require('../stores/store');
 
+var initialLoadDone = false;
 var loaded = [];
 
 var contains = function(action) {
   return loaded.indexOf(action) !== -1;
 };
 
+var allLoaded = function() {
+  return loaded.length === 4;
+};
+
 var syncStore = {};
 _.assign(syncStore, Store.prototype, {
+  isFetching: function() {
+    return !allLoaded();
+  },
+
   initialLoadDone: function() {
-    return loaded.length == 4;
+    return initialLoadDone;
   },
 
   componentsLoaded: function() {
@@ -37,6 +46,11 @@ _.assign(syncStore, Store.prototype, {
 
 syncStore.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
+    case actions.ACTION_FETCH_ALL:
+      loaded = [];
+      syncStore.emitChange();
+      break;
+
     case actions.ACTION_NEW_LOADED_COMPONENTS:
     case actions.ACTION_NEW_EVENTS:
     case actions.ACTION_NEW_SERVICES:
@@ -44,11 +58,14 @@ syncStore.dispatchToken = dispatcher.register(function(payload) {
       if (!contains(payload.actionType)) {
         loaded.push(payload.actionType);
 
+        initialLoadDone = initialLoadDone || allLoaded();
+
         syncStore.emitChange();
       }
       break;
 
     case actions.ACTION_LOG_OUT:
+      initialLoadDone = false;
       loaded = [];
       syncStore.emitChange();
       break;

@@ -1,67 +1,45 @@
 'use strict';
 
+var _ = require('lodash');
+
 var dispatcher = require('../app_dispatcher');
 
-var authStore = require('../stores/auth');
-
-var actions = require('./actions');
+var actions = require('../actions/actions');
 var eventActions = require('./event');
 var stateActions = require('./state');
 var serviceActions = require('./service');
 var componentActions = require('./component');
 
-var syncActions = {
-
-  sync: function() {
-    eventActions.fetchAll();
-    stateActions.fetchAll();
-    serviceActions.fetchAll();
-    componentActions.fetchAll();
-  }
-
-};
+var SYNC_INTERVAL = 30000;
 
 var syncInterval = null;
-
-/**
- * See if dispatcher is available to trigger reloads of the data
- * Waits .1 second if unavailable.
- */
-var trySync = function() {
-  if(dispatcher.isDispatching()) {
-    setTimeout(trySync, 100);
-  } else {
-    syncActions.sync();
-  }
-};
 
 var scheduleSync = function() {
   clearTimeout(syncInterval);
 
-  syncInterval = setTimeout(trySync, 30000);
+  syncInterval = setTimeout(syncActions.sync, SYNC_INTERVAL);
 };
 
-syncActions.dispatchToken = dispatcher.register(function(payload) {
-  switch(payload.actionType) {
-    case actions.ACTION_VALID_AUTH_TOKEN:
-      dispatcher.waitFor([authStore.dispatchToken]);
+var syncActions = {
 
-      // components already fetched in validate      
-      eventActions.fetchAll();
-      stateActions.fetchAll();
-      serviceActions.fetchAll();
-      break;
+  sync: function(options) {
+    options = options || {};
 
-    case actions.ACTION_NEW_STATES:
-      // If replace == true this is a full sync.
-      if (payload.replace) {
-        scheduleSync();
-      }
-      break;
+    dispatcher.dispatch({
+      actionType: actions.ACTION_FETCH_ALL,
+    });
 
-    case actions.ACTION_LOG_OUT:
-      clearTimeout(syncInterval);
-  }
-});
+    eventActions.fetchAll();
+    stateActions.fetchAll();
+    serviceActions.fetchAll();
+
+    if (_.isUndefined(options.skipComponents)) {
+      componentActions.fetchAll();
+    }
+
+    scheduleSync();
+  },
+
+};
 
 module.exports = syncActions;

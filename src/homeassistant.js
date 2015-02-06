@@ -12,7 +12,7 @@ if (!window.hass) {
   window.hass = {
     callApi: require('./call_api'),
     actions: require('./actions/actions'),
-    dispatcher: require('./app_dispatcher'),
+    dispatcher: dispatcher,
 
     authActions: require('./actions/auth'),
     componentActions: require('./actions/component'),

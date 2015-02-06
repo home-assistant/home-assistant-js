@@ -3,6 +3,7 @@
 var callApi = require('../call_api');
 var dispatcher = require('../app_dispatcher');
 var actions = require('../actions/actions');
+var syncActions = require('../actions/sync');
 var componentActions = require('../actions/component');
 
 module.exports = {
@@ -22,6 +23,8 @@ module.exports = {
           actionType: actions.ACTION_VALID_AUTH_TOKEN,
           authToken: authToken,
         });
+
+        syncActions.sync({skipComponents: true});
 
         componentActions.newLoaded(newComponents);
       }, 

@@ -20,6 +20,7 @@ if (!window.hass) {
     serviceActions: require('./actions/service'),
     stateActions: require('./actions/state'),
     syncActions: require('./actions/sync'),
+    stateHistoryActions: require('./actions/state_history'),
 
     authStore: require('./stores/auth'),
     componentStore: require('./stores/component'),
@@ -27,6 +28,7 @@ if (!window.hass) {
     serviceStore: require('./stores/service'),
     stateStore: require('./stores/state'),
     syncStore: require('./stores/sync'),
+    stateHistoryStore: require('./stores/state_history'),
 
     stateModel: require('./models/state'),
 

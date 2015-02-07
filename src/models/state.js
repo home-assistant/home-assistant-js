@@ -1,10 +1,6 @@
 'use strict';
 
-var util = require('../util');
 var serviceStore = require('../stores/service');
-
-var DOMAINS_WITH_CARD = ['thermostat', 'configurator'];
-var DOMAINS_WITH_MORE_INFO = ['light', 'group', 'sun', 'configurator'];
 
 var State = function(json) {
     this.attributes = json.attributes;
@@ -52,36 +48,15 @@ Object.defineProperties(State.prototype, {
     }
   },
 
-  // how to render the card for this state
-  cardType: {
+  lastChangedAsDate: {
     get: function() {
-      if(DOMAINS_WITH_CARD.indexOf(this.domain) !== -1) {
-        return this.domain;
-      } else if(this.canToggle) {
-        return "toggle";
-      } else {
-        return "display";
-      }
-    }
-  },
+      var parts = this.lastChanged.split(" ");
+      var time = parts[0].split(":");
+      var date = parts[1].split("-");
 
-  // how to render the more info of this state
-  moreInfoType: {
-    get: function() {
-      if(DOMAINS_WITH_MORE_INFO.indexOf(this.domain) !== -1) {
-        return this.domain;
-      } else {
-        return 'default';
-      }
+      return new Date(date[2], parseInt(date[1])-1, date[0], time[0], time[1], time[2]);
     }
-  },
-
-  relativeLastChanged: {
-    get: function() {
-      return util.relativeTime(this.lastChanged);
-    }
-  },
-
+  }
 });
 
 module.exports = State;

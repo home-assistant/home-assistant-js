@@ -1,26 +1,57 @@
 'use strict';
 
+var _ = require('lodash');
+
 var serviceStore = require('../stores/service');
 
-var State = function(json) {
-    this.attributes = json.attributes;
+var util = require('../util');
 
-    this.entityId = json.entity_id;
-    var parts = json.entity_id.split(".");
-    this.domain = parts[0];
-    this.objectId = parts[1];
+var State = function(entityId, state, lastChanged, attributes) {
+  this.entityId = entityId;
+  this.state = state;
+  this.lastChanged = lastChanged;
+  this.attributes = attributes || {};
+};
 
-    if(this.attributes.friendly_name) {
-      this.entityDisplay = this.attributes.friendly_name;
-    } else {
-      this.entityDisplay = this.objectId.replace(/_/g, " ");
-    }
-
-    this.state = json.state;
-    this.lastChanged = json.last_changed;
+State.fromJSON = function(jsonObj) {
+  return new State(jsonObj.entity_id, jsonObj.state, jsonObj.last_changed, jsonObj.attributes);
 };
 
 Object.defineProperties(State.prototype, {
+  domain: {
+    get: function() {
+      if (_.isUndefined(this._domain)) {
+        this._domain = this.entityId.split(".")[0];
+      }
+
+      return this._domain;
+    }
+  },
+
+  objectId: {
+    get: function() {
+      if (_.isUndefined(this._objectId)) {
+        this._objectId = this.entityId.split(".")[1];
+      }
+
+      return this._objectId;
+    }
+  },
+
+  entityDisplay: {
+    get: function() {
+      if (_.isUndefined(this._entityDisplay)) {
+        if(this.attributes.friendly_name) {
+          this._entityDisplay = this.attributes.friendly_name;
+        } else {
+          this._entityDisplay = this.objectId.replace(/_/g, " ");
+        }
+      }
+
+      return this._entityDisplay;
+    }
+  },
+
   stateDisplay: {
     get: function() {
       var state = this.state.replace(/_/g, " ");
@@ -50,11 +81,7 @@ Object.defineProperties(State.prototype, {
 
   lastChangedAsDate: {
     get: function() {
-      var parts = this.lastChanged.split(" ");
-      var time = parts[0].split(":");
-      var date = parts[1].split("-");
-
-      return new Date(date[2], parseInt(date[1])-1, date[0], time[0], time[1], time[2]);
+      return util.parseDateTime(this.lastChanged);
     }
   }
 });

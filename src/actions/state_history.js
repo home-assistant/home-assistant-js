@@ -1,14 +1,19 @@
 'use strict';
 
+var _ = require('lodash');
+
 var callApi = require('../call_api');
 var dispatcher = require('../app_dispatcher');
 var actions = require('../actions/actions');
+var State = require('../models/state');
 
 module.exports = {
   newStateHistory: function(isFetchAll, stateHistory) {
     dispatcher.dispatch({
       actionType: actions.ACTION_NEW_STATE_HISTORY,
-      stateHistory: stateHistory,
+      stateHistory: _.map(stateHistory, function(states) {
+        return _.map(states, State.fromJSON);
+      }),
       isFetchAll: isFetchAll,
     });
   },

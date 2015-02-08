@@ -4,7 +4,6 @@ var _ = require('lodash');
 var dispatcher = require('../app_dispatcher');
 var actions = require('../actions/actions');
 var Store = require('../stores/store');
-var State = require('../models/state');
 
 var states = {};
 
@@ -38,19 +37,19 @@ var pushNewStates = function(newStates, removeNonPresent) {
 /**
  * Creates or updates a state. Returns bool if a new state was added.
  */
-var _pushNewState = function(new_state) {
-  var key = new_state.entity_id.toLowerCase();
+var _pushNewState = function(newState) {
+  var key = newState.entityId;
 
   if (_.has(states, key)) {
     var curState = states[key];
 
-    curState.attributes = new_state.attributes;
-    curState.last_changed = new_state.last_changed;
-    curState.state = new_state.state;
+    curState.attributes = newState.attributes;
+    curState.last_changed = newState.last_changed;
+    curState.state = newState.state;
 
     return false;
   } else {
-    states[key] = new State(new_state);
+    states[key] = newState;
 
     return true;
   }

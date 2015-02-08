@@ -31,5 +31,7 @@ if (!window.hass) {
     stateHistoryStore: require('./stores/state_history'),
 
     stateModel: require('./models/state'),
+
+    util: require('./util'),
   };
 }

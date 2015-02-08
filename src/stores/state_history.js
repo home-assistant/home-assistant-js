@@ -40,10 +40,10 @@ historyStore.dispatchToken = dispatcher.register(function(payload) {
       _.forEach(payload.stateHistory, function(entityStateHistory) {
         if (entityStateHistory.length === 0) return;
 
-        var entityId = entityStateHistory[0].entity_id;
+        var key = entityStateHistory[0].entityId;
 
-        _history[entityId] = entityStateHistory;
-        _lastUpdatedEntity[entityId] = new Date();
+        _history[key] = entityStateHistory;
+        _lastUpdatedEntity[key] = new Date();
       });
 
       if (payload.isFetchAll) {

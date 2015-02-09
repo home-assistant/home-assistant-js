@@ -2,19 +2,10 @@
 
 var authStore = require('./stores/auth');
 
-module.exports = function(method, path, parameters, options) {
+var CallApi = function(method, path, parameters, options) {
   options = options || {};
   var authToken = options.auth || authStore.getAuthToken();
   var url = "/api/" + path;
-
-  // set to true to generate a frontend to be used as demo on the website
-  if (false) {
-    if (path === "states" || path === "services" || path === "events") {
-      url = "/demo/" + path + ".json";
-    } else {
-      return;
-    }
-  }
 
   return new Promise(function(resolve, reject) {
     var req = new XMLHttpRequest();
@@ -46,3 +37,42 @@ module.exports = function(method, path, parameters, options) {
 
   });
 };
+
+if (__DEMO__) {
+  CallApi = function(method, path) {
+    return new Promise(function(resolve, reject) {
+
+      if (method !== 'GET') {
+        throw "URL not implemented in demo mode: /api/" + path;
+      }
+
+      // strip off url arguments:
+      if (path.indexOf('?') !== -1) {
+        path = path.substr(0, path.indexOf('?'));
+      }
+
+      switch (path) {
+        case 'components':
+          resolve(require('./demo/component_data.js'));
+          break;
+        case 'services':
+          resolve(require('./demo/service_data.js'));
+          break;
+        case 'events':
+          resolve(require('./demo/event_data.js'));
+          break;
+        case 'states':
+          resolve(require('./demo/state_data.js'));
+          break;
+        case 'history/period':
+          resolve(require('./demo/state_history_data.js'));
+          break;
+        default:
+          throw "URL not implemented in demo mode /api/" + path;
+      }
+
+    });
+  };
+}
+
+module.exports = CallApi;

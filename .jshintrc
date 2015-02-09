@@ -3,5 +3,10 @@
     "globalstrict": true,
 
     // to allow CommonJS syntax
-    "browserify": true
+    "browserify": true,
+
+    "globals": {
+      "__DEV__": true,
+      "__DEMO__": true
+    }
 }

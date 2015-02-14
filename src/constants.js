@@ -37,5 +37,6 @@ module.exports = _.merge({
   REMOTE_EVENT_CALL_SERVICE: 'call_service',
   REMOTE_EVENT_SERVICE_EXECUTED: 'service_executed',
   REMOTE_EVENT_PLATFORM_DISCOVERED: 'platform_discovered',
+  REMOTE_EVENT_SERVICE_REGISTERED: 'service_registered',
 
 }, _.zipObject(keyValueMirror, keyValueMirror));

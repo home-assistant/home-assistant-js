@@ -18,12 +18,6 @@ State.fromJSON = function(jsonObj) {
   return new State(jsonObj.entity_id, jsonObj.state, jsonObj.last_changed, jsonObj.attributes);
 };
 
-State.prototype.updateFromJSON = function(jsonObj) {
-  this.attributes = jsonObj.attributes;
-  this.last_changed = jsonObj.last_changed;
-  this.state = jsonObj.state;
-};
-
 Object.defineProperties(State.prototype, {
   domain: {
     get: function() {

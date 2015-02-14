@@ -40,11 +40,7 @@ var _state_key = function(jsonState) {
 var _pushNewState = function(newState) {
   var key = _state_key(newState);
 
-  if (states[key]) {
-    states[key].updateFromJSON(newState);
-  } else {
-    states[key] = State.fromJSON(newState);
-  }
+  states[key] = State.fromJSON(newState);
 
   return states[key];
 };

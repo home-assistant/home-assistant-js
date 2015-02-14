@@ -20,27 +20,32 @@ will be automatically fired on a store change.
 var _ = require('lodash');
 
 var STORES = [
-  'auth', 'component', 'event', 'service', 'state', 'state_history',
-  'stream', 'sync'];
+  'auth', 'component', 'event', 'service', 'state', 'stateHistory',
+  'stream', 'sync', 'notification'];
 
-var getStore = function(name) {
-  return require('../stores/' + name);
+// camelCase to under_score method from http://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
+var JS_FILES = _.map(STORES, function(input){
+  return input.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
+});
+
+var getStore = function(index) {
+  return require('../stores/' + JS_FILES[index]);
 };
 
 var StoreListenerMixIn = {
-  _storeListeners: {},
+  _storeListeners: [],
 
   listenToStores: function(fireOnListen) {
-    _.forEach(STORES, function(storeName) {
+    _.forEach(STORES, function(storeName, storeIndex) {
       var listenerName = storeName + 'StoreChanged';
 
       if (this[listenerName]) {
-        var store = getStore(storeName);
+        var store = getStore(storeIndex);
         var listener = this[listenerName].bind(this, store);
 
         store.addChangeListener(listener);
 
-        this._storeListeners[storeName] = listener;
+        this._storeListeners.push({store: store, listener: listener});
 
         if (fireOnListen) {
           listener();
@@ -50,8 +55,8 @@ var StoreListenerMixIn = {
   },
 
   stopListeningToStores: function() {
-    _.forEach(this._storeListeners, function(listener, storeName) {
-      getStore(storeName).removeChangeListener(listener);
+    _.forEach(this._storeListeners, function(info) {
+      info.store.removeChangeListener(info.listener);
     });
   },
 

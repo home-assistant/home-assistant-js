@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var dispatcher = require('../app_dispatcher');
-var actions = require('../actions/actions');
+var constants = require('../constants');
 var Store = require('../stores/store');
 
 var services = [];
@@ -25,12 +25,12 @@ _.assign(serviceStore, Store.prototype, {
 
 serviceStore.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
-    case actions.ACTION_NEW_SERVICES:
+    case constants.ACTION_NEW_SERVICES:
       services = payload.services;
       serviceStore.emitChange();
       break;
 
-    case actions.ACTION_LOG_OUT:
+    case constants.ACTION_LOG_OUT:
       services = [];
       serviceStore.emitChange();
       break;

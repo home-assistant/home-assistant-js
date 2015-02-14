@@ -1,10 +1,8 @@
 'use strict';
 
-var _ = require('lodash');
-
 var dispatcher = require('../app_dispatcher');
 
-var actions = require('../actions/actions');
+var constants = require('../constants');
 var eventActions = require('./event');
 var stateActions = require('./state');
 var serviceActions = require('./service');
@@ -12,12 +10,12 @@ var componentActions = require('./component');
 
 var SYNC_INTERVAL = 30000;
 
-var syncInterval = null;
+var scheduledSync = null;
 
 var scheduleSync = function() {
-  clearTimeout(syncInterval);
+  clearTimeout(scheduledSync);
 
-  syncInterval = setTimeout(syncActions.sync, SYNC_INTERVAL);
+  scheduledSync = setTimeout(syncActions.sync, SYNC_INTERVAL);
 };
 
 var syncActions = {
@@ -26,7 +24,7 @@ var syncActions = {
     options = options || {};
 
     dispatcher.dispatch({
-      actionType: actions.ACTION_FETCH_ALL,
+      actionType: constants.ACTION_FETCH_ALL,
     });
 
     eventActions.fetchAll();

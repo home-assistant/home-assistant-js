@@ -2,12 +2,12 @@
 
 var callApi = require('../call_api');
 var dispatcher = require('../app_dispatcher');
-var actions = require('../actions/actions');
+var constants = require('../constants');
 
 module.exports = {
   newLoaded: function(components) {
     dispatcher.dispatch({
-      actionType: actions.ACTION_NEW_LOADED_COMPONENTS,
+      actionType: constants.ACTION_NEW_LOADED_COMPONENTS,
       components: components,
     });
   },

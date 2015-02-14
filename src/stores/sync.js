@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var dispatcher = require('../app_dispatcher');
-var actions = require('../actions/actions');
+var constants = require('../constants');
 var Store = require('../stores/store');
 
 var initialLoadDone = false;
@@ -27,34 +27,34 @@ _.assign(syncStore, Store.prototype, {
   },
 
   componentsLoaded: function() {
-    return contains(actions.ACTION_NEW_LOADED_COMPONENTS);
+    return contains(constants.ACTION_NEW_LOADED_COMPONENTS);
   },
 
   eventsLoaded: function() {
-    return contains(actions.ACTION_NEW_EVENTS);
+    return contains(constants.ACTION_NEW_EVENTS);
   },
 
   servicesLoaded: function() {
-    return contains(actions.ACTION_NEW_SERVICES);
+    return contains(constants.ACTION_NEW_SERVICES);
   },
 
   statesLoaded: function() {
-    return contains(actions.ACTION_NEW_STATES);
+    return contains(constants.ACTION_NEW_STATES);
   },
 
 });
 
 syncStore.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
-    case actions.ACTION_FETCH_ALL:
+    case constants.ACTION_FETCH_ALL:
       loaded = [];
       syncStore.emitChange();
       break;
 
-    case actions.ACTION_NEW_LOADED_COMPONENTS:
-    case actions.ACTION_NEW_EVENTS:
-    case actions.ACTION_NEW_SERVICES:
-    case actions.ACTION_NEW_STATES:
+    case constants.ACTION_NEW_LOADED_COMPONENTS:
+    case constants.ACTION_NEW_EVENTS:
+    case constants.ACTION_NEW_SERVICES:
+    case constants.ACTION_NEW_STATES:
       if (!contains(payload.actionType)) {
         loaded.push(payload.actionType);
 
@@ -64,7 +64,7 @@ syncStore.dispatchToken = dispatcher.register(function(payload) {
       }
       break;
 
-    case actions.ACTION_LOG_OUT:
+    case constants.ACTION_LOG_OUT:
       initialLoadDone = false;
       loaded = [];
       syncStore.emitChange();

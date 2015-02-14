@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var dispatcher = require('../app_dispatcher');
-var actions = require('../actions/actions');
+var constants = require('../constants');
 var Store = require('../stores/store');
 
 var loadedComponents = [];
@@ -22,12 +22,12 @@ _.assign(componentStore, Store.prototype, {
 componentStore.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
 
-    case actions.ACTION_NEW_LOADED_COMPONENTS:
+    case constants.ACTION_NEW_LOADED_COMPONENTS:
       loadedComponents = payload.components;
       componentStore.emitChange();
       break;
 
-    case actions.ACTION_LOG_OUT:
+    case constants.ACTION_LOG_OUT:
       loadedComponents = [];
       componentStore.emitChange();
       break;

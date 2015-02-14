@@ -1,17 +1,15 @@
 'use strict';
 
-var _ = require('lodash');
 var callApi = require('../call_api');
 var dispatcher = require('../app_dispatcher');
-var actions = require('../actions/actions');
+var constants = require('../constants');
 var toastActions = require('./toast');
-var State = require('../models/state');
 
 module.exports = {
   newStates: function(states, replace) {
     dispatcher.dispatch({
-      actionType: actions.ACTION_NEW_STATES,
-      states: _.map(states, State.fromJSON),
+      actionType: constants.ACTION_NEW_STATES,
+      states: states,
       replace: !!replace,
     });
   },

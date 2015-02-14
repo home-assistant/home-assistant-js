@@ -2,14 +2,14 @@
 
 var callApi = require('../call_api');
 var dispatcher = require('../app_dispatcher');
-var actions = require('../actions/actions');
+var constants = require('../constants');
 var toastActions = require('./toast');
 var stateActions = require('./state');
 
 module.exports = {
   newServices: function(services) {
     dispatcher.dispatch({
-      actionType: actions.ACTION_NEW_SERVICES,
+      actionType: constants.ACTION_NEW_SERVICES,
       services: services,
     });
   },

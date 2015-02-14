@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var dispatcher = require('../app_dispatcher');
-var actions = require('../actions/actions');
+var constants = require('../constants');
 var Store = require('../stores/store');
 
 var isValidating = false;
@@ -37,13 +37,13 @@ _.assign(authStore, Store.prototype, {
 
 authStore.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
-    case actions.ACTION_VALIDATING_AUTH_TOKEN:
+    case constants.ACTION_VALIDATING_AUTH_TOKEN:
       isValidating = true;
 
       authStore.emitChange();
       break;
 
-    case actions.ACTION_VALID_AUTH_TOKEN:
+    case constants.ACTION_VALID_AUTH_TOKEN:
       isValidating = false;
       isLoggedIn = true;
       authToken = payload.authToken;
@@ -53,7 +53,7 @@ authStore.dispatchToken = dispatcher.register(function(payload) {
       authStore.emitChange();
       break;
 
-    case actions.ACTION_INVALID_AUTH_TOKEN:
+    case constants.ACTION_INVALID_AUTH_TOKEN:
       isValidating = false;
       isLoggedIn = false;
       authToken = '';
@@ -63,7 +63,7 @@ authStore.dispatchToken = dispatcher.register(function(payload) {
       authStore.emitChange();
       break;
 
-    case actions.ACTION_LOG_OUT:
+    case constants.ACTION_LOG_OUT:
       isValidating = false;
       isLoggedIn = false;
       authToken = '';

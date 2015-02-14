@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var dispatcher = require('../app_dispatcher');
-var actions = require('../actions/actions');
+var constants = require('../constants');
 var Store = require('../stores/store');
 
 // Consider data stale if not fetched in last minute
@@ -36,7 +36,7 @@ _.assign(historyStore, Store.prototype, {
 
 historyStore.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
-    case actions.ACTION_NEW_STATE_HISTORY:
+    case constants.ACTION_NEW_STATE_HISTORY:
       _.forEach(payload.stateHistory, function(entityStateHistory) {
         if (entityStateHistory.length === 0) return;
 
@@ -53,7 +53,7 @@ historyStore.dispatchToken = dispatcher.register(function(payload) {
       historyStore.emitChange();
       break;
 
-    case actions.ACTION_LOG_OUT:
+    case constants.ACTION_LOG_OUT:
       _lastUpdated = null;
       _lastUpdatedEntity = {};
       _history = {};

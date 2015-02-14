@@ -4,13 +4,13 @@ var _ = require('lodash');
 
 var callApi = require('../call_api');
 var dispatcher = require('../app_dispatcher');
-var actions = require('../actions/actions');
+var constants = require('../constants');
 var State = require('../models/state');
 
 module.exports = {
   newStateHistory: function(isFetchAll, stateHistory) {
     dispatcher.dispatch({
-      actionType: actions.ACTION_NEW_STATE_HISTORY,
+      actionType: constants.ACTION_NEW_STATE_HISTORY,
       stateHistory: _.map(stateHistory, function(states) {
         return _.map(states, State.fromJSON);
       }),

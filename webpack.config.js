@@ -14,7 +14,6 @@ module.exports = {
       filename: "homeassistant.min.js"
   },
   plugins: [
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    definePlugin
+    definePlugin,
   ]
 };

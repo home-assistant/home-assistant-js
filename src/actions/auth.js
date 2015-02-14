@@ -2,9 +2,9 @@
 
 var callApi = require('../call_api');
 var dispatcher = require('../app_dispatcher');
-var actions = require('../actions/actions');
+var constants = require('../constants');
 var syncActions = require('../actions/sync');
-var componentActions = require('../actions/component');
+var streamActions = require('../actions/stream');
 
 module.exports = {
 
@@ -13,14 +13,14 @@ module.exports = {
    */
   validate: function(authToken) {
     dispatcher.dispatch({
-      actionType: actions.ACTION_VALIDATING_AUTH_TOKEN
+      actionType: constants.ACTION_VALIDATING_AUTH_TOKEN
     });
 
     callApi('GET', 'components', false, {auth: authToken}).then(
 
       function(newComponents) {
         dispatcher.dispatch({
-          actionType: actions.ACTION_VALID_AUTH_TOKEN,
+          actionType: constants.ACTION_VALID_AUTH_TOKEN,
           authToken: authToken,
         });
 
@@ -31,7 +31,7 @@ module.exports = {
 
       function(payload) {
         dispatcher.dispatch({
-          actionType: actions.ACTION_INVALID_AUTH_TOKEN,
+          actionType: constants.ACTION_INVALID_AUTH_TOKEN,
           message: payload.message,
         });
       });
@@ -39,7 +39,7 @@ module.exports = {
 
   logOut: function() {
     dispatcher.dispatch({
-      actionType: actions.ACTION_LOG_OUT,
+      actionType: constants.ACTION_LOG_OUT,
     });
   },
 

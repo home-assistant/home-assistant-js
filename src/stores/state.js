@@ -2,8 +2,8 @@
 
 var _ = require('lodash');
 var dispatcher = require('../app_dispatcher');
-var actions = require('../actions/actions');
-var Store = require('../stores/store');
+var constants = require('../constants');
+var Store = require('./store');
 
 var states = {};
 
@@ -82,12 +82,12 @@ _.assign(stateStore, Store.prototype, {
 
 stateStore.dispatchToken =  dispatcher.register(function(payload) {
   switch(payload.actionType) {
-    case actions.ACTION_NEW_STATES:
       pushNewStates(payload.states, payload.replace);
       stateStore.emitChange();
+    case constants.ACTION_NEW_STATES:
       break;
 
-    case actions.ACTION_LOG_OUT:
+    case constants.ACTION_LOG_OUT:
       states = {};
       stateStore.emitChange();
       break;

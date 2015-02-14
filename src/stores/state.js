@@ -20,37 +20,33 @@ var sortStates = function(toSortStates) {
  * Push new states
  */
 var pushNewStates = function(newStates, removeNonPresent) {
-  removeNonPresent = !!removeNonPresent;
-  var currentEntityIds = removeNonPresent ? Object.keys(states) : [];
+  if (!removeNonPresent) {
+    _.forEach(newStates, _pushNewState);
+    return;
+  }
 
-  _.forEach(newStates, function(newState) {
-    var isNewState = _pushNewState(newState);
+  states = _.zipObject(
+    _.map(newStates, _state_key),
+    _.map(newStates, _pushNewState));
+};
 
-    if (!isNewState && removeNonPresent) {
-      currentEntityIds.splice(currentEntityIds.indexOf(newState.entity_id), 1);
-    }
-  });
-
-  _.forEach(currentEntityIds, function(entityId) {
-    states[entityId] = false;
-  });
+var _state_key = function(jsonState) {
+  return jsonState.entity_id;
 };
 
 /**
  * Creates or updates a state. Returns bool if a new state was added.
  */
 var _pushNewState = function(newState) {
-  var key = newState.entity_id;
+  var key = _state_key(newState);
 
   if (states[key]) {
     states[key].updateFromJSON(newState);
-
-    return false;
   } else {
     states[key] = State.fromJSON(newState);
-
-    return true;
   }
+
+  return states[key];
 };
 
 var stateStore = {};

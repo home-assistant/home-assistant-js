@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 var serviceStore = require('../stores/service');
 
 var util = require('../util');
@@ -11,6 +9,9 @@ var State = function(entityId, state, lastChanged, attributes) {
   this.state = state;
   this.lastChanged = lastChanged;
   this.attributes = attributes || {};
+  this._domain = null;
+  this._objectId = null;
+  this._entityDisplay = null;
 };
 
 State.fromJSON = function(jsonObj) {
@@ -26,7 +27,7 @@ State.prototype.updateFromJSON = function(jsonObj) {
 Object.defineProperties(State.prototype, {
   domain: {
     get: function() {
-      if (_.isUndefined(this._domain)) {
+      if (this._domain === null) {
         this._domain = this.entityId.split(".")[0];
       }
 
@@ -36,7 +37,7 @@ Object.defineProperties(State.prototype, {
 
   objectId: {
     get: function() {
-      if (_.isUndefined(this._objectId)) {
+      if (this._objectId === null) {
         this._objectId = this.entityId.split(".")[1];
       }
 
@@ -46,7 +47,7 @@ Object.defineProperties(State.prototype, {
 
   entityDisplay: {
     get: function() {
-      if (_.isUndefined(this._entityDisplay)) {
+      if (this._entityDisplay === null) {
         if(this.attributes.friendly_name) {
           this._entityDisplay = this.attributes.friendly_name;
         } else {

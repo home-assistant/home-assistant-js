@@ -3,7 +3,7 @@
 var callApi = require('../call_api');
 var dispatcher = require('../app_dispatcher');
 var constants = require('../constants');
-var toastActions = require('./toast');
+var notificationActions = require('./notification');
 
 var eventActions = {
   newEvents: function(events) {
@@ -23,7 +23,7 @@ var eventActions = {
     return callApi("POST", "events/" + eventType, eventData).then(
 
       function() {
-        toastActions.show('Event ' + eventType + ' successful fired!');
+        notificationActions.notify('Event ' + eventType + ' successful fired!');
 
         dispatcher.dispatch({
           actionType: constants.ACTION_EVENT_FIRED,

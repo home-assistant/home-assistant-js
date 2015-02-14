@@ -3,7 +3,7 @@
 var callApi = require('../call_api');
 var dispatcher = require('../app_dispatcher');
 var constants = require('../constants');
-var toastActions = require('./toast');
+var notificationActions = require('./notification');
 var stateActions = require('./state');
 
 module.exports = {
@@ -32,11 +32,11 @@ module.exports = {
 
       function(changedStates) {
         if(service == "turn_on" && parameters.entity_id) {
-          toastActions.show("Turned on " + parameters.entity_id + '.');
+          notificationActions.notify("Turned on " + parameters.entity_id + '.');
         } else if(service == "turn_off" && parameters.entity_id) {
-          toastActions.show("Turned off " + parameters.entity_id + '.');
+          notificationActions.notify("Turned off " + parameters.entity_id + '.');
         } else {
-          toastActions.show("Service "+domain+"/"+service+" called.");  
+          notificationActions.notify("Service "+domain+"/"+service+" called.");  
         }
 
         if(changedStates.length > 0) {

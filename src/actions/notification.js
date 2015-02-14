@@ -5,9 +5,9 @@ var constants = require('../constants');
 
 module.exports = {
 
-  show: function(message) {
+  notify: function(message) {
     dispatcher.dispatch({
-      actionType: constants.ACTION_SHOW_TOAST,
+      actionType: constants.ACTION_NEW_NOTIFICATION,
       message: message,
     });
   },

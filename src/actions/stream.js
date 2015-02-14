@@ -6,6 +6,27 @@ var syncActions = require('./sync');
 
 var source = null;
 
+// There is a bug in Chrome that when the computer goes in standby the
+// eventsource is closed but the close listener is not called. 
+var CHECK_INTERVAL = 1000;
+
+var _scheduledCheck = null;
+
+var stopCheckSchedule = function() {
+  clearTimeout(_scheduledCheck);
+};
+
+var scheduleCheck = function() {
+  stopCheckSchedule();
+
+  if (source !== null && source.readyState === EventSource.CLOSED) {
+    source = null;
+    eventActions.start();
+  }
+
+  _scheduledCheck = setTimeout(scheduleCheck, CHECK_INTERVAL);
+};
+
 var eventActions = {
   start: function(authToken) {
     if (source !== null) {
@@ -32,11 +53,17 @@ var eventActions = {
         actionType: constants.ACTION_STREAM_START,
       });
 
+      scheduleCheck();
+
+      // We are streaming, stop synchronizing
+      syncActions.stopSync();
       // make sure that we have the latest info when we start listening.
       syncActions.fetchAll();
     }, false);
 
     source.addEventListener('error', function(ev) {
+      stopCheckSchedule();
+
       if (ev.readyState == EventSource.CLOSED) {
         eventActions.stopListening();
       } else {
@@ -55,6 +82,8 @@ var eventActions = {
     dispatcher.dispatch({
       actionType: constants.ACTION_STREAM_STOP,
     });
+
+    syncActions.sync();
   },
 };
 

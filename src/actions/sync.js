@@ -12,8 +12,12 @@ var SYNC_INTERVAL = 30000;
 
 var scheduledSync = null;
 
-var scheduleSync = function() {
+var stopSync = function() {
   clearTimeout(scheduledSync);
+};
+
+var scheduleSync = function() {
+  stopSync();
 
   scheduledSync = setTimeout(syncActions.sync, SYNC_INTERVAL);
 };
@@ -24,6 +28,10 @@ var syncActions = {
     this.fetchAll();
 
     scheduleSync();
+  },
+
+  stopSync: function() {
+    stopSync();
   },
 
   fetchAll: function() {

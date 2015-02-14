@@ -11,22 +11,24 @@ module.exports = {
   /**
    * Fetch the loaded components as a way to validate the API.
    */
-  validate: function(authToken) {
+  validate: function(authToken, useStreaming) {
     dispatcher.dispatch({
       actionType: constants.ACTION_VALIDATING_AUTH_TOKEN
     });
 
-    callApi('GET', 'components', false, {auth: authToken}).then(
+    callApi('GET', '', false, {auth: authToken}).then(
 
-      function(newComponents) {
+      function() {
         dispatcher.dispatch({
           actionType: constants.ACTION_VALID_AUTH_TOKEN,
           authToken: authToken,
         });
 
-        syncActions.sync({skipComponents: true});
-
-        componentActions.newLoaded(newComponents);
+        if (useStreaming) {
+          streamActions.start(authToken);
+        } else {
+          syncActions.sync();
+        }
       }, 
 
       function(payload) {

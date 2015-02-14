@@ -20,9 +20,7 @@ var scheduleSync = function() {
 
 var syncActions = {
 
-  sync: function(options) {
-    options = options || {};
-
+  sync: function() {
     dispatcher.dispatch({
       actionType: constants.ACTION_FETCH_ALL,
     });
@@ -30,12 +28,16 @@ var syncActions = {
     eventActions.fetchAll();
     stateActions.fetchAll();
     serviceActions.fetchAll();
-
-    if (_.isUndefined(options.skipComponents)) {
-      componentActions.fetchAll();
-    }
+    componentActions.fetchAll();
 
     scheduleSync();
+  },
+
+  fetchAll: function() {
+    eventActions.fetchAll();
+    stateActions.fetchAll();
+    serviceActions.fetchAll();
+    componentActions.fetchAll();
   },
 
 };

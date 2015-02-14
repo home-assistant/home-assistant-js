@@ -22,6 +22,7 @@ if (!window.hass) {
     stateActions: require('./actions/state'),
     syncActions: require('./actions/sync'),
     stateHistoryActions: require('./actions/state_history'),
+    streamActions: require('./actions/stream'),
 
     authStore: require('./stores/auth'),
     componentStore: require('./stores/component'),
@@ -30,8 +31,11 @@ if (!window.hass) {
     stateStore: require('./stores/state'),
     syncStore: require('./stores/sync'),
     stateHistoryStore: require('./stores/state_history'),
+    streamStore: require('./stores/stream'),
+    preferenceStore: require('./stores/preference'),
 
     stateModel: require('./models/state'),
 
+    storeListenerMixIn: require('./mixins/store_listener'),
   };
 }

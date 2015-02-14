@@ -4,6 +4,8 @@ var _ = require('lodash');
 var dispatcher = require('../app_dispatcher');
 var constants = require('../constants');
 var Store = require('./store');
+var streamStore = require('./stream');
+var State = require('../models/state');
 
 var states = {};
 
@@ -30,7 +32,7 @@ var pushNewStates = function(newStates, removeNonPresent) {
   });
 
   _.forEach(currentEntityIds, function(entityId) {
-    delete states[entityId];
+    states[entityId] = false;
   });
 };
 
@@ -38,18 +40,14 @@ var pushNewStates = function(newStates, removeNonPresent) {
  * Creates or updates a state. Returns bool if a new state was added.
  */
 var _pushNewState = function(newState) {
-  var key = newState.entityId;
+  var key = newState.entity_id;
 
-  if (_.has(states, key)) {
-    var curState = states[key];
-
-    curState.attributes = newState.attributes;
-    curState.last_changed = newState.last_changed;
-    curState.state = newState.state;
+  if (states[key]) {
+    states[key].updateFromJSON(newState);
 
     return false;
   } else {
-    states[key] = newState;
+    states[key] = State.fromJSON(newState);
 
     return true;
   }
@@ -82,9 +80,20 @@ _.assign(stateStore, Store.prototype, {
 
 stateStore.dispatchToken =  dispatcher.register(function(payload) {
   switch(payload.actionType) {
-      pushNewStates(payload.states, payload.replace);
-      stateStore.emitChange();
     case constants.ACTION_NEW_STATES:
+      // when we're streaming updates, we only care about full updates
+      // because partial updates will be processed via remote events.
+      if (!streamStore.isStreaming() || payload.replace) {
+        pushNewStates(payload.states, payload.replace);
+        stateStore.emitChange();
+      }
+      break;
+
+    case constants.ACTION_REMOTE_EVENT_RECEIVED:
+      if (payload.event.event_type === constants.REMOTE_EVENT_STATE_CHANGED) {
+        _pushNewState(payload.event.data.new_state);
+        stateStore.emitChange();
+      }
       break;
 
     case constants.ACTION_LOG_OUT:

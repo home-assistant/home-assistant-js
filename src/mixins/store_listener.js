@@ -33,9 +33,9 @@ var getStore = function(index) {
 };
 
 var StoreListenerMixIn = {
-  _storeListeners: [],
-
   listenToStores: function(fireOnListen) {
+    var storeListeners = [];
+
     _.forEach(STORES, function(storeName, storeIndex) {
       var listenerName = storeName + 'StoreChanged';
 
@@ -45,13 +45,15 @@ var StoreListenerMixIn = {
 
         store.addChangeListener(listener);
 
-        this._storeListeners.push({store: store, listener: listener});
+        storeListeners.push({store: store, listener: listener});
 
         if (fireOnListen) {
           listener();
         }
       }
     }.bind(this));
+
+    this._storeListeners = storeListeners;
   },
 
   stopListeningToStores: function() {

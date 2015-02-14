@@ -21,19 +21,16 @@ var scheduleSync = function() {
 var syncActions = {
 
   sync: function() {
-    dispatcher.dispatch({
-      actionType: constants.ACTION_FETCH_ALL,
-    });
-
-    eventActions.fetchAll();
-    stateActions.fetchAll();
-    serviceActions.fetchAll();
-    componentActions.fetchAll();
+    this.fetchAll();
 
     scheduleSync();
   },
 
   fetchAll: function() {
+    dispatcher.dispatch({
+      actionType: constants.ACTION_FETCH_ALL,
+    });
+
     eventActions.fetchAll();
     stateActions.fetchAll();
     serviceActions.fetchAll();

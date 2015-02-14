@@ -27,6 +27,18 @@ componentStore.dispatchToken = dispatcher.register(function(payload) {
       componentStore.emitChange();
       break;
 
+    case constants.ACTION_REMOTE_EVENT_RECEIVED:
+      if (payload.event.event_type === constants.REMOTE_EVENT_COMPONENT_LOADED) {
+        var component = payload.event.data.component;
+
+        if (!componentStore.isLoaded(component)) {
+          loadedComponents.push(component);
+        }
+
+        componentStore.emitChange();
+      }
+      break;
+
     case constants.ACTION_LOG_OUT:
       loadedComponents = [];
       componentStore.emitChange();

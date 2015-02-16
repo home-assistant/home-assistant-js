@@ -13,7 +13,7 @@ module.exports = [
     },
     {
         "attributes": {
-            "entity_picture": "http://graph.facebook.com/KillBillMovie/picture",
+            "entity_picture": "https://graph.facebook.com/KillBillMovie/picture",
             "friendly_name": "Living Room"
         },
         "entity_id": "chromecast.living_rm",
@@ -168,7 +168,7 @@ module.exports = [
     },
     {
         "attributes": {
-            "entity_picture": "http://graph.facebook.com/schoutsen/picture"
+            "entity_picture": "https://graph.facebook.com/schoutsen/picture"
         },
         "entity_id": "device_tracker.paulus",
         "last_changed": "22:44:38 08-02-2015",
@@ -176,7 +176,7 @@ module.exports = [
     },
     {
         "attributes": {
-            "entity_picture": "http://graph.facebook.com/anne.t.frederiksen/picture"
+            "entity_picture": "https://graph.facebook.com/anne.t.frederiksen/picture"
         },
         "entity_id": "device_tracker.anne_therese",
         "last_changed": "22:44:38 08-02-2015",

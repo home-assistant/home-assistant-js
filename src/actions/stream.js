@@ -5,11 +5,57 @@ var constants = require('../constants');
 var syncActions = require('./sync');
 
 var source = null;
+var _authToken = null;
+
+/*
+EventSource close event doesn't fire when computer put into sleep mode, ESC is
+pressed during loading or when calling window.stop().
+https://code.google.com/p/chromium/issues/detail?id=225654
+
+STR: Stream events, call window.stop()
+
+Observe that source.readyState === EventSource.CLOSED and it is not trying to
+re-establish a connection.
+*/
+
+var _lastError = null;
+var _recoveryProtection = null;
+
+var CHROME_RECONNECT_INTERVAL = 3000;
+var RECOVERY_CHECK_INTERVAL = 1000;
+
+var startRecoveryProtection = function() {
+  var checkState = function() {
+    if (source.readyState === EventSource.CLOSED) {
+      var now = (new Date()).getTime();
+
+      if (_lastError === null || now - _lastError > CHROME_RECONNECT_INTERVAL) {
+        streamActions.start(_authToken);
+      }
+    }
+  };
+
+  _recoveryProtection = setInterval(checkState, RECOVERY_CHECK_INTERVAL);
+};
+
+var stopStream = function() {
+  source.close();
+  source = null;
+  _authToken = null;
+  _lastError = null;
+
+  clearInterval(_recoveryProtection);
+  _recoveryProtection = null;
+};
 
 var streamActions = {
   start: function(authToken) {
     if (source !== null) {
-      return;
+      if (source.readyState === EventSource.OPEN) {
+        return;
+      } else {
+        stopStream();
+      }
     }
 
     var url = '/api/stream';
@@ -19,6 +65,8 @@ var streamActions = {
     }
 
     source = new EventSource(url);
+    _authToken = authToken;
+    startRecoveryProtection();
 
     source.addEventListener('message', function(ev) {
       dispatcher.dispatch({
@@ -39,6 +87,8 @@ var streamActions = {
     }, false);
 
     source.addEventListener('error', function(ev) {
+      _lastError = (new Date()).getTime();
+
       if (ev.readyState == EventSource.CLOSED) {
         streamActions.stop();
       } else {
@@ -51,8 +101,7 @@ var streamActions = {
   },
 
   stop: function() {
-    source.close();
-    source = null;
+    stopStream();
 
     dispatcher.dispatch({
       actionType: constants.ACTION_STREAM_STOP,

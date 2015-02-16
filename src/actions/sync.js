@@ -25,7 +25,7 @@ var scheduleSync = function() {
 var syncActions = {
 
   sync: function() {
-    this.fetchAll();
+    syncActions.fetchAll();
 
     scheduleSync();
   },

@@ -18,27 +18,27 @@ var allLoaded = function() {
 
 var syncStore = {};
 _.assign(syncStore, Store.prototype, {
-  isFetching: function() {
+  isFetching() {
     return !allLoaded();
   },
 
-  initialLoadDone: function() {
+  initialLoadDone() {
     return initialLoadDone;
   },
 
-  componentsLoaded: function() {
+  componentsLoaded() {
     return contains(constants.ACTION_NEW_LOADED_COMPONENTS);
   },
 
-  eventsLoaded: function() {
+  eventsLoaded() {
     return contains(constants.ACTION_NEW_EVENTS);
   },
 
-  servicesLoaded: function() {
+  servicesLoaded() {
     return contains(constants.ACTION_NEW_SERVICES);
   },
 
-  statesLoaded: function() {
+  statesLoaded() {
     return contains(constants.ACTION_NEW_STATES);
   },
 

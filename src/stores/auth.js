@@ -13,23 +13,23 @@ var lastAttemptMessage = '';
 
 var authStore = {};
 _.assign(authStore, Store.prototype, {
-  isValidating: function() {
+  isValidating() {
     return isValidating;
   },
 
-  isLoggedIn: function() {
+  isLoggedIn() {
     return isLoggedIn;
   },
 
-  getAuthToken: function() {
+  getAuthToken() {
     return authToken;
   },
 
-  wasLastAttemptInvalid: function() {
+  wasLastAttemptInvalid() {
     return lastAttemptInvalid;
   },
 
-  getLastAttemptMessage: function() {
+  getLastAttemptMessage() {
     return lastAttemptMessage;
   },
 

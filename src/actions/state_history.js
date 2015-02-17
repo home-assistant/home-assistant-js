@@ -8,7 +8,7 @@ var constants = require('../constants');
 var State = require('../models/state');
 
 module.exports = {
-  newStateHistory: function(isFetchAll, stateHistory) {
+  newStateHistory(isFetchAll, stateHistory) {
     dispatcher.dispatch({
       actionType: constants.ACTION_NEW_STATE_HISTORY,
       stateHistory: _.map(stateHistory, function(states) {
@@ -18,11 +18,11 @@ module.exports = {
     });
   },
 
-  fetchAll: function() {
+  fetchAll() {
     callApi('GET', 'history/period').then(this.newStateHistory.bind(this, true));
   },
 
-  fetch: function(entityId) {
+  fetch(entityId) {
     callApi('GET', 'history/period?filter_entity_id=' + entityId).then(
 
       this.newStateHistory.bind(this, false));

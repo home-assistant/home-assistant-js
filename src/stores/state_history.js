@@ -15,7 +15,7 @@ var _history = {};
 var historyStore = {};
 _.assign(historyStore, Store.prototype, {
 
-  isStale: function(entityId) {
+  isStale(entityId) {
     // do we want to know if fetchAll or specific entity is stale.
     var lastUpdate = _.isUndefined(entityId) ?
                        _lastUpdated : _lastUpdatedEntity[entityId] || null;
@@ -24,11 +24,11 @@ _.assign(historyStore, Store.prototype, {
            (new Date()).getTime() - lastUpdate.getTime() > STALE_TIME;
   },
 
-  get: function(entityId) {
+  get(entityId) {
     return _history[entityId] || null;
   },
 
-  all: function() {
+  all() {
     return _.values(_history);
   },
 

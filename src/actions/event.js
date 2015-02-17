@@ -6,18 +6,18 @@ var constants = require('../constants');
 var notificationActions = require('./notification');
 
 var eventActions = {
-  newEvents: function(events) {
+  newEvents(events) {
     dispatcher.dispatch({
       actionType: constants.ACTION_NEW_EVENTS,
       events: events,
     });
   },
 
-  fetchAll: function() {
+  fetchAll() {
     callApi('GET', 'events').then(this.newEvents.bind(this));
   },
 
-  fire: function(eventType, eventData) {
+  fire(eventType, eventData) {
     eventData = eventData || {};
 
     return callApi("POST", "events/" + eventType, eventData).then(

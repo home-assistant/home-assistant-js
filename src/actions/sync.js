@@ -12,29 +12,29 @@ var SYNC_INTERVAL = 30000;
 
 var scheduledSync = null;
 
-var stopSync = function() {
+var _stopSync = function() {
   clearTimeout(scheduledSync);
 };
 
 var scheduleSync = function() {
-  stopSync();
+  _stopSync();
 
   scheduledSync = setTimeout(syncActions.sync, SYNC_INTERVAL);
 };
 
 var syncActions = {
 
-  sync: function() {
+  sync() {
     syncActions.fetchAll();
 
     scheduleSync();
   },
 
-  stopSync: function() {
-    stopSync();
+  stopSync() {
+    _stopSync();
   },
 
-  fetchAll: function() {
+  fetchAll() {
     dispatcher.dispatch({
       actionType: constants.ACTION_FETCH_ALL,
     });

@@ -26,7 +26,7 @@ var getBool = function(key, defaultValue) {
 var preferenceStore = {};
 _.assign(preferenceStore, Store.prototype, {
 
-  useStreaming: function() {
+  useStreaming() {
     return getBool(PREF_USE_STREAMING, DEFAULT_USE_STREAMING);
   }
 

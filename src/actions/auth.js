@@ -11,7 +11,9 @@ module.exports = {
   /**
    * Fetch the loaded components as a way to validate the API.
    */
-  validate: function(authToken, useStreaming) {
+  validate(authToken, useStreaming) {
+    useStreaming = useStreaming && streamActions.isSupported();
+
     dispatcher.dispatch({
       actionType: constants.ACTION_VALIDATING_AUTH_TOKEN
     });
@@ -39,7 +41,7 @@ module.exports = {
       });
   },
 
-  logOut: function() {
+  logOut() {
     dispatcher.dispatch({
       actionType: constants.ACTION_LOG_OUT,
     });

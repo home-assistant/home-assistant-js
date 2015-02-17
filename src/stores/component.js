@@ -9,11 +9,11 @@ var loadedComponents = [];
 
 var componentStore = {};
 _.assign(componentStore, Store.prototype, {
-  loaded: function() {
+  loaded() {
     return loadedComponents;
   },
 
-  isLoaded: function(component) {
+  isLoaded(component) {
     return loadedComponents.indexOf(component) !== -1;
   },
 

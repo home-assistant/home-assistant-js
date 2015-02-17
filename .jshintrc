@@ -5,6 +5,9 @@
     // to allow CommonJS syntax
     "browserify": true,
 
+    // ES6
+    "esnext": true,
+
     "globals": {
       "__DEV__": true,
       "__DEMO__": true,

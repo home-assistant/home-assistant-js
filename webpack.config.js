@@ -13,6 +13,15 @@ module.exports = {
       path: 'dist',
       filename: "homeassistant.min.js"
   },
+  module: {
+    loaders: [
+      {
+        loader: "babel-loader",
+        test: /.js$/,
+        exclude: /node_modules/
+      }
+    ]
+  },
   plugins: [
     definePlugin,
   ]

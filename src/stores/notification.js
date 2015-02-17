@@ -10,12 +10,12 @@ var notifications = [];
 var notificationStore = {};
 _.assign(notificationStore, Store.prototype, {
 
-  hasNewNotifications: function(lastId) {
+  hasNewNotifications(lastId) {
     lastId = lastId || -1;
     return lastId + 1 < notifications.length;
   },
 
-  getLastNotification: function() {
+  getLastNotification() {
     return notifications[notifications.length-1];
   },
 

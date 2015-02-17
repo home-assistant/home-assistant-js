@@ -6,7 +6,7 @@ var constants = require('../constants');
 var notificationActions = require('./notification');
 
 module.exports = {
-  newStates: function(states, replace) {
+  newStates(states, replace) {
     dispatcher.dispatch({
       actionType: constants.ACTION_NEW_STATES,
       states: states,
@@ -14,7 +14,7 @@ module.exports = {
     });
   },
 
-  set: function(entityId, state, attributes) {
+  set(entityId, state, attributes) {
     var payload = {state: state};
 
     if(attributes) {
@@ -30,7 +30,7 @@ module.exports = {
       }.bind(this));
   },
 
-  fetch: function(entityId) {
+  fetch(entityId) {
     callApi("GET", "states/" + entityId).then(
 
       function(newState) {
@@ -38,7 +38,7 @@ module.exports = {
       }.bind(this));
   },
 
-  fetchAll: function() {
+  fetchAll() {
     callApi("GET", "states").then(
 
       function(newStates) {

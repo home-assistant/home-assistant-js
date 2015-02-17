@@ -1,10 +1,10 @@
 'use strict';
 
-var authStore = require('./stores/auth');
+var { getAuthToken } = require('./stores/auth');
 
 var CallApi = function(method, path, parameters, options) {
   options = options || {};
-  var authToken = options.auth || authStore.getAuthToken();
+  var authToken = options.auth || getAuthToken();
   var url = "/api/" + path;
 
   return new Promise(function(resolve, reject) {
@@ -75,4 +75,4 @@ if (__DEMO__) {
   };
 }
 
-module.exports = CallApi;
+export default CallApi;

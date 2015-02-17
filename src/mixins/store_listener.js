@@ -17,14 +17,12 @@ will be automatically fired on a store change.
 
 */
 
-var _ = require('lodash');
-
 var STORES = [
   'auth', 'component', 'event', 'service', 'state', 'stateHistory',
   'stream', 'sync', 'notification'];
 
 // camelCase to under_score method from http://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
-var JS_FILES = _.map(STORES, function(input){
+var JS_FILES = STORES.map(function(input){
   return input.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
 });
 
@@ -32,36 +30,31 @@ var getStore = function(index) {
   return require('../stores/' + JS_FILES[index]);
 };
 
-var StoreListenerMixIn = {
-  listenToStores: function(fireOnListen) {
-    var storeListeners = [];
+export function listenToStores(fireOnListen) {
+  var storeListeners = [];
 
-    _.forEach(STORES, function(storeName, storeIndex) {
-      var listenerName = storeName + 'StoreChanged';
+  STORES.forEach(function(storeName, storeIndex) {
+    var listenerName = storeName + 'StoreChanged';
 
-      if (this[listenerName]) {
-        var store = getStore(storeIndex);
-        var listener = this[listenerName].bind(this, store);
+    if (this[listenerName]) {
+      var store = getStore(storeIndex);
+      var listener = this[listenerName].bind(this, store);
 
-        store.addChangeListener(listener);
+      store.addChangeListener(listener);
 
-        storeListeners.push({store: store, listener: listener});
+      storeListeners.push({store: store, listener: listener});
 
-        if (fireOnListen) {
-          listener();
-        }
+      if (fireOnListen) {
+        listener();
       }
-    }.bind(this));
+    }
+  }.bind(this));
 
-    this._storeListeners = storeListeners;
-  },
+  this._storeListeners = storeListeners;
+}
 
-  stopListeningToStores: function() {
-    _.forEach(this._storeListeners, function(info) {
-      info.store.removeChangeListener(info.listener);
-    });
-  },
-
-};
-
-module.exports = StoreListenerMixIn;
+export function stopListeningToStores() {
+  this._storeListeners.forEach(function({store, listener}) {
+    store.removeChangeListener(listener);
+  });
+}

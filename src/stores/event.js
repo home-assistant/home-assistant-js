@@ -9,7 +9,7 @@ var events = [];
 
 var eventStore = {};
 _.assign(eventStore, Store.prototype, {
-  all: function() {
+  all() {
     return events;
   },
 

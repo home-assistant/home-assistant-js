@@ -4,6 +4,7 @@ var dispatcher = require('../app_dispatcher');
 var constants = require('../constants');
 var syncActions = require('./sync');
 
+var debug = false;
 var source = null;
 var _authToken = null;
 
@@ -26,10 +27,13 @@ var RECOVERY_CHECK_INTERVAL = 1000;
 
 var startRecoveryProtection = function() {
   var checkState = function() {
+    if (debug) console.log("check state, ", source.readyState, _lastError);
+
     if (source.readyState === EventSource.CLOSED) {
       var now = (new Date()).getTime();
 
       if (_lastError === null || now - _lastError > CHROME_RECONNECT_INTERVAL) {
+        if (debug) console.log("fixing state, now:", now);
         streamActions.start(_authToken);
       }
     }
@@ -49,7 +53,11 @@ var stopStream = function() {
 };
 
 var streamActions = {
-  start: function(authToken) {
+  isSupported() {
+    return !!EventSource;
+  },
+
+  start(authToken) {
     if (source !== null) {
       if (source.readyState === EventSource.OPEN) {
         return;
@@ -89,7 +97,7 @@ var streamActions = {
     source.addEventListener('error', function(ev) {
       _lastError = (new Date()).getTime();
 
-      if (ev.readyState == EventSource.CLOSED) {
+      if (source.readyState == EventSource.CLOSED) {
         streamActions.stop();
       } else {
         dispatcher.dispatch({
@@ -100,7 +108,7 @@ var streamActions = {
 
   },
 
-  stop: function() {
+  stop() {
     stopStream();
 
     dispatcher.dispatch({
@@ -108,6 +116,11 @@ var streamActions = {
     });
 
     syncActions.sync();
+  },
+
+  debug() {
+    window._stream_source = source;
+    debug = true;
   },
 };
 

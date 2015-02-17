@@ -7,24 +7,24 @@ var notificationActions = require('./notification');
 var stateActions = require('./state');
 
 module.exports = {
-  newServices: function(services) {
+  newServices(services) {
     dispatcher.dispatch({
       actionType: constants.ACTION_NEW_SERVICES,
       services: services,
     });
   },
 
-  callTurnOn: function(entity_id) {
+  callTurnOn(entity_id) {
     return this.callService(
       "homeassistant", "turn_on", {entity_id: entity_id});
   },
 
-  callTurnOff: function(entity_id) {
+  callTurnOff(entity_id) {
     return this.callService(
       "homeassistant", "turn_off", {entity_id: entity_id});
   },
 
-  callService: function(domain, service, parameters) {
+  callService(domain, service, parameters) {
     parameters = parameters || {};
 
     return callApi(
@@ -45,7 +45,7 @@ module.exports = {
       });
   },
 
-  fetchAll: function() {
+  fetchAll() {
     return callApi('GET', 'services').then(this.newServices.bind(this));
   },
 };

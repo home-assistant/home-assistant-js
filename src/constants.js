@@ -2,8 +2,8 @@
 
 var _ = require('lodash');
 
-// keys that will have the same value as the key.
-var keyValueMirror = [
+// keys that will have a symbol with the value of the key
+var symbols = [
   'ACTION_LOG_OUT',
   'ACTION_VALIDATING_AUTH_TOKEN',
   'ACTION_VALID_AUTH_TOKEN',
@@ -28,7 +28,7 @@ var keyValueMirror = [
   'ACTION_REMOTE_EVENT_RECEIVED',
 ];
 
-module.exports = _.merge({
+export default _.merge({
 
   REMOTE_EVENT_HOMEASSISTANT_START: 'homeassistant_start',
   REMOTE_EVENT_HOMEASSISTANT_STOP: 'homeassistant_stop',
@@ -40,4 +40,4 @@ module.exports = _.merge({
   REMOTE_EVENT_SERVICE_REGISTERED: 'service_registered',
   REMOTE_EVENT_COMPONENT_LOADED: 'component_loaded',
 
-}, _.zipObject(keyValueMirror, keyValueMirror));
+}, _.zipObject(symbols, symbols.map(Symbol)));

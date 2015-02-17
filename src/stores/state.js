@@ -47,25 +47,25 @@ var _pushNewState = function(newState) {
 
 var stateStore = {};
 _.assign(stateStore, Store.prototype, {
-  all: function() {
+  all() {
     return sortStates(_.values(states));
   },
 
-  get: function(entityId) {
+  get(entityId) {
     entityId = entityId.toLowerCase();
 
     return states[entityId] || null;
   },
 
-  gets: function(entityIds) {
+  gets(entityIds) {
     return sortStates(_.compact(_.map(entityIds, this.get, this)));
   },
 
-  entityIDs: function() {
+  entityIDs() {
     return Object.keys(states);
   },
 
-  getCustomGroups: function() {
+  getCustomGroups() {
     return _.filter(states, 'isCustomGroup');
   },
 });

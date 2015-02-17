@@ -13,11 +13,11 @@ var _getDomain = function(domain) {
 
 var serviceStore = {};
 _.assign(serviceStore, Store.prototype, {
-  all: function() {
+  all() {
     return services;
   },
 
-  has: function(domain, service) {
+  has(domain, service) {
     var domainObj = _getDomain(domain);
 
     return domainObj && domainObj.services.indexOf(service) !== -1;

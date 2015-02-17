@@ -1,4 +1,4 @@
-module.exports = [
+export default [
     {
         "event": "call_service",
         "listener_count": 1

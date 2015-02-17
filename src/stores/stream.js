@@ -11,15 +11,15 @@ _.assign(connectionStore, Store.prototype, {
   STATE_DISCONNECTED: 'STATE_DISCONNECTED',
   STATE_ERROR: 'STATE_ERROR',
 
-  getState: function() {
+  getState() {
     return state;
   },
 
-  isStreaming: function() {
+  isStreaming() {
     return state === connectionStore.STATE_CONNECTED;
   },
 
-  hasError: function() {
+  hasError() {
     return state === connectionStore.STATE_ERROR;
   },
 });

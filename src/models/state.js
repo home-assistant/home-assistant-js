@@ -1,8 +1,7 @@
 'use strict';
 
-var serviceStore = require('../stores/service');
-
-var { parseDateTime } = require('../util');
+import serviceStore from '../stores/service';
+import { parseDateTime } from '../util';
 
 export default class State {
   constructor(entityId, state, lastChanged, attributes) {

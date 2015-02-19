@@ -1,30 +1,25 @@
 'use strict';
 
-var _ = require('lodash');
+import callApi from '../call_api';
+import dispatcher from '../app_dispatcher';
+import constants from '../constants';
+import State from '../models/state';
 
-var callApi = require('../call_api');
-var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
-var State = require('../models/state');
-
-module.exports = {
-  newStateHistory(isFetchAll, stateHistory) {
+export function newStateHistory(isFetchAll, stateHistory) {
+  if (isFetchAll || stateHistory.length > 0) {
     dispatcher.dispatch({
       actionType: constants.ACTION_NEW_STATE_HISTORY,
-      stateHistory: _.map(stateHistory, function(states) {
-        return _.map(states, State.fromJSON);
-      }),
+      stateHistory: stateHistory.map(states => states.map(State.fromJSON)),
       isFetchAll: isFetchAll,
     });
-  },
+  }
+}
 
-  fetchAll() {
-    callApi('GET', 'history/period').then(this.newStateHistory.bind(this, true));
-  },
+export function fetchAll() {
+  callApi('GET', 'history/period').then(newStateHistory.bind(null, true));
+}
 
-  fetch(entityId) {
-    callApi('GET', 'history/period?filter_entity_id=' + entityId).then(
-
-      this.newStateHistory.bind(this, false));
-  },
-};
+export function fetch(entityId) {
+  callApi('GET', 'history/period?filter_entity_id=' + entityId).then(
+    this.newStateHistory.bind(null, false));
+}

@@ -1,50 +1,43 @@
 'use strict';
 
-var dispatcher = require('../app_dispatcher');
+import dispatcher from '../app_dispatcher';
+import constants from '../constants';
+import * as eventActions from './event';
+import * as stateActions from './state';
+import * as serviceActions from './service';
+import * as componentActions from './component';
 
-var constants = require('../constants');
-var eventActions = require('./event');
-var stateActions = require('./state');
-var serviceActions = require('./service');
-var componentActions = require('./component');
+const SYNC_INTERVAL = 30000;
 
-var SYNC_INTERVAL = 30000;
+let scheduledSync = null;
 
-var scheduledSync = null;
-
-var _stopSync = function() {
+let stopSync = function() {
   clearTimeout(scheduledSync);
 };
 
-var scheduleSync = function() {
-  _stopSync();
+let scheduleSync = function() {
+  stopSync();
 
-  scheduledSync = setTimeout(syncActions.sync, SYNC_INTERVAL);
+  scheduledSync = setTimeout(start, SYNC_INTERVAL);
 };
 
-var syncActions = {
+export function start() {
+  fetchAll();
 
-  sync() {
-    syncActions.fetchAll();
+  scheduleSync();
+}
 
-    scheduleSync();
-  },
+export function stop() {
+  stopSync();
+}
 
-  stopSync() {
-    _stopSync();
-  },
+export function fetchAll() {
+  dispatcher.dispatch({
+    actionType: constants.ACTION_FETCH_ALL,
+  });
 
-  fetchAll() {
-    dispatcher.dispatch({
-      actionType: constants.ACTION_FETCH_ALL,
-    });
-
-    eventActions.fetchAll();
-    stateActions.fetchAll();
-    serviceActions.fetchAll();
-    componentActions.fetchAll();
-  },
-
-};
-
-module.exports = syncActions;
+  eventActions.fetchAll();
+  stateActions.fetchAll();
+  serviceActions.fetchAll();
+  componentActions.fetchAll();
+}

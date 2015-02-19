@@ -1,37 +1,31 @@
 'use strict';
 
-var callApi = require('../call_api');
-var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
-var notificationActions = require('./notification');
+import callApi from '../call_api';
+import dispatcher from '../app_dispatcher';
+import constants from '../constants';
+import { notify } from './notification';
 
-var eventActions = {
-  newEvents(events) {
-    dispatcher.dispatch({
-      actionType: constants.ACTION_NEW_EVENTS,
-      events: events,
-    });
-  },
+export function newEvents(events) {
+  dispatcher.dispatch({
+    actionType: constants.ACTION_NEW_EVENTS,
+    events: events,
+  });
+}
 
-  fetchAll() {
-    callApi('GET', 'events').then(this.newEvents.bind(this));
-  },
+export function fetchAll() {
+  callApi('GET', 'events').then(newEvents);
+}
 
-  fire(eventType, eventData) {
-    eventData = eventData || {};
+export function fire(eventType, eventData={}) {
+  return callApi("POST", "events/" + eventType, eventData).then(
+    function() {
+      notify('Event ' + eventType + ' successful fired!');
 
-    return callApi("POST", "events/" + eventType, eventData).then(
-
-      function() {
-        notificationActions.notify('Event ' + eventType + ' successful fired!');
-
-        dispatcher.dispatch({
-          actionType: constants.ACTION_EVENT_FIRED,
-          eventType: eventType,
-          eventData: eventData,
-        });
+      dispatcher.dispatch({
+        actionType: constants.ACTION_EVENT_FIRED,
+        eventType: eventType,
+        eventData: eventData,
       });
-  },
-};
-
-module.exports = eventActions;
+    }
+  );
+}

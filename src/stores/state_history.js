@@ -1,23 +1,23 @@
 'use strict';
 
-var _ = require('lodash');
-var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
-var Store = require('../stores/store');
+import _ from 'lodash';
+import dispatcher from '../app_dispatcher';
+import constants from '../constants';
+import Store from '../stores/store';
 
 // Consider data stale if not fetched in last minute
-var STALE_TIME = 60000;
+let STALE_TIME = 60000;
 
-var _lastUpdated = null;
-var _lastUpdatedEntity = {};
-var _history = {};
+let _lastUpdated = null;
+let _lastUpdatedEntity = {};
+let _history = {};
 
-var historyStore = {};
+let historyStore = {};
 _.assign(historyStore, Store.prototype, {
 
   isStale(entityId) {
     // do we want to know if fetchAll or specific entity is stale.
-    var lastUpdate = _.isUndefined(entityId) ?
+    let lastUpdate = _.isUndefined(entityId) ?
                        _lastUpdated : _lastUpdatedEntity[entityId] || null;
 
     return lastUpdate === null ||
@@ -40,7 +40,7 @@ historyStore.dispatchToken = dispatcher.register(function(payload) {
       _.forEach(payload.stateHistory, function(entityStateHistory) {
         if (entityStateHistory.length === 0) return;
 
-        var key = entityStateHistory[0].entityId;
+        let key = entityStateHistory[0].entityId;
 
         _history[key] = entityStateHistory;
         _lastUpdatedEntity[key] = new Date();
@@ -63,4 +63,4 @@ historyStore.dispatchToken = dispatcher.register(function(payload) {
 });
 
 
-module.exports = historyStore;
+export default historyStore;

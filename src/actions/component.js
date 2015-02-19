@@ -1,18 +1,16 @@
 'use strict';
 
-var callApi = require('../call_api');
-var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
+import callApi from '../call_api';
+import dispatcher from '../app_dispatcher';
+import constants from '../constants';
 
-module.exports = {
-  newLoaded(components) {
-    dispatcher.dispatch({
-      actionType: constants.ACTION_NEW_LOADED_COMPONENTS,
-      components: components,
-    });
-  },
+export function newLoaded(components) {
+  dispatcher.dispatch({
+    actionType: constants.ACTION_NEW_LOADED_COMPONENTS,
+    components: components,
+  });
+}
 
-  fetchAll() {
-    return callApi('GET', 'components').then(this.newLoaded.bind(this));
-  },    
-};
+export function fetchAll() {
+  return callApi('GET', 'components').then(this.newLoaded.bind(this));
+}

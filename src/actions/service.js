@@ -1,51 +1,45 @@
 'use strict';
 
-var callApi = require('../call_api');
-var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
-var notificationActions = require('./notification');
-var stateActions = require('./state');
+import callApi from '../call_api';
+import dispatcher from '../app_dispatcher';
+import constants from '../constants';
+import { notify } from './notification';
+import { newStates } from './state';
 
-module.exports = {
-  newServices(services) {
+export function newServices(services) {
+  if (services.length > 0) {
     dispatcher.dispatch({
       actionType: constants.ACTION_NEW_SERVICES,
       services: services,
     });
-  },
+  }
+}
 
-  callTurnOn(entity_id) {
-    return this.callService(
-      "homeassistant", "turn_on", {entity_id: entity_id});
-  },
+export function callTurnOn(entity_id) {
+  return callService("homeassistant", "turn_on", {entity_id: entity_id});
+}
 
-  callTurnOff(entity_id) {
-    return this.callService(
-      "homeassistant", "turn_off", {entity_id: entity_id});
-  },
+export function callTurnOff(entity_id) {
+  return callService("homeassistant", "turn_off", {entity_id: entity_id});
+}
 
-  callService(domain, service, parameters) {
-    parameters = parameters || {};
+export function callService(domain, service, parameters={}) {
+  return callApi("POST", "services/" + domain + "/" + service, parameters).then(
 
-    return callApi(
-      "POST", "services/" + domain + "/" + service, parameters).then(
+    function(changedStates) {
+      if(service == "turn_on" && parameters.entity_id) {
+        notify("Turned on " + parameters.entity_id + '.');
+      } else if(service == "turn_off" && parameters.entity_id) {
+        notify("Turned off " + parameters.entity_id + '.');
+      } else {
+        notify("Service "+domain+"/"+service+" called.");  
+      }
 
-      function(changedStates) {
-        if(service == "turn_on" && parameters.entity_id) {
-          notificationActions.notify("Turned on " + parameters.entity_id + '.');
-        } else if(service == "turn_off" && parameters.entity_id) {
-          notificationActions.notify("Turned off " + parameters.entity_id + '.');
-        } else {
-          notificationActions.notify("Service "+domain+"/"+service+" called.");  
-        }
+      newStates(changedStates);
+    }
+  );
+}
 
-        if(changedStates.length > 0) {
-          stateActions.newStates(changedStates);
-        }
-      });
-  },
-
-  fetchAll() {
-    return callApi('GET', 'services').then(this.newServices.bind(this));
-  },
-};
+export function fetchAll() {
+  return callApi('GET', 'services').then(newServices);
+}

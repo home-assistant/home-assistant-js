@@ -1,15 +1,11 @@
 'use strict';
 
 var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
+var { ACTION_NEW_NOTIFICATION } = require('../constants');
 
-module.exports = {
-
-  notify(message) {
-    dispatcher.dispatch({
-      actionType: constants.ACTION_NEW_NOTIFICATION,
-      message: message,
-    });
-  },
-    
-};
+export function notify(message) {
+  dispatcher.dispatch({
+    actionType: ACTION_NEW_NOTIFICATION,
+    message: message,
+  });
+}

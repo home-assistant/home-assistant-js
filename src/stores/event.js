@@ -1,13 +1,13 @@
 'use strict';
 
-var _ = require('lodash');
-var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
-var Store = require('../stores/store');
+import _ from 'lodash';
+import dispatcher from '../app_dispatcher';
+import constants from '../constants';
+import Store from './store';
 
-var events = [];
+let events = [];
 
-var eventStore = {};
+let eventStore = {};
 _.assign(eventStore, Store.prototype, {
   all() {
     return events;
@@ -30,4 +30,4 @@ eventStore.dispatchToken = dispatcher.register(function(payload) {
 });
 
 
-module.exports = eventStore;
+export default eventStore;

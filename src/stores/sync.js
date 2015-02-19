@@ -1,22 +1,22 @@
 'use strict';
 
-var _ = require('lodash');
-var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
-var Store = require('../stores/store');
+import _ from 'lodash';
+import dispatcher from '../app_dispatcher';
+import constants from '../constants';
+import Store from '../stores/store';
 
-var initialLoadDone = false;
-var loaded = [];
+let initialLoadDone = false;
+let loaded = [];
 
-var contains = function(action) {
+let contains = function(action) {
   return loaded.indexOf(action) !== -1;
 };
 
-var allLoaded = function() {
+let allLoaded = function() {
   return loaded.length === 4;
 };
 
-var syncStore = {};
+let syncStore = {};
 _.assign(syncStore, Store.prototype, {
   isFetching() {
     return !allLoaded();
@@ -72,4 +72,4 @@ syncStore.dispatchToken = dispatcher.register(function(payload) {
   }
 });
 
-module.exports = syncStore;
+export default syncStore;

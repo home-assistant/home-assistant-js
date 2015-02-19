@@ -1,13 +1,13 @@
 'use strict';
 
-var _ = require('lodash');
-var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
-var Store = require('../stores/store');
+import _ from 'lodash';
+import dispatcher from '../app_dispatcher';
+import constants from '../constants';
+import Store from './store';
 
-var loadedComponents = [];
+let loadedComponents = [];
 
-var componentStore = {};
+let componentStore = {};
 _.assign(componentStore, Store.prototype, {
   loaded() {
     return loadedComponents;
@@ -29,7 +29,7 @@ componentStore.dispatchToken = dispatcher.register(function(payload) {
 
     case constants.ACTION_REMOTE_EVENT_RECEIVED:
       if (payload.event.event_type === constants.REMOTE_EVENT_COMPONENT_LOADED) {
-        var component = payload.event.data.component;
+        let component = payload.event.data.component;
 
         if (!componentStore.isLoaded(component)) {
           loadedComponents.push(component);
@@ -47,4 +47,4 @@ componentStore.dispatchToken = dispatcher.register(function(payload) {
   }
 });
 
-module.exports = componentStore;
+export default componentStore;

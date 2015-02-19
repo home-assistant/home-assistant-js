@@ -1,14 +1,13 @@
 'use strict';
 
-var { getAuthToken } = require('./stores/auth');
+let { getAuthToken } = require('./stores/auth');
 
-var CallApi = function(method, path, parameters, options) {
-  options = options || {};
-  var authToken = options.auth || getAuthToken();
-  var url = "/api/" + path;
+let CallApi = function(method, path, parameters, options={}) {
+  let authToken = options.auth || getAuthToken();
+  let url = "/api/" + path;
 
   return new Promise(function(resolve, reject) {
-    var req = new XMLHttpRequest();
+    let req = new XMLHttpRequest();
     req.open(method, url, true);
     req.setRequestHeader("X-HA-access", authToken);
 
@@ -25,16 +24,9 @@ var CallApi = function(method, path, parameters, options) {
       }
     };
 
-    req.onerror = function() {
-      reject({});
-    };
+    req.onerror = () => reject({});
 
-    if(parameters) {
-      req.send(JSON.stringify(parameters));
-    } else {
-      req.send();
-    }
-
+    parameters ? req.send(JSON.stringify(parameters)) : req.send();
   });
 };
 

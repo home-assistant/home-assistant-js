@@ -1,48 +1,42 @@
 'use strict';
 
-var callApi = require('../call_api');
-var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
-var notificationActions = require('./notification');
+import callApi from '../call_api';
+import dispatcher from '../app_dispatcher';
+import { ACTION_NEW_STATES } from '../constants';
+import { notify } from './notification';
 
-module.exports = {
-  newStates(states, replace) {
+export function newStates(states, replace) {
+  if (states.length > 0 || replace) {
     dispatcher.dispatch({
-      actionType: constants.ACTION_NEW_STATES,
+      actionType: ACTION_NEW_STATES,
       states: states,
       replace: !!replace,
     });
-  },
+  }
+}
 
-  set(entityId, state, attributes) {
-    var payload = {state: state};
+export function set(entityId, state, attributes=false) {
+  let payload = {state: state};
 
-    if(attributes) {
-      payload.attributes = attributes;
-    }
+  if(attributes) {
+    payload.attributes = attributes;
+  }
 
-    callApi("POST", "states/" + entityId, payload).then(
+  callApi("POST", "states/" + entityId, payload).then(
 
-      function(newState) {
-        notificationActions.notify("State of "+entityId+" set to "+state+".");
-        
-        this.newStates([newState]);
-      }.bind(this));
-  },
+    function(newState) {
+      notify("State of "+entityId+" set to "+state+".");
+      
+      newStates([newState]);
+    });
+}
 
-  fetch(entityId) {
-    callApi("GET", "states/" + entityId).then(
+export function fetch(entityId) {
+  callApi("GET", "states/" + entityId).then(
+    function(newState) { newStates([newState]); });
+}
 
-      function(newState) {
-        this.newStates([newState]);
-      }.bind(this));
-  },
-
-  fetchAll() {
-    callApi("GET", "states").then(
-
-      function(newStates) {
-        this.newStates(newStates, true);
-      }.bind(this));
-  },
-};
+export function fetchAll() {
+  callApi("GET", "states").then(
+    function(newJSONStates) { newStates(newJSONStates, true); });
+}

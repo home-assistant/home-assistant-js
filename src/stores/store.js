@@ -1,9 +1,9 @@
 'use strict';
 
-var { EventEmitter } = require('events');
-var _ = require('lodash');
+import { EventEmitter } from 'events';
+import _ from 'lodash';
 
-var CHANGE_EVENT = 'change';
+const CHANGE_EVENT = 'change';
 
 export default function Store() {};
 

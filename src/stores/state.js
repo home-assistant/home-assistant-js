@@ -1,25 +1,25 @@
 'use strict';
 
-var _ = require('lodash');
-var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
-var Store = require('./store');
-var streamStore = require('./stream');
-var State = require('../models/state');
+import _ from 'lodash';
+import dispatcher from '../app_dispatcher';
+import constants from '../constants';
+import Store from './store';
+import streamStore from './stream';
+import State from '../models/state';
 
-var states = {};
+let states = {};
 
 /**
  * Sort a list of states
  */
-var sortStates = function(toSortStates) {
+let sortStates = function(toSortStates) {
   return _.sortBy(toSortStates, 'entityId');
 };
 
 /**
  * Push new states
  */
-var pushNewStates = function(newStates, removeNonPresent) {
+let pushNewStates = function(newStates, removeNonPresent) {
   if (!removeNonPresent) {
     _.forEach(newStates, _pushNewState);
     return;
@@ -30,22 +30,22 @@ var pushNewStates = function(newStates, removeNonPresent) {
     _.map(newStates, _pushNewState));
 };
 
-var _state_key = function(jsonState) {
+let _state_key = function(jsonState) {
   return jsonState.entity_id;
 };
 
 /**
  * Creates or updates a state. Returns bool if a new state was added.
  */
-var _pushNewState = function(newState) {
-  var key = _state_key(newState);
+let _pushNewState = function(newState) {
+  let key = _state_key(newState);
 
   states[key] = State.fromJSON(newState);
 
   return states[key];
 };
 
-var stateStore = {};
+let stateStore = {};
 _.assign(stateStore, Store.prototype, {
   all() {
     return sortStates(_.values(states));
@@ -95,4 +95,4 @@ stateStore.dispatchToken =  dispatcher.register(function(payload) {
   }
 });
 
-module.exports = stateStore;
+export default stateStore;

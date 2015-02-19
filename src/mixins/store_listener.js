@@ -17,27 +17,22 @@ will be automatically fired on a store change.
 
 */
 
-var STORES = [
+let NAMES = [
   'auth', 'component', 'event', 'service', 'state', 'stateHistory',
   'stream', 'sync', 'notification'];
 
-// camelCase to under_score method from http://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
-var JS_FILES = STORES.map(function(input){
-  return input.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
+let LISTENERS = NAMES.map(store => store + 'StoreChanged');
+let STORES = NAMES.map(function(store) {
+  let jsFile = store.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
+  return require('../stores/' + jsFile);
 });
-
-var getStore = function(index) {
-  return require('../stores/' + JS_FILES[index]);
-};
 
 export function listenToStores(fireOnListen) {
   var storeListeners = [];
 
-  STORES.forEach(function(storeName, storeIndex) {
-    var listenerName = storeName + 'StoreChanged';
-
+  LISTENERS.forEach(function(listenerName, storeIndex) {
     if (this[listenerName]) {
-      var store = getStore(storeIndex);
+      var store = STORES[storeIndex];
       var listener = this[listenerName].bind(this, store);
 
       store.addChangeListener(listener);

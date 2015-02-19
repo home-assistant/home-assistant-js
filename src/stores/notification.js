@@ -1,13 +1,13 @@
 'use strict';
 
-var _ = require('lodash');
-var dispatcher = require('../app_dispatcher');
-var constants = require('../constants');
-var Store = require('../stores/store');
+import _ from 'lodash';
+import dispatcher from '../app_dispatcher';
+import constants from '../constants';
+import Store from '../stores/store';
 
-var notifications = [];
+let notifications = [];
 
-var notificationStore = {};
+let notificationStore = {};
 _.assign(notificationStore, Store.prototype, {
 
   hasNewNotifications(lastId) {
@@ -37,4 +37,4 @@ notificationStore.dispatchToken = dispatcher.register(function(payload) {
   }
 });
 
-module.exports = notificationStore;
+export default notificationStore;

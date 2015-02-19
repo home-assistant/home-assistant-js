@@ -1,9 +1,9 @@
 'use strict';
 
 export function parseDateTime(datetime) {
-  var parts = datetime.split(" ");
-  var time = parts[0].split(":");
-  var date = parts[1].split("-");
+  var [time, date] = datetime.split(" ");
+  var [hour, minute, second] = time.split(":");
+  var [day, month, year] = date.split("-");
 
-  return new Date(date[2], parseInt(date[1])-1, date[0], time[0], time[1], time[2]);
+  return new Date(year, parseInt(month)-1, day, hour, minute, second);
 }

@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
-import syncActions from './sync';
+import * as syncActions from './sync';
 
 // maximum time we can go without receiving anything from the server
 const MAX_INACTIVITY_TIME = 60000;
@@ -51,7 +51,7 @@ export function start(authToken) {
     });
 
     // We are streaming, fetch latest info but stop streaming
-    syncActions.stopSync();
+    syncActions.stop();
     syncActions.fetchAll();
   }, false);
 
@@ -85,5 +85,5 @@ export function stop() {
     actionType: constants.ACTION_STREAM_STOP,
   });
 
-  syncActions.sync();
+  syncActions.start();
 }

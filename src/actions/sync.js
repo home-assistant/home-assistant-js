@@ -1,5 +1,6 @@
 'use strict';
 
+import _ from 'lodash';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import * as eventActions from './event';
@@ -9,27 +10,7 @@ import * as componentActions from './component';
 
 const SYNC_INTERVAL = 30000;
 
-let scheduledSync = null;
-
-let stopSync = function() {
-  clearTimeout(scheduledSync);
-};
-
-let scheduleSync = function() {
-  stopSync();
-
-  scheduledSync = setTimeout(start, SYNC_INTERVAL);
-};
-
-export function start() {
-  fetchAll();
-
-  scheduleSync();
-}
-
-export function stop() {
-  stopSync();
-}
+let isSyncing = false;
 
 export function fetchAll() {
   dispatcher.dispatch({
@@ -40,4 +21,22 @@ export function fetchAll() {
   stateActions.fetchAll();
   serviceActions.fetchAll();
   componentActions.fetchAll();
+
+  if (isSyncing) {
+    scheduleSync();
+  }
+}
+
+let scheduleSync = _.debounce(fetchAll, SYNC_INTERVAL);
+
+export function start() {
+  isSyncing = true;
+
+  fetchAll();
+}
+
+export function stop() {
+  isSyncing = false;
+
+  scheduleSync.cancel();
 }

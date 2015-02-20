@@ -40,4 +40,4 @@ export default _.merge({
   REMOTE_EVENT_SERVICE_REGISTERED: 'service_registered',
   REMOTE_EVENT_COMPONENT_LOADED: 'component_loaded',
 
-}, _.zipObject(symbols, symbols.map(Symbol)));
+}, _.zipObject(symbols, symbols));

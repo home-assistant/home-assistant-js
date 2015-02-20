@@ -68,7 +68,7 @@ export function start(authToken) {
     });
   }, false);
 
-  source.addEventListener('error', function(ev) {
+  source.addEventListener('error', function() {
     if (source.readyState !== EventSource.CLOSED) {
       dispatcher.dispatch({
         actionType: constants.ACTION_STREAM_ERROR,

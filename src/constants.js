@@ -40,4 +40,7 @@ export default _.merge({
   REMOTE_EVENT_SERVICE_REGISTERED: 'service_registered',
   REMOTE_EVENT_COMPONENT_LOADED: 'component_loaded',
 
+  UNIT_TEMP_C: '°C',
+  UNIT_TEMP_F: '°F',
+
 }, _.zipObject(symbols, symbols));

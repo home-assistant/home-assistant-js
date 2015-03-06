@@ -8,9 +8,14 @@ import * as streamActions from './stream';
 
 /**
  * Fetch the loaded components as a way to validate the API.
+ * Second argument is optional options object:
+ *   - useStreaming: to enable streaming (default: true if supported)
+ *   - rememberLogin: to store login in local storage (default: false)
  */
-export function validate(authToken, useStreaming) {
-  useStreaming = useStreaming && streamActions.isSupported();
+export function validate(authToken, {
+    useStreaming=streamActions.isSupported(),
+    rememberLogin=false,
+  }) {
 
   dispatcher.dispatch({
     actionType: constants.ACTION_VALIDATING_AUTH_TOKEN
@@ -22,6 +27,7 @@ export function validate(authToken, useStreaming) {
       dispatcher.dispatch({
         actionType: constants.ACTION_VALID_AUTH_TOKEN,
         authToken: authToken,
+        rememberLogin: rememberLogin,
       });
 
       if (useStreaming) {

@@ -19,7 +19,7 @@ will be automatically fired on a store change.
 
 let NAMES = [
   'auth', 'component', 'event', 'service', 'state', 'stateHistory',
-  'stream', 'sync', 'notification'];
+  'stream', 'sync', 'notification', 'voice'];
 
 let LISTENERS = NAMES.map(store => store + 'StoreChanged');
 let STORES = NAMES.map(function(store) {

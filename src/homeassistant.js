@@ -22,6 +22,7 @@ export let hass = {
   syncActions: require('./actions/sync'),
   stateHistoryActions: require('./actions/state_history'),
   streamActions: require('./actions/stream'),
+  voiceActions: require('./actions/voice'),
 
   authStore: require('./stores/auth'),
   componentStore: require('./stores/component'),
@@ -32,6 +33,7 @@ export let hass = {
   stateHistoryStore: require('./stores/state_history'),
   streamStore: require('./stores/stream'),
   preferenceStore: require('./stores/preference'),
+  voiceStore: require('./stores/voice'),
 
   stateModel: require('./models/state'),
 

@@ -7,10 +7,6 @@ import Store from './store';
 
 let services = [];
 
-let _getDomain = function(domain) {
-  return _.find(services, function(service) { return service.domain === domain; });
-};
-
 let serviceStore = {};
 _.assign(serviceStore, Store.prototype, {
   all() {
@@ -18,10 +14,16 @@ _.assign(serviceStore, Store.prototype, {
   },
 
   has(domain, service) {
-    let domainObj = _getDomain(domain);
+    let domainObj = this.getDomain(domain);
 
     return domainObj && domainObj.services.indexOf(service) !== -1;
   },
+
+  getDomain(domain) {
+    return _.find(services, function(service) {
+      return service.domain === domain;
+    });
+  }
 
 });
 

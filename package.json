@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "webpack --colors --progress -d --watch",
+    "dev_demo": "BUILD_DEMO=1 webpack --colors --progress -d --watch",
     "prod": "BUILD_DEV=0 webpack --colors --progress -p -d",
     "demo": "BUILD_DEV=0 BUILD_DEMO=1 webpack --colors --progress -p -d"
   },

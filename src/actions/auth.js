@@ -30,6 +30,16 @@ export function validate(authToken, {
         rememberLogin: rememberLogin,
       });
 
+      if (__DEMO__) {
+        // hides the refresh button
+        dispatcher.dispatch({
+          actionType: constants.ACTION_STREAM_START,
+        });
+
+        syncActions.fetchAll();
+        return;
+      }
+
       if (useStreaming) {
         streamActions.start(authToken);
       } else {

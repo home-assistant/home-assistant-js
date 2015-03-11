@@ -44,6 +44,8 @@ if (__DEMO__) {
       }
 
       switch (path) {
+        case '':
+          resolve();
         case 'components':
           resolve(require('./demo/component_data.js'));
           break;

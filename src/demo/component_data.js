@@ -3,5 +3,6 @@ export default [
     "http",
     "api",
     "frontend",
-    "history"
+    "history",
+    "conversation",
 ];

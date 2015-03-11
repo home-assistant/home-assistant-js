@@ -1,3 +1,8 @@
+function getRandomTime() {
+  let ts = new Date(new Date().getTime() - (Math.random() * 80 * 60 * 1000));
+  return `${ts.getHours()}:${ts.getMinutes()}:${ts.getSeconds()} ${ts.getDate()}-${ts.getMonth()+1}-${ts.getFullYear()}`
+}
+
 export default [
     {
         "attributes": {
@@ -8,16 +13,16 @@ export default [
             ]
         },
         "entity_id": "light.ceiling",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "on"
     },
     {
         "attributes": {
             "entity_picture": "https://graph.facebook.com/KillBillMovie/picture",
-            "friendly_name": "Living Room"
+            "friendly_name": "Media Player"
         },
         "entity_id": "chromecast.living_rm",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "Plex"
     },
     {
@@ -25,14 +30,16 @@ export default [
             "friendly_name": "Outside humidity",
             "unit_of_measurement": "%"
         },
-        "entity_id": "tellstick_sensor.outside_humidity",
-        "last_changed": "22:44:38 08-02-2015",
+        "entity_id": "sensor.outside_humidity",
+        "last_changed": getRandomTime(),
         "state": "54"
     },
     {
-        "attributes": {},
-        "entity_id": "process.xbmc",
-        "last_changed": "22:44:38 08-02-2015",
+        "attributes": {
+            "friendly_name": "Kodi",
+        },
+        "entity_id": "sensor.kodi",
+        "last_changed": getRandomTime(),
         "state": "on"
     },
     {
@@ -40,8 +47,8 @@ export default [
             "friendly_name": "Outside temperature",
             "unit_of_measurement": "\u00b0C"
         },
-        "entity_id": "tellstick_sensor.outside_temperature",
-        "last_changed": "22:44:38 08-02-2015",
+        "entity_id": "sensor.outside_temperature",
+        "last_changed": getRandomTime(),
         "state": "15.6"
     },
     {
@@ -53,13 +60,13 @@ export default [
             ]
         },
         "entity_id": "group.all_devices",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "home"
     },
     {
         "attributes": {},
         "entity_id": "light.bed_light",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "off"
     },
     {
@@ -74,7 +81,7 @@ export default [
             "friendly_name": "all lights"
         },
         "entity_id": "group.all_lights",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "on"
     },
     {
@@ -86,7 +93,7 @@ export default [
             ]
         },
         "entity_id": "light.bowl",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "on"
     },
     {
@@ -96,13 +103,13 @@ export default [
             "unit_of_measurement": "\u00b0C"
         },
         "entity_id": "thermostat.nest",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "23"
     },
     {
         "attributes": {},
         "entity_id": "a.demo_mode",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "Enabled"
     },
     {
@@ -111,7 +118,7 @@ export default [
             "next_setting": "17:29:01 09-02-2015"
         },
         "entity_id": "sun.sun",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "below_horizon"
     },
     {
@@ -123,13 +130,13 @@ export default [
             "submit_caption": "I have pressed the button"
         },
         "entity_id": "configurator.philips_hue",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "configure"
     },
     {
         "attributes": {},
         "entity_id": "switch.christmas_lights",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "off"
     },
     {
@@ -142,13 +149,13 @@ export default [
             "friendly_name": "bedroom"
         },
         "entity_id": "group.bedroom",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "off"
     },
     {
         "attributes": {},
         "entity_id": "light.tv_back_light",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "off"
     },
     {
@@ -163,7 +170,7 @@ export default [
             "friendly_name": "living room"
         },
         "entity_id": "group.living_room",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "on"
     },
     {
@@ -171,7 +178,7 @@ export default [
             "entity_picture": "https://graph.facebook.com/schoutsen/picture"
         },
         "entity_id": "device_tracker.paulus",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "home"
     },
     {
@@ -179,13 +186,15 @@ export default [
             "entity_picture": "https://graph.facebook.com/anne.t.frederiksen/picture"
         },
         "entity_id": "device_tracker.anne_therese",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "not_home"
     },
     {
-        "attributes": {},
+        "attributes": {
+            "friendly_name": "AC",
+        },
         "entity_id": "switch.ac",
-        "last_changed": "22:44:38 08-02-2015",
+        "last_changed": getRandomTime(),
         "state": "on"
     }
 ];

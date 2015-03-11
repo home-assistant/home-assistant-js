@@ -5,6 +5,7 @@ import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';
 
+let state = null;
 let interimTranscript = '';
 let finalTranscript = '';
 
@@ -41,7 +42,7 @@ _.assign(voiceStore, Store.prototype, {
 
 });
 
-let state = voiceStore.STATE_IDLE;
+state = voiceStore.STATE_IDLE;
 
 voiceStore.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {

@@ -1,8 +1,12 @@
 'use strict';
 
+import _ from 'lodash';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import { callService } from './service';
+
+// Time to wait after last result to start processing.
+const NO_RESULT_TIMEOUT = 3000;
 
 let recognition = null;
 let interimTranscript = '';
@@ -39,6 +43,7 @@ export function stop() {
     recognition.onerror = null;
     recognition.onend = null;
     recognition.stop();
+    recognition = null;
 
     process();
   }
@@ -46,6 +51,8 @@ export function stop() {
   interimTranscript = '';
   finalTranscript = '';
 }
+
+let autostop = _.debounce(stop, NO_RESULT_TIMEOUT);
 
 export function listen() {
   stop();
@@ -75,6 +82,8 @@ export function listen() {
       interimTranscript: interimTranscript,
       finalTranscript: finalTranscript,
     });
+
+    autostop();
   };
 
   recognition.onerror = function() {

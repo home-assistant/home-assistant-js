@@ -1,74 +1,54 @@
 'use strict';
 
+import { Record } from 'Immutable';
 import serviceStore from '../stores/service';
 import { parseDateTime } from '../util';
 
-export default class State {
-  constructor(entityId, state, lastChanged, attributes) {
-    this.entityId = entityId;
-    this.state = state;
-    this.lastChanged = lastChanged;
-    this.attributes = attributes || {};
-    this._domain = null;
-    this._objectId = null;
-    this._entityDisplay = null;
-  }
+let ImmutableState = new Record({
+    entityId: null,
+    domain: null,
+    object_id: null,
+    state: null,
+    entityDisplay: null,
+    stateDisplay: null,
+    lastChanged: null,
+    lastChangedAsDate: null,
+    attributes: {},
+    isCustomGroup: null,
+}, 'State');
 
-  get domain() {
-    if (this._domain === null) {
-      this._domain = this.entityId.split(".")[0];
+export default class State extends ImmutableState {
+  constructor(entityId, state, lastChanged, attributes={}) {
+    let [domain, objectId] = entityId.split(".");
+    let stateDisplay = state.replace(/_/g, " ");
+
+    if(attributes.unit_of_measurement) {
+      stateDisplay += " " + attributes.unit_of_measurement;
     }
 
-    return this._domain;
-  }
-
-  get objectId() {
-    if (this._objectId === null) {
-      this._objectId = this.entityId.split(".")[1];
-    }
-
-    return this._objectId;
-  }
-
-  get entityDisplay() {
-    if (this._entityDisplay === null) {
-      if(this.attributes.friendly_name) {
-        this._entityDisplay = this.attributes.friendly_name;
-      } else {
-        this._entityDisplay = this.objectId.replace(/_/g, " ");
-      }
-    }
-
-    return this._entityDisplay;
-  }
-
-  get stateDisplay() {
-    var state = this.state.replace(/_/g, " ");
-
-    if(this.attributes.unit_of_measurement) {
-      return state + " " + this.attributes.unit_of_measurement;
-    } else {
-      return state;
-    }
-  }
-
-  get isCustomGroup() {
-    return this.domain == "group" && !this.attributes.auto;
+    super({
+      entityId: entityId,
+      domain: domain,
+      objectId: objectId,
+      state: state,
+      stateDisplay: stateDisplay,
+      lastChanged: lastChanged,
+      attributes: attributes,
+      entityDisplay: attributes.friendly_name || objectId.replace(/_/g, " "),
+      lastChangedAsDate: parseDateTime(lastChanged),
+      isCustomGroup: domain === "group" && !attributes.auto,
+    });
   }
 
   get canToggle() {
     // groups that have the on/off state or if there is a turn_on service
-    return ((this.domain == 'group' &&
-             (this.state == 'on' || this.state == 'off')) ||
+    return ((this.domain === 'group' &&
+             (this.state === 'on' || this.state === 'off')) ||
             serviceStore.has(this.domain, 'turn_on'));
   }
 
-  get lastChangedAsDate() {
-    return parseDateTime(this.lastChanged);
-  }
-
-  static fromJSON(jsonObj) {
-    return new State(jsonObj.entity_id, jsonObj.state, jsonObj.last_changed, jsonObj.attributes);
+  static fromJSON({entity_id, state, last_changed, attributes}) {
+    return new State(entity_id, state, last_changed, attributes);
   }
 
 }

@@ -1,72 +1,65 @@
 'use strict';
 
 import _ from 'lodash';
+import { Map } from 'Immutable';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';
 import streamStore from './stream';
 import State from '../models/state';
 
-let states = {};
+let states = new Map();
 
 /**
- * Sort a list of states
+ * Default sorter for a sequence of states.
  */
-let sortStates = function(toSortStates) {
-  return _.sortBy(toSortStates, 'entityId');
-};
+function defaultStateSort(state) {
+  return state.entityId;
+}
 
 /**
- * Push new states
+ * Add a state.
  */
-let pushNewStates = function(newStates, removeNonPresent) {
-  if (!removeNonPresent) {
-    _.forEach(newStates, _pushNewState);
-    return;
-  }
-
-  states = _.zipObject(
-    _.map(newStates, _state_key),
-    _.map(newStates, _pushNewState));
-};
-
-let _state_key = function(jsonState) {
-  return jsonState.entity_id;
-};
+function pushNewState(jsonObj) {
+  states = states.set(jsonObj.entity_id, State.fromJSON(jsonObj));
+}
 
 /**
- * Creates or updates a state. Returns bool if a new state was added.
+ * Add new states
  */
-let _pushNewState = function(newState) {
-  let key = _state_key(newState);
+function pushNewStates(newStates, removeNonPresent) {
+  let currentStates = removeNonPresent ? new Map() : states;
 
-  states[key] = State.fromJSON(newState);
+  states = currentStates.withMutations(map => {
+    newStates.forEach(
+      jsonObj => map.set(jsonObj.entity_id, State.fromJSON(jsonObj)));
 
-  return states[key];
-};
+    return map;
+  });
+}
 
 let stateStore = {};
 _.assign(stateStore, Store.prototype, {
   all() {
-    return sortStates(_.values(states));
+    return states.valueSeq().sortBy(defaultStateSort);
   },
 
   get(entityId) {
     entityId = entityId.toLowerCase();
 
-    return states[entityId] || null;
+    return states.get(entityId) || null;
   },
 
   gets(entityIds) {
-    return sortStates(_.compact(_.map(entityIds, this.get, this)));
+    entityIds = entityIds.map(entityId => entityId.toLowerCase());
+
+    return states.valueSeq()
+              .filter(state => entityIds.indexOf(state.entityId) !== -1)
+              .sortBy(defaultStateSort);
   },
 
   entityIDs() {
-    return Object.keys(states);
-  },
-
-  getCustomGroups() {
-    return _.filter(states, 'isCustomGroup');
+    return states.keySeq().sort();
   },
 });
 
@@ -83,7 +76,7 @@ stateStore.dispatchToken =  dispatcher.register(function(payload) {
 
     case constants.ACTION_REMOTE_EVENT_RECEIVED:
       if (payload.event.event_type === constants.REMOTE_EVENT_STATE_CHANGED) {
-        _pushNewState(payload.event.data.new_state);
+        pushNewState(payload.event.data.new_state);
         stateStore.emitChange();
       }
       break;

@@ -19,7 +19,7 @@ class AuthStore extends Store {
     return isLoggedIn;
   }
 
-  get getAuthToken() {
+  get authToken() {
     return authToken;
   }
 

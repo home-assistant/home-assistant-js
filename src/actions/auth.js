@@ -13,15 +13,14 @@ import * as streamActions from './stream';
  *   - rememberLogin: to store login in local storage (default: false)
  */
 export function validate(authToken, {
-    useStreaming=streamActions.isSupported(),
+    useStreaming=streamActions.isSupported,
     rememberLogin=false,
   }) {
-
   dispatcher.dispatch({
     actionType: constants.ACTION_VALIDATING_AUTH_TOKEN
   });
 
-  callApi('GET', '', false, {auth: authToken}).then(
+  callApi('GET', '', false, {authToken: authToken}).then(
 
     function() {
       dispatcher.dispatch({

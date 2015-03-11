@@ -35,7 +35,7 @@ class PreferenceStore extends Store {
   }
 
   get hasAuthToken() {
-    return this.authToken() !== null;
+    return this.authToken !== null;
   }
 
   get authToken() {

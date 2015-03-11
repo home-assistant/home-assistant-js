@@ -2,8 +2,8 @@
 
 import authStore from './stores/auth';
 
-let CallApi = function(method, path, parameters, options={}) {
-  let authToken = options.auth || authStore.authToken;
+let CallApi = function(method, path, parameters=null, options={}) {
+  let authToken = options.authToken || authStore.authToken;
   let url = "/api/" + path;
 
   return new Promise(function(resolve, reject) {

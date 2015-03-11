@@ -23,7 +23,9 @@ let NAMES = [
 
 let LISTENERS = NAMES.map(store => store + 'StoreChanged');
 let STORES = NAMES.map(function(store) {
-  let jsFile = store.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
+  // convert from camel to snake case
+  let jsFile = store.replace(
+    /([A-Z])/g, function($1){ return "_" + $1.toLowerCase(); });
   return require('../stores/' + jsFile);
 });
 

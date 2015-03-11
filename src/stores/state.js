@@ -1,6 +1,5 @@
 'use strict';
 
-import _ from 'lodash';
 import { Map } from 'Immutable';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
@@ -38,17 +37,17 @@ function pushNewStates(newStates, removeNonPresent) {
   });
 }
 
-let stateStore = {};
-_.assign(stateStore, Store.prototype, {
-  all() {
+class StateStore extends Store {
+
+  get all() {
     return states.valueSeq().sortBy(defaultStateSort);
-  },
+  }
 
   get(entityId) {
     entityId = entityId.toLowerCase();
 
     return states.get(entityId) || null;
-  },
+  }
 
   gets(entityIds) {
     entityIds = entityIds.map(entityId => entityId.toLowerCase());
@@ -56,36 +55,39 @@ _.assign(stateStore, Store.prototype, {
     return states.valueSeq()
               .filter(state => entityIds.indexOf(state.entityId) !== -1)
               .sortBy(defaultStateSort);
-  },
+  }
 
-  entityIDs() {
+  get entityIDs() {
     return states.keySeq().sort();
-  },
-});
+  }
 
-stateStore.dispatchToken =  dispatcher.register(function(payload) {
+}
+
+const INSTANCE = new StateStore();
+
+INSTANCE.dispatchToken =  dispatcher.register(function(payload) {
   switch(payload.actionType) {
     case constants.ACTION_NEW_STATES:
       // when we're streaming updates, we only care about full updates
       // because partial updates will be processed via remote events.
-      if (!streamStore.isStreaming() || payload.replace) {
+      if (!streamStore.isStreaming || payload.replace) {
         pushNewStates(payload.states, payload.replace);
-        stateStore.emitChange();
+        INSTANCE.emitChange();
       }
       break;
 
     case constants.ACTION_REMOTE_EVENT_RECEIVED:
       if (payload.event.event_type === constants.REMOTE_EVENT_STATE_CHANGED) {
         pushNewState(payload.event.data.new_state);
-        stateStore.emitChange();
+        INSTANCE.emitChange();
       }
       break;
 
     case constants.ACTION_LOG_OUT:
       states = {};
-      stateStore.emitChange();
+      INSTANCE.emitChange();
       break;
   }
 });
 
-export default stateStore;
+export default INSTANCE;

@@ -12,5 +12,5 @@ export function newLoaded(components) {
 }
 
 export function fetchAll() {
-  return callApi('GET', 'components').then(this.newLoaded.bind(this));
+  return callApi('GET', 'components').then(newLoaded);
 }

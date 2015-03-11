@@ -1,6 +1,5 @@
 'use strict';
 
-import _ from 'lodash';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from '../stores/store';
@@ -11,36 +10,36 @@ let authToken = '';
 let lastAttemptInvalid = false;
 let lastAttemptMessage = '';
 
-var authStore = {};
-_.assign(authStore, Store.prototype, {
-  isValidating() {
+class AuthStore extends Store {
+  get isValidating() {
     return isValidating;
-  },
+  }
 
-  isLoggedIn() {
+  get isLoggedIn() {
     return isLoggedIn;
-  },
+  }
 
-  getAuthToken() {
+  get getAuthToken() {
     return authToken;
-  },
+  }
 
-  wasLastAttemptInvalid() {
+  get lastAttemptInvalid() {
     return lastAttemptInvalid;
-  },
+  }
 
-  getLastAttemptMessage() {
+  get lastAttemptMessage() {
     return lastAttemptMessage;
-  },
+  }  
+}
 
-});
+const INSTANCE = new AuthStore();
 
-authStore.dispatchToken = dispatcher.register(function(payload) {
+INSTANCE.dispatchToken = dispatcher.register(payload => {
   switch(payload.actionType) {
     case constants.ACTION_VALIDATING_AUTH_TOKEN:
       isValidating = true;
 
-      authStore.emitChange();
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_VALID_AUTH_TOKEN:
@@ -50,7 +49,7 @@ authStore.dispatchToken = dispatcher.register(function(payload) {
       lastAttemptInvalid = false;
       lastAttemptMessage = '';
 
-      authStore.emitChange();
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_INVALID_AUTH_TOKEN:
@@ -60,7 +59,7 @@ authStore.dispatchToken = dispatcher.register(function(payload) {
       lastAttemptInvalid = true;
       lastAttemptMessage = payload.message || 'Unexpected result from API';
 
-      authStore.emitChange();
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_LOG_OUT:
@@ -70,9 +69,9 @@ authStore.dispatchToken = dispatcher.register(function(payload) {
       lastAttemptInvalid = false;
       lastAttemptMessage = '';
 
-      authStore.emitChange();
+      INSTANCE.emitChange();
       break;
   }
 });
 
-export default authStore;
+export default INSTANCE;

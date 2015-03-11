@@ -1,48 +1,54 @@
 'use strict';
 
-import _ from 'lodash';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';
 
-let connectionStore = {};
-_.assign(connectionStore, Store.prototype, {
-  STATE_CONNECTED: 'STATE_CONNECTED',
-  STATE_DISCONNECTED: 'STATE_DISCONNECTED',
-  STATE_ERROR: 'STATE_ERROR',
+const STATE_CONNECTED = 'STATE_CONNECTED';
+const STATE_DISCONNECTED = 'STATE_DISCONNECTED';
+const STATE_ERROR = 'STATE_ERROR';
 
-  getState() {
+let state = STATE_DISCONNECTED;
+
+class ConnectionStore extends Store {
+
+  get state() {
     return state;
-  },
+  }
 
-  isStreaming() {
-    return state === connectionStore.STATE_CONNECTED;
-  },
+  get isStreaming() {
+    return state === this.STATE_CONNECTED;
+  }
 
-  hasError() {
-    return state === connectionStore.STATE_ERROR;
-  },
-});
+  get hasError() {
+    return state === this.STATE_ERROR;
+  }
 
-let state = connectionStore.STATE_DISCONNECTED;
+}
 
-connectionStore.dispatchToken = dispatcher.register(function(payload) {
+const INSTANCE = new ConnectionStore();
+
+INSTANCE.STATE_CONNECTED = STATE_CONNECTED;
+INSTANCE.STATE_DISCONNECTED = STATE_DISCONNECTED;
+INSTANCE.STATE_ERROR = STATE_ERROR;
+
+INSTANCE.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
     case constants.ACTION_STREAM_START:
-      state = connectionStore.STATE_CONNECTED;
-      connectionStore.emitChange();
+      state = STATE_CONNECTED;
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_STREAM_STOP:
-      state = connectionStore.STATE_DISCONNECTED;
-      connectionStore.emitChange();
+      state = STATE_DISCONNECTED;
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_STREAM_ERROR:
-      state = connectionStore.STATE_ERROR;
-      connectionStore.emitChange();
+      state = STATE_ERROR;
+      INSTANCE.emitChange();
       break;
   }
 });
 
-export default connectionStore;
+export default INSTANCE;

@@ -1,50 +1,49 @@
 'use strict';
 
-import _ from 'lodash';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';
 
 let loadedComponents = [];
 
-let componentStore = {};
-_.assign(componentStore, Store.prototype, {
-  loaded() {
+class ComponentStore extends Store {
+  get loaded() {
     return loadedComponents;
-  },
+  }
 
   isLoaded(component) {
     return loadedComponents.indexOf(component) !== -1;
-  },
+  }
+}
 
-});
+const INSTANCE = new ComponentStore();
 
-componentStore.dispatchToken = dispatcher.register(function(payload) {
+INSTANCE.dispatchToken = dispatcher.register(payload => {
   switch(payload.actionType) {
 
     case constants.ACTION_NEW_LOADED_COMPONENTS:
       loadedComponents = payload.components;
-      componentStore.emitChange();
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_REMOTE_EVENT_RECEIVED:
       if (payload.event.event_type === constants.REMOTE_EVENT_COMPONENT_LOADED) {
         let component = payload.event.data.component;
 
-        if (!componentStore.isLoaded(component)) {
+        if (!INSTANCE.isLoaded(component)) {
           loadedComponents.push(component);
         }
 
-        componentStore.emitChange();
+        INSTANCE.emitChange();
       }
       break;
 
     case constants.ACTION_LOG_OUT:
       loadedComponents = [];
-      componentStore.emitChange();
+      INSTANCE.emitChange();
       break;
 
   }
 });
 
-export default componentStore;
+export default INSTANCE;

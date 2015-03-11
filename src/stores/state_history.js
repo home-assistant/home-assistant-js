@@ -6,14 +6,13 @@ import constants from '../constants';
 import Store from '../stores/store';
 
 // Consider data stale if not fetched in last minute
-let STALE_TIME = 60000;
+const STALE_TIME = 60000;
 
 let _lastUpdated = null;
 let _lastUpdatedEntity = {};
 let _history = {};
 
-let historyStore = {};
-_.assign(historyStore, Store.prototype, {
+class HistoryStore extends Store {
 
   isStale(entityId) {
     // do we want to know if fetchAll or specific entity is stale.
@@ -22,19 +21,21 @@ _.assign(historyStore, Store.prototype, {
 
     return lastUpdate === null ||
            (new Date()).getTime() - lastUpdate.getTime() > STALE_TIME;
-  },
+  }
 
   get(entityId) {
     return _history[entityId] || null;
-  },
+  }
 
-  all() {
+  get all() {
     return _.values(_history);
-  },
+  }
 
-});
+}
 
-historyStore.dispatchToken = dispatcher.register(function(payload) {
+const INSTANCE = new HistoryStore();
+
+INSTANCE.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
     case constants.ACTION_NEW_STATE_HISTORY:
       _.forEach(payload.stateHistory, function(entityStateHistory) {
@@ -50,17 +51,16 @@ historyStore.dispatchToken = dispatcher.register(function(payload) {
         _lastUpdated = new Date();
       }
 
-      historyStore.emitChange();
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_LOG_OUT:
       _lastUpdated = null;
       _lastUpdatedEntity = {};
       _history = {};
-      historyStore.emitChange();
+      INSTANCE.emitChange();
       break;
   }
 });
 
-
-export default historyStore;
+export default INSTANCE;

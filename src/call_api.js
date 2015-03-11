@@ -1,9 +1,9 @@
 'use strict';
 
-let { getAuthToken } = require('./stores/auth');
+import authStore from './stores/auth';
 
 let CallApi = function(method, path, parameters, options={}) {
-  let authToken = options.auth || getAuthToken();
+  let authToken = options.auth || authStore.authToken;
   let url = "/api/" + path;
 
   return new Promise(function(resolve, reject) {

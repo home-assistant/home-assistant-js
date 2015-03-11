@@ -1,54 +1,57 @@
 'use strict';
 
-import _ from 'lodash';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from '../stores/store';
 
+const NUM_TYPES = 4;
+
 let initialLoadDone = false;
 let loaded = [];
 
-let contains = function(action) {
+function contains(action) {
   return loaded.indexOf(action) !== -1;
-};
+}
 
-let allLoaded = function() {
-  return loaded.length === 4;
-};
+function allLoaded() {
+  return loaded.length === NUM_TYPES;
+}
 
-let syncStore = {};
-_.assign(syncStore, Store.prototype, {
-  isFetching() {
+class SyncStore extends Store {
+
+  get isFetching() {
     return !allLoaded();
-  },
+  }
 
-  initialLoadDone() {
+  get initialLoadDone() {
     return initialLoadDone;
-  },
+  }
 
-  componentsLoaded() {
+  get componentsLoaded() {
     return contains(constants.ACTION_NEW_LOADED_COMPONENTS);
-  },
+  }
 
-  eventsLoaded() {
+  get eventsLoaded() {
     return contains(constants.ACTION_NEW_EVENTS);
-  },
+  }
 
-  servicesLoaded() {
+  get servicesLoaded() {
     return contains(constants.ACTION_NEW_SERVICES);
-  },
+  }
 
-  statesLoaded() {
+  get statesLoaded() {
     return contains(constants.ACTION_NEW_STATES);
-  },
+  }
 
-});
+}
 
-syncStore.dispatchToken = dispatcher.register(function(payload) {
+const INSTANCE = new SyncStore();
+
+INSTANCE.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
     case constants.ACTION_FETCH_ALL:
       loaded = [];
-      syncStore.emitChange();
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_NEW_LOADED_COMPONENTS:
@@ -60,16 +63,16 @@ syncStore.dispatchToken = dispatcher.register(function(payload) {
 
         initialLoadDone = initialLoadDone || allLoaded();
 
-        syncStore.emitChange();
+        INSTANCE.emitChange();
       }
       break;
 
     case constants.ACTION_LOG_OUT:
       initialLoadDone = false;
       loaded = [];
-      syncStore.emitChange();
+      INSTANCE.emitChange();
       break;
   }
 });
 
-export default syncStore;
+export default INSTANCE;

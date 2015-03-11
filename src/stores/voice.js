@@ -1,81 +1,85 @@
 'use strict';
 
-import _ from 'lodash';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';
 
-let state = null;
+const STATE_LISTENING = 'STATE_LISTENING';
+const STATE_TRANSMITTING = 'STATE_TRANSMITTING';
+const STATE_IDLE = 'STATE_IDLE';
+const STATE_ERROR = 'STATE_ERROR';
+
+let state = STATE_IDLE;
 let interimTranscript = '';
 let finalTranscript = '';
 
-let voiceStore = {};
-_.assign(voiceStore, Store.prototype, {
-  STATE_LISTENING: 'STATE_LISTENING',
-  STATE_TRANSMITTING: 'STATE_TRANSMITTING',
-  STATE_IDLE: 'STATE_IDLE',
-  STATE_ERROR: 'STATE_ERROR',
+class VoiceStore extends Store {
 
-  getState() {
+  get state() {
     return state;
-  },
+  }
 
-  isListening() {
-    return state === voiceStore.STATE_LISTENING;
-  },
+  get isListening() {
+    return state === STATE_LISTENING;
+  }
 
-  isTransmitting() {
-    return state === voiceStore.STATE_TRANSMITTING;
-  },
+  get isTransmitting() {
+    return state === STATE_TRANSMITTING;
+  }
 
-  hasError() {
-    return state === voiceStore.STATE_ERROR;
-  },
+  get hasError() {
+    return state === STATE_ERROR;
+  }
 
-  getInterimTranscript() {
+  get interimTranscript() {
     return interimTranscript;
-  },
+  }
 
-  getFinalTranscript() {
+  get finalTranscript() {
     return finalTranscript;
-  },
+  }
 
-});
+}
 
-state = voiceStore.STATE_IDLE;
+const INSTANCE = new VoiceStore();
 
-voiceStore.dispatchToken = dispatcher.register(function(payload) {
+INSTANCE.STATE_LISTENING = STATE_LISTENING;
+INSTANCE.STATE_TRANSMITTING = STATE_TRANSMITTING;
+INSTANCE.STATE_IDLE = STATE_IDLE;
+INSTANCE.STATE_ERROR = STATE_ERROR;
+
+INSTANCE.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
     case constants.ACTION_LISTENING_START:
-      state = voiceStore.STATE_LISTENING;
+      state = STATE_LISTENING;
       interimTranscript = '';
       finalTranscript = '';
-      voiceStore.emitChange();
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_LISTENING_TRANSMITTING:
-      state = voiceStore.STATE_TRANSMITTING;
+      state = STATE_TRANSMITTING;
       interimTranscript = '';
       finalTranscript = payload.finalTranscript;
-      voiceStore.emitChange();
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_LISTENING_DONE:
-      state = voiceStore.STATE_IDLE;
-      voiceStore.emitChange();
+      state = STATE_IDLE;
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_LISTENING_ERROR:
-      state = voiceStore.STATE_ERROR;
-      voiceStore.emitChange();
+      state = STATE_ERROR;
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_LISTENING_RESULT:
       interimTranscript = payload.interimTranscript;
       finalTranscript = payload.finalTranscript;
-      voiceStore.emitChange();
+      INSTANCE.emitChange();
       break;
   }
 });
 
-export default voiceStore;
+export default INSTANCE;

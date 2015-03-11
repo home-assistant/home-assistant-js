@@ -1,33 +1,32 @@
 'use strict';
 
-import _ from 'lodash';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';
 
 let events = [];
 
-let eventStore = {};
-_.assign(eventStore, Store.prototype, {
-  all() {
+class EventStore extends Store {
+  get all() {
     return events;
-  },
+  }
+}
 
-});
+const INSTANCE = new EventStore();
 
-eventStore.dispatchToken = dispatcher.register(function(payload) {
+INSTANCE.dispatchToken = dispatcher.register(payload => {
   switch(payload.actionType) {
     case constants.ACTION_NEW_EVENTS:
       events = payload.events;
-      eventStore.emitChange();
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_LOG_OUT:
       events = [];
-      eventStore.emitChange();
+      INSTANCE.emitChange();
       break;
   }
 });
 
 
-export default eventStore;
+export default INSTANCE;

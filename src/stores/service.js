@@ -1,35 +1,36 @@
 'use strict';
 
-import _ from 'lodash';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';
 
 let services = [];
 
-let _getDomain = function(domain) {
+function _getDomain(domain) {
   return _.find(services, function(service) { return service.domain === domain; });
 };
 
-let serviceStore = {};
-_.assign(serviceStore, Store.prototype, {
-  all() {
+class ServiceStore extends Store {
+
+  get all() {
     return services;
-  },
+  }
 
   has(domain, service) {
     let domainObj = _getDomain(domain);
 
     return domainObj && domainObj.services.indexOf(service) !== -1;
-  },
+  }
 
-});
+}
 
-serviceStore.dispatchToken = dispatcher.register(function(payload) {
+const INSTANCE = new ServiceStore();
+
+INSTANCE.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
     case constants.ACTION_NEW_SERVICES:
       services = payload.services;
-      serviceStore.emitChange();
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_REMOTE_EVENT_RECEIVED:
@@ -44,15 +45,15 @@ serviceStore.dispatchToken = dispatcher.register(function(payload) {
           services.push({domain: data.domain, services: [data.service]});
         }
 
-        serviceStore.emitChange();
+        INSTANCE.emitChange();
       }
       break;
 
     case constants.ACTION_LOG_OUT:
       services = [];
-      serviceStore.emitChange();
+      INSTANCE.emitChange();
       break;
   }
 });
 
-export default serviceStore;
+export default INSTANCE;

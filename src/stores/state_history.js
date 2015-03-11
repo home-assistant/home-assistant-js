@@ -14,9 +14,9 @@ let _history = {};
 
 class HistoryStore extends Store {
 
-  isStale(entityId) {
+  isStale(entityId=null) {
     // do we want to know if fetchAll or specific entity is stale.
-    let lastUpdate = _.isUndefined(entityId) ?
+    let lastUpdate = entityId === null ?
                        _lastUpdated : _lastUpdatedEntity[entityId] || null;
 
     return lastUpdate === null ||

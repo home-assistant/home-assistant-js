@@ -1,11 +1,11 @@
 'use strict';
 
-import _ from 'lodash';
+import { Map, List } from 'immutable';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';
 
-let services = [];
+let services = new Map();
 
 class ServiceStore extends Store {
 
@@ -14,19 +14,13 @@ class ServiceStore extends Store {
   }
 
   has(domain, service) {
-    return this.getServices(domain).indexOf(service) !== -1;
-  }
+    let domain = services.get(domain);
 
-  getDomain(domain) {
-    return _.find(services, function(service) {
-      return service.domain === domain;
-    });
+    return domain && domain.contains(service);
   }
 
   getServices(domain) {
-    let domain = this.getDomain(domain);
-
-    return domain ? domain.services : [];
+    return services.get(domain) || new List();
   }
 
 }
@@ -36,28 +30,35 @@ const INSTANCE = new ServiceStore();
 INSTANCE.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
     case constants.ACTION_NEW_SERVICES:
-      services = payload.services;
+      services = (new Map()).withMutations((map) => {
+        payload.services.forEach((domainObj) => {
+          map.set(domainObj.domain, new List(domainObj.services))
+        })
+      })
+
       INSTANCE.emitChange();
       break;
 
     case constants.ACTION_REMOTE_EVENT_RECEIVED:
-      if (payload.event.event_type === constants.REMOTE_EVENT_SERVICE_REGISTERED) {
-        let data = payload.event.data;
-
-        let domainObj = _getDomain(data.domain);
-
-        if (domainObj) {
-          domainObj.services.push(data.service);
-        } else {
-          services.push({domain: data.domain, services: [data.service]});
-        }
-
-        INSTANCE.emitChange();
+      if (payload.event.event_type !== constants.REMOTE_EVENT_SERVICE_REGISTERED) {
+        break;
       }
+
+      let { domain, service } = payload.event.data;
+
+      if (INSTANCE.has(domain, service)) {
+        break;
+      }
+
+      let curServices = INSTANCE.getServices(domain)
+
+      services = services.set(domain, curServices.push(service));
+
+      INSTANCE.emitChange();
       break;
 
     case constants.ACTION_LOG_OUT:
-      services = [];
+      services = new Map();
       INSTANCE.emitChange();
       break;
   }

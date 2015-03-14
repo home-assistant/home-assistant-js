@@ -1,6 +1,6 @@
 'use strict';
 
-import { Map } from 'Immutable';
+import { Map } from 'immutable';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';

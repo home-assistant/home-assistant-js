@@ -7,10 +7,6 @@ import Store from './store';
 
 let services = [];
 
-function _getDomain(domain) {
-  return _.find(services, function(service) { return service.domain === domain; });
-};
-
 class ServiceStore extends Store {
 
   get all() {
@@ -18,9 +14,19 @@ class ServiceStore extends Store {
   }
 
   has(domain, service) {
-    let domainObj = _getDomain(domain);
+    return this.getServices(domain).indexOf(service) !== -1;
+  }
 
-    return domainObj && domainObj.services.indexOf(service) !== -1;
+  getDomain(domain) {
+    return _.find(services, function(service) {
+      return service.domain === domain;
+    });
+  }
+
+  getServices(domain) {
+    let domain = this.getDomain(domain);
+
+    return domain ? domain.services : [];
   }
 
 }

@@ -33,6 +33,7 @@ export let hass = {
   stateHistoryStore: require('./stores/state_history'),
   streamStore: require('./stores/stream'),
   preferenceStore: require('./stores/preference'),
+  notificationStore: require('./stores/notification'),
   voiceStore: require('./stores/voice'),
 
   stateModel: require('./models/state'),

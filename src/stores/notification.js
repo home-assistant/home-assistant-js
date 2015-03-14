@@ -1,20 +1,25 @@
 'use strict';
 
+import { List } from 'immutable';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from '../stores/store';
+import Notification from '../models/notification';
 
-let notifications = [];
+let notifications = new List();
+
+function _nextId() {
+  return notifications.size;
+}
 
 class NotificationStore extends Store {
 
   hasNewNotifications(lastId) {
-    lastId = lastId || -1;
-    return lastId + 1 < notifications.length;
+    return !lastId || lastId + 1 < notifications.size;
   }
 
   get lastNotification() {
-    return notifications[notifications.length-1];
+    return notifications.last();
   }
 
 }
@@ -24,13 +29,14 @@ const INSTANCE = new NotificationStore();
 INSTANCE.dispatchToken = dispatcher.register(function(payload) {
   switch(payload.actionType) {
     case constants.ACTION_NEW_NOTIFICATION:
-      notifications.push({id: notifications.length, message: payload.message});
+      notifications = notifications.push(
+        new Notification(_nextId(), payload.message));
 
       INSTANCE.emitChange();
       break;
 
     case constants.ACTION_LOG_OUT:
-      notifications = [];
+      notifications = new List();
 
       INSTANCE.emitChange();
       break;

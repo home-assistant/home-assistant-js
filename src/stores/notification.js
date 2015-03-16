@@ -15,7 +15,7 @@ function _nextId() {
 class NotificationStore extends Store {
 
   hasNewNotifications(lastId) {
-    return !lastId || lastId + 1 < notifications.size;
+    return notifications.size > 0 && (!lastId || lastId + 1 < notifications.size);
   }
 
   get lastNotification() {

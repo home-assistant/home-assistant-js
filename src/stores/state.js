@@ -61,6 +61,11 @@ class StateStore extends Store {
     return states.keySeq().sort();
   }
 
+  get domains() {
+    return states.keySeq().map((entity_id) => entity_id.split('.')[0])
+             .sort().toOrderedSet();
+  }
+
 }
 
 const INSTANCE = new StateStore();

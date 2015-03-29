@@ -7,7 +7,7 @@ import { parseDateTime } from '../util';
 let ImmutableState = new Record({
     entityId: null,
     domain: null,
-    object_id: null,
+    objectId: null,
     state: null,
     entityDisplay: null,
     stateDisplay: null,

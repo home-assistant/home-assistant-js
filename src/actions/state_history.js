@@ -5,7 +5,7 @@ import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import State from '../models/state';
 
-export function newStateHistory(isFetchAll, stateHistory) {
+function newStateHistory(isFetchAll, stateHistory) {
   if (isFetchAll || stateHistory.length > 0) {
     dispatcher.dispatch({
       actionType: constants.ACTION_NEW_STATE_HISTORY,
@@ -16,10 +16,11 @@ export function newStateHistory(isFetchAll, stateHistory) {
 }
 
 export function fetchAll() {
-  callApi('GET', 'history/period').then(newStateHistory.bind(null, true));
+  callApi('GET', 'history/period').then(
+    stateHistory => newStateHistory(true, stateHistory));
 }
 
 export function fetch(entityId) {
   callApi('GET', 'history/period?filter_entity_id=' + entityId).then(
-    this.newStateHistory.bind(null, false));
+    stateHistory => newStateHistory(false, stateHistory));
 }

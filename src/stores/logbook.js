@@ -1,6 +1,5 @@
 'use strict';
 
-import _ from 'lodash';
 import { List } from 'immutable';
 
 import dispatcher from '../app_dispatcher';

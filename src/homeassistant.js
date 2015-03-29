@@ -23,6 +23,7 @@ export let hass = {
   stateHistoryActions: require('./actions/state_history'),
   streamActions: require('./actions/stream'),
   voiceActions: require('./actions/voice'),
+  logbookActions: require('./actions/logbook'),
 
   authStore: require('./stores/auth'),
   componentStore: require('./stores/component'),
@@ -35,6 +36,7 @@ export let hass = {
   preferenceStore: require('./stores/preference'),
   notificationStore: require('./stores/notification'),
   voiceStore: require('./stores/voice'),
+  logbookStore: require('./stores/logbook'),
 
   stateModel: require('./models/state'),
 

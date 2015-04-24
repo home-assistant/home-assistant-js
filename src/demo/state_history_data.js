@@ -647,16 +647,6 @@ export default [
         {
             "attributes": {
                 "auto": true,
-                "entity_id": [],
-                "friendly_name": "all devices"
-            },
-            "entity_id": "group.all_devices",
-            "last_changed": getTime(200),
-            "state": "unknown"
-        },
-        {
-            "attributes": {
-                "auto": true,
                 "entity_id": [
                     "device_tracker.anne_therese",
                     "device_tracker.paulus"
@@ -715,4 +705,119 @@ export default [
             "state": "idle"
         }
     ],
+    [
+        {
+            "attributes": {
+                "friendly_name": "Outside temperature",
+                "unit_of_measurement": "\u00b0C"
+            },
+            "entity_id": "sensor.outside_temperature",
+            "last_changed": getTime(1440),
+            "state": "23"
+        },
+        {
+            "attributes": {
+                "friendly_name": "Outside temperature",
+                "unit_of_measurement": "\u00b0C"
+            },
+            "entity_id": "sensor.outside_temperature",
+            "last_changed": getTime(900),
+            "state": "27"
+        },
+        {
+            "attributes": {
+                "friendly_name": "Outside temperature",
+                "unit_of_measurement": "\u00b0C"
+            },
+            "entity_id": "sensor.outside_temperature",
+            "last_changed": getTime(800),
+            "state": "25"
+        },
+        {
+            "attributes": {
+                "friendly_name": "Outside temperature",
+                "unit_of_measurement": "\u00b0C"
+            },
+            "entity_id": "sensor.outside_temperature",
+            "last_changed": getTime(300),
+            "state": "23"
+        }
+    ],
+    [
+        {
+            "attributes": {
+                "friendly_name": "Nest",
+                "unit_of_measurement": "\u00b0C"
+            },
+            "entity_id": "thermostat.nest",
+            "last_changed": getTime(1440),
+            "state": "18"
+        },
+        {
+            "attributes": {
+                "friendly_name": "Nest",
+                "unit_of_measurement": "\u00b0C"
+            },
+            "entity_id": "thermostat.nest",
+            "last_changed": getTime(1020),
+            "state": "20"
+        },
+        {
+            "attributes": {
+                "friendly_name": "Nest",
+                "unit_of_measurement": "\u00b0C"
+            },
+            "entity_id": "thermostat.nest",
+            "last_changed": getTime(800),
+            "state": "23"
+        },
+        {
+            "attributes": {
+                "friendly_name": "Nest",
+                "unit_of_measurement": "\u00b0C"
+            },
+            "entity_id": "thermostat.nest",
+            "last_changed": getTime(300),
+            "state": "26"
+        }
+    ],
+    [
+        {
+            "attributes": {
+                "friendly_name": "Outside humidity",
+                "unit_of_measurement": "%"
+            },
+            "entity_id": "sensor.outside_humidity",
+            "last_changed": getTime(1440),
+            "state": "45"
+        },
+        {
+            "attributes": {
+                "friendly_name": "Outside humidity",
+                "unit_of_measurement": "%"
+            },
+            "entity_id": "sensor.outside_humidity",
+            "last_changed": getTime(900),
+            "state": "49"
+        },
+        {
+            "attributes": {
+                "friendly_name": "Outside humidity",
+                "unit_of_measurement": "%"
+            },
+            "entity_id": "sensor.outside_humidity",
+            "last_changed": getTime(800),
+            "state": "58"
+        },
+        {
+            "attributes": {
+                "friendly_name": "Outside humidity",
+                "unit_of_measurement": "%"
+            },
+            "entity_id": "sensor.outside_humidity",
+            "last_changed": getTime(300),
+            "state": "52"
+        }
+    ],
+
 ];

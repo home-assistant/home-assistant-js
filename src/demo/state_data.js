@@ -1,6 +1,7 @@
 function getRandomTime() {
   let ts = new Date(new Date().getTime() - (Math.random() * 80 * 60 * 1000));
-  return `${ts.getHours()}:${ts.getMinutes()}:${ts.getSeconds()} ${ts.getDate()}-${ts.getMonth()+1}-${ts.getFullYear()}`
+  return `${ts.getHours()}:${ts.getMinutes()}:${ts.getSeconds()} ` +
+         `${ts.getDate()}-${ts.getMonth()+1}-${ts.getFullYear()}`;
 }
 
 export default [
@@ -153,7 +154,7 @@ export default [
         "state": "off"
     },
     {
-        "attributes": {},
+        "attributes": {"friendly_name": "TV Back Light"},
         "entity_id": "light.tv_back_light",
         "last_changed": getRandomTime(),
         "state": "off"

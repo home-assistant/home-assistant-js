@@ -13,12 +13,12 @@
     "demo": "BUILD_DEV=0 BUILD_DEMO=1 webpack --colors --progress -p -d"
   },
   "devDependencies": {
-    "babel-core": "^4.0.2",
-    "babel-loader": "^4.0.0",
-    "flux": "^2.0.1",
-    "immutable": "^3.6.4",
-    "lodash": "^3.0.1",
-    "moment": "^2.9.0",
-    "webpack": "^1.5.3"
+    "babel-core": "^5.1",
+    "babel-loader": "^5.0",
+    "flux": "^2.0",
+    "immutable": "^3.7",
+    "lodash": "^3.7",
+    "moment": "^2.10",
+    "webpack": "^1.8"
   }
 }

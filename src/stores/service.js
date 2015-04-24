@@ -14,9 +14,9 @@ class ServiceStore extends Store {
   }
 
   has(domain, service) {
-    let domain = services.get(domain);
+    let domainServices = services.get(domain);
 
-    return domain && domain.contains(service);
+    return domainServices && domainServices.contains(service);
   }
 
   getServices(domain) {
@@ -32,9 +32,9 @@ INSTANCE.dispatchToken = dispatcher.register(function(payload) {
     case constants.ACTION_NEW_SERVICES:
       services = (new Map()).withMutations((map) => {
         payload.services.forEach((domainObj) => {
-          map.set(domainObj.domain, new List(domainObj.services))
-        })
-      })
+          map.set(domainObj.domain, new List(domainObj.services));
+        });
+      });
 
       INSTANCE.emitChange();
       break;
@@ -50,7 +50,7 @@ INSTANCE.dispatchToken = dispatcher.register(function(payload) {
         break;
       }
 
-      let curServices = INSTANCE.getServices(domain)
+      let curServices = INSTANCE.getServices(domain);
 
       services = services.set(domain, curServices.push(service));
 

@@ -22,7 +22,7 @@ export default [
             "entity_picture": "https://graph.facebook.com/KillBillMovie/picture",
             "friendly_name": "Media Player"
         },
-        "entity_id": "chromecast.living_rm",
+        "entity_id": "media_player.living_room",
         "last_changed": getRandomTime(),
         "state": "Plex"
     },

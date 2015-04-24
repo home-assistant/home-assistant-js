@@ -5,4 +5,5 @@ export default [
     "frontend",
     "history",
     "conversation",
+    "logbook",
 ];

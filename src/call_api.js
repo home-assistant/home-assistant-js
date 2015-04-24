@@ -59,6 +59,9 @@ if (__DEMO__) {
         case 'history/period':
           resolve(require('./demo/state_history_data.js'));
           break;
+        case 'logbook':
+          resolve(require('./demo/logbook_data.js'));
+          break;
         default:
           throw "URL not implemented in demo mode /api/" + path;
       }

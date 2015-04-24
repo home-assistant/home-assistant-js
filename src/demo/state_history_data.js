@@ -676,7 +676,7 @@ export default [
             "attributes": {
                 "friendly_name": "Chromecast"
             },
-            "entity_id": "chromecast.living_room",
+            "entity_id": "media_player.living_room",
             "last_changed": getTime(1440),
             "state": "Plex"
         },
@@ -684,7 +684,7 @@ export default [
             "attributes": {
                 "friendly_name": "Chromecast"
             },
-            "entity_id": "chromecast.living_room",
+            "entity_id": "media_player.living_room",
             "last_changed": getTime(900),
             "state": "idle"
         },
@@ -692,7 +692,7 @@ export default [
             "attributes": {
                 "friendly_name": "Chromecast"
             },
-            "entity_id": "chromecast.living_room",
+            "entity_id": "media_player.living_room",
             "last_changed": getTime(800),
             "state": "YouTube"
         },
@@ -700,7 +700,7 @@ export default [
             "attributes": {
                 "friendly_name": "Chromecast"
             },
-            "entity_id": "chromecast.living_room",
+            "entity_id": "media_player.living_room",
             "last_changed": getTime(300),
             "state": "idle"
         }

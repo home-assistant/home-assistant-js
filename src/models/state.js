@@ -1,5 +1,3 @@
-'use strict';
-
 import { Record } from 'immutable';
 import serviceStore from '../stores/service';
 import { parseDateTime } from '../util';

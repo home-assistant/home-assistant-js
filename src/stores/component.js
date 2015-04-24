@@ -1,5 +1,3 @@
-'use strict';
-
 import { List } from 'immutable';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';

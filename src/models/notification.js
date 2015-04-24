@@ -1,5 +1,3 @@
-'use strict';
-
 import { Record } from 'immutable';
 
 let ImmutableNotification = new Record({

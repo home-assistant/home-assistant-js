@@ -1,5 +1,3 @@
-'use strict';
-
 import dispatcher from './app_dispatcher';
 
 if (__DEV__) {

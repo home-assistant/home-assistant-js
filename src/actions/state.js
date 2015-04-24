@@ -1,5 +1,3 @@
-'use strict';
-
 import callApi from '../call_api';
 import dispatcher from '../app_dispatcher';
 import { ACTION_NEW_STATES } from '../constants';

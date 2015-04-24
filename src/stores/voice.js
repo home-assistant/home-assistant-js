@@ -1,5 +1,3 @@
-'use strict';
-
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';

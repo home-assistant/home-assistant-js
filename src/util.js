@@ -1,5 +1,3 @@
-'use strict';
-
 export function parseDateTime(datetime) {
   let [time, date] = datetime.split(" ");
   let [hour, minute, second] = time.split(":");

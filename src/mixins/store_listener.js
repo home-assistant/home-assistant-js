@@ -1,5 +1,3 @@
-'use strict';
-
 /**
 
 Put this in your class to have it listen to stores.

@@ -1,5 +1,3 @@
-'use strict';
-
 import authStore from './stores/auth';
 
 let CallApi = function(method, path, parameters=null, options={}) {

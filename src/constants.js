@@ -1,5 +1,3 @@
-'use strict';
-
 var _ = require('lodash');
 
 // keys that will have a symbol with the value of the key

@@ -1,5 +1,3 @@
-'use strict';
-
 var dispatcher = require('../app_dispatcher');
 var { ACTION_NEW_NOTIFICATION } = require('../constants');
 

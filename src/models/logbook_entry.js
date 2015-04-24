@@ -1,5 +1,3 @@
-'use strict';
-
 import { Record } from 'immutable';
 import { parseDateTime } from '../util';
 

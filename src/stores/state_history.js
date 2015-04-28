@@ -26,7 +26,8 @@ class HistoryStore extends Store {
   }
 
   get all() {
-    return _.values(_history);
+    return _.sortBy(
+      _.values(_history), function(coll) { return coll[0].entityId; });
   }
 
 }

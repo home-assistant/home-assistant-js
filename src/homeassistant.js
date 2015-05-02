@@ -13,7 +13,6 @@ export let hass = {
   util: require('./util'),
 
   authActions: require('./actions/auth'),
-  componentActions: require('./actions/component'),
   eventActions: require('./actions/event'),
   serviceActions: require('./actions/service'),
   stateActions: require('./actions/state'),
@@ -22,6 +21,7 @@ export let hass = {
   streamActions: require('./actions/stream'),
   voiceActions: require('./actions/voice'),
   logbookActions: require('./actions/logbook'),
+  configActions: require('./actions/config'),
 
   authStore: require('./stores/auth'),
   componentStore: require('./stores/component'),
@@ -35,6 +35,7 @@ export let hass = {
   notificationStore: require('./stores/notification'),
   voiceStore: require('./stores/voice'),
   logbookStore: require('./stores/logbook'),
+  configStore: require('./stores/config'),
 
   stateModel: require('./models/state'),
 

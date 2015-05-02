@@ -26,7 +26,7 @@ class SyncStore extends Store {
   }
 
   get componentsLoaded() {
-    return contains(constants.ACTION_NEW_LOADED_COMPONENTS);
+    return contains(constants.ACTION_NEW_CONFIG);
   }
 
   get eventsLoaded() {
@@ -52,7 +52,7 @@ INSTANCE.dispatchToken = dispatcher.register(function(payload) {
       INSTANCE.emitChange();
       break;
 
-    case constants.ACTION_NEW_LOADED_COMPONENTS:
+    case constants.ACTION_NEW_CONFIG:
     case constants.ACTION_NEW_EVENTS:
     case constants.ACTION_NEW_SERVICES:
     case constants.ACTION_NEW_STATES:

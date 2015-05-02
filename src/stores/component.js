@@ -2,8 +2,9 @@ import { List } from 'immutable';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';
+import configStore from './config';
 
-let loadedComponents = new List();
+let loadedComponents = configStore.components;
 
 class ComponentStore extends Store {
   get loaded() {
@@ -20,8 +21,9 @@ const INSTANCE = new ComponentStore();
 INSTANCE.dispatchToken = dispatcher.register(payload => {
   switch(payload.actionType) {
 
-    case constants.ACTION_NEW_LOADED_COMPONENTS:
-      loadedComponents = new List(payload.components);
+    case constants.ACTION_NEW_CONFIG:
+      dispatcher.waitFor([configStore.dispatchToken]);
+      loadedComponents = configStore.components;
       INSTANCE.emitChange();
       break;
 
@@ -42,7 +44,8 @@ INSTANCE.dispatchToken = dispatcher.register(payload => {
       break;
 
     case constants.ACTION_LOG_OUT:
-      loadedComponents = new List();
+      dispatcher.waitFor([configStore.dispatchToken]);
+      loadedComponents = configStore.components;
       INSTANCE.emitChange();
       break;
 

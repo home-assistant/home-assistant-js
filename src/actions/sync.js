@@ -4,7 +4,7 @@ import constants from '../constants';
 import * as eventActions from './event';
 import * as stateActions from './state';
 import * as serviceActions from './service';
-import * as componentActions from './component';
+import * as configActions from './config';
 
 const SYNC_INTERVAL = 30000;
 
@@ -18,7 +18,7 @@ export function fetchAll() {
   eventActions.fetchAll();
   stateActions.fetchAll();
   serviceActions.fetchAll();
-  componentActions.fetchAll();
+  configActions.fetch();
 
   if (isSyncing) {
     scheduleSync();

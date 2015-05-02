@@ -15,24 +15,27 @@ will be automatically fired on a store change.
 
 */
 
-let NAMES = [
-  'auth', 'component', 'event', 'service', 'state', 'stateHistory',
-  'stream', 'sync', 'notification', 'voice', 'logbook'];
+_ = require('lodash');
 
-let LISTENERS = NAMES.map(store => store + 'StoreChanged');
-let STORES = NAMES.map(function(store) {
-  // convert from camel to snake case
-  let jsFile = store.replace(
-    /([A-Z])/g, function($1){ return "_" + $1.toLowerCase(); });
-  return require('../stores/' + jsFile);
-});
+let STORES = {
+  'authStoreChanged': require('../stores/auth'),
+  'componentStoreChanged': require('../stores/component'),
+  'eventStoreChanged': require('../stores/event'),
+  'serviceStoreChanged': require('../stores/service'),
+  'stateStoreChanged': require('../stores/state'),
+  'stateHistoryStoreChanged': require('../stores/state_history'),
+  'streamStoreChanged': require('../stores/stream'),
+  'syncStoreChanged': require('../stores/sync'),
+  'notificationStoreChanged': require('../stores/notification'),
+  'voiceStoreChanged': require('../stores/voice'),
+  'logbookStoreChanged': require('../stores/logbook'),
+};
 
 export function listenToStores(fireOnListen) {
   var storeListeners = [];
 
-  LISTENERS.forEach(function(listenerName, storeIndex) {
+  _.forEach(STORES, function(store, listenerName) {
     if (this[listenerName]) {
-      var store = STORES[storeIndex];
       var listener = this[listenerName].bind(this, store);
 
       store.addChangeListener(listener);

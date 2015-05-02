@@ -28,14 +28,8 @@ let CallApi = function(method, path, parameters=null, options={}) {
   });
 };
 
-// To ensure __DEMO__ is set.
-try {
-  __DEMO__
-} catch(err) {
-  __DEMO__ = false;
-}
-
-if (__DEMO__) {
+// To make React Native happy
+if (typeof(__DEMO__) == "boolean" && __DEMO__) {
   CallApi = function(method, path) {
     return new Promise(function(resolve, reject) {
 

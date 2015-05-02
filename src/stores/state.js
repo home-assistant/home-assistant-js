@@ -87,7 +87,7 @@ INSTANCE.dispatchToken =  dispatcher.register(function(payload) {
       break;
 
     case constants.ACTION_LOG_OUT:
-      states = {};
+      states = new Map();
       INSTANCE.emitChange();
       break;
   }

@@ -41,7 +41,7 @@ INSTANCE.dispatchToken = dispatcher.register(payload => {
       break;
 
     case constants.ACTION_LOG_OUT:
-      config = Config();
+      config = new Config();
       INSTANCE.emitChange();
       break;
   }

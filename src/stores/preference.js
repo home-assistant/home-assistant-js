@@ -2,7 +2,11 @@ import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import Store from './store';
 
-const storage = localStorage;
+try {
+  var storage = localStorage;
+} catch(err) {
+  var storage = {};
+}
 
 const PREF_AUTH_TOKEN = "PREF_AUTH_TOKEN";
 const DEFAULT_AUTH_TOKEN = null;

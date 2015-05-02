@@ -8,7 +8,7 @@ var definePlugin = new webpack.DefinePlugin({
 });
 
 module.exports = {
-  entry: "./src/homeassistant.js",
+  entry: "./src/export_window.js",
   output: {
       path: 'dist',
       filename: "homeassistant.min.js"

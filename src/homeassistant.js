@@ -6,7 +6,7 @@ if (__DEV__) {
   });
 }
 
-export let hass = {
+export default {
   callApi: require('./call_api'),
   dispatcher: dispatcher,
   constants: require('./constants'),
@@ -41,7 +41,3 @@ export let hass = {
 
   storeListenerMixIn: require('./mixins/store_listener'),
 };
-
-if (!('hass' in window)) {
-    window.hass = hass;
-}

@@ -3,6 +3,7 @@ import dispatcher from '../app_dispatcher';
 import constants from '../constants';
 import * as syncActions from './sync';
 import * as streamActions from './stream';
+import { fetch as fetchData } from './bootstrap';
 
 /**
  * Fetch the loaded components as a way to validate the API.
@@ -18,7 +19,7 @@ export function validate(authToken, {
     actionType: constants.ACTION_VALIDATING_AUTH_TOKEN
   });
 
-  callApi('GET', '', false, {authToken: authToken}).then(
+  fetchData().then(
 
     function() {
       dispatcher.dispatch({
@@ -38,7 +39,7 @@ export function validate(authToken, {
       }
 
       if (useStreaming) {
-        streamActions.start(authToken);
+        streamActions.start(authToken, false);
       } else {
         syncActions.start();
       }

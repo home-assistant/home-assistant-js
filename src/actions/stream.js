@@ -27,7 +27,7 @@ export function isSupported() {
   return 'EventSource' in window;
 }
 
-export function start(authToken) {
+export function start(authToken, syncOnInitialConnect=true) {
   if (source !== null) {
     stopStream();
   }
@@ -50,7 +50,12 @@ export function start(authToken) {
 
     // We are streaming, fetch latest info but stop streaming
     syncActions.stop();
-    syncActions.fetchAll();
+
+    if (syncOnInitialConnect) {
+      syncActions.fetchAll();
+    } else {
+      syncOnInitialConnect = true;
+    }
   }, false);
 
   source.addEventListener('message', function(ev) {

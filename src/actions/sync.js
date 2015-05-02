@@ -1,10 +1,7 @@
 import _ from 'lodash';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants';
-import * as eventActions from './event';
-import * as stateActions from './state';
-import * as serviceActions from './service';
-import * as configActions from './config';
+import { fetch as fetchData } from './bootstrap';
 
 const SYNC_INTERVAL = 30000;
 
@@ -15,10 +12,7 @@ export function fetchAll() {
     actionType: constants.ACTION_FETCH_ALL,
   });
 
-  eventActions.fetchAll();
-  stateActions.fetchAll();
-  serviceActions.fetchAll();
-  configActions.fetch();
+  fetchData();
 
   if (isSyncing) {
     scheduleSync();

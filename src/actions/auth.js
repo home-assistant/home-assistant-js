@@ -14,9 +14,13 @@ import { fetch as fetchData } from './bootstrap';
 export function validate(authToken, {
     useStreaming=streamActions.isSupported,
     rememberLogin=false,
+    host='',
   }) {
+
   dispatcher.dispatch({
-    actionType: constants.ACTION_VALIDATING_AUTH_TOKEN
+    actionType: constants.ACTION_VALIDATING_AUTH_TOKEN,
+    authToken: authToken,
+    host: host,
   });
 
   fetchData().then(

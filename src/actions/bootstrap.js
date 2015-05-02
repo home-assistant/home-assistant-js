@@ -16,13 +16,5 @@ export function newBootstrapData(data) {
 }
 
 export function fetch(authToken=false) {
-  let apiCall;
-
-  if (authToken) {
-    apiCall = callApi('GET', 'bootstrap', false, {authToken: authToken});
-  } else {
-    apiCall = callApi('GET', 'bootstrap');
-  }
-
-  return apiCall.then(newBootstrapData);
+  return callApi('GET', 'bootstrap').then(newBootstrapData);
 }

@@ -5,6 +5,7 @@ import Store from '../stores/store';
 let isValidating = false;
 let isLoggedIn = false;
 let authToken = '';
+let host = '';
 let lastAttemptInvalid = false;
 let lastAttemptMessage = '';
 
@@ -19,6 +20,10 @@ class AuthStore extends Store {
 
   get authToken() {
     return authToken;
+  }
+
+  get host() {
+    return host;
   }
 
   get lastAttemptInvalid() {
@@ -36,6 +41,8 @@ INSTANCE.dispatchToken = dispatcher.register(payload => {
   switch(payload.actionType) {
     case constants.ACTION_VALIDATING_AUTH_TOKEN:
       isValidating = true;
+      authToken = payload.authToken;
+      host = payload.host;
 
       INSTANCE.emitChange();
       break;
@@ -43,7 +50,7 @@ INSTANCE.dispatchToken = dispatcher.register(payload => {
     case constants.ACTION_VALID_AUTH_TOKEN:
       isValidating = false;
       isLoggedIn = true;
-      authToken = payload.authToken;
+
       lastAttemptInvalid = false;
       lastAttemptMessage = '';
 
@@ -54,6 +61,7 @@ INSTANCE.dispatchToken = dispatcher.register(payload => {
       isValidating = false;
       isLoggedIn = false;
       authToken = '';
+      host = '';
       lastAttemptInvalid = true;
       lastAttemptMessage = payload.message || 'Unexpected result from API';
 
@@ -64,6 +72,7 @@ INSTANCE.dispatchToken = dispatcher.register(payload => {
       isValidating = false;
       isLoggedIn = false;
       authToken = '';
+      host = '';
       lastAttemptInvalid = false;
       lastAttemptMessage = '';
 

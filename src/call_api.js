@@ -2,7 +2,7 @@ import authStore from './stores/auth';
 
 let CallApi = function(method, path, parameters=null, options={}) {
   let authToken = options.authToken || authStore.authToken;
-  let url = "/api/" + path;
+  let url = authStore.host + "/api/" + path;
 
   return new Promise(function(resolve, reject) {
     let req = new XMLHttpRequest();
@@ -27,6 +27,13 @@ let CallApi = function(method, path, parameters=null, options={}) {
     parameters ? req.send(JSON.stringify(parameters)) : req.send();
   });
 };
+
+// To ensure __DEMO__ is set.
+try {
+  __DEMO__
+} catch(err) {
+  __DEMO__ = false;
+}
 
 if (__DEMO__) {
   CallApi = function(method, path) {

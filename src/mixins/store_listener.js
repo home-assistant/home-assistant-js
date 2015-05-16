@@ -31,12 +31,13 @@ let STORES = {
   'logbookStoreChanged': require('../stores/logbook'),
 };
 
-export function listenToStores(fireOnListen) {
+export function listenToStores(fireOnListen, obj) {
+  obj = obj || this
   var storeListeners = [];
 
   _.forEach(STORES, function(store, listenerName) {
-    if (this[listenerName]) {
-      var listener = this[listenerName].bind(this, store);
+    if (obj[listenerName]) {
+      var listener = obj[listenerName].bind(obj, store);
 
       store.addChangeListener(listener);
 
@@ -46,13 +47,14 @@ export function listenToStores(fireOnListen) {
         listener();
       }
     }
-  }.bind(this));
+  }.bind(obj));
 
-  this._storeListeners = storeListeners;
+  obj._storeListeners = storeListeners;
 }
 
-export function stopListeningToStores() {
-  this._storeListeners.forEach(function({store, listener}) {
+export function stopListeningToStores(obj) {
+  obj = obj || this
+  obj._storeListeners.forEach(function({store, listener}) {
     store.removeChangeListener(listener);
   });
 }

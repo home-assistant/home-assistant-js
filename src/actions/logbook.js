@@ -11,10 +11,10 @@ function newLogbookEntries(date, logbookEntries) {
 }
 
 export function fetch(date=null) {
-  let url = 'logbook'
+  let url = 'logbook';
 
   if (date != null) {
-    url += `/${date}`
+    url += `/${date}`;
   }
 
   callApi('GET', url).then(

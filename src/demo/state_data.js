@@ -176,7 +176,7 @@ export default [
     },
     {
         "attributes": {
-            "entity_picture": "https://graph.facebook.com/schoutsen/picture"
+            "entity_picture": "https://graph.facebook.com/297400035/picture"
         },
         "entity_id": "device_tracker.paulus",
         "last_changed": getRandomTime(),
@@ -184,7 +184,7 @@ export default [
     },
     {
         "attributes": {
-            "entity_picture": "https://graph.facebook.com/anne.t.frederiksen/picture"
+            "entity_picture": "https://graph.facebook.com/621994601/picture"
         },
         "entity_id": "device_tracker.anne_therese",
         "last_changed": getRandomTime(),

@@ -1,21 +1,23 @@
-import authStore from './stores/auth';
+import Flux from './flux';
+import { getters as authGetters } from './modules/auth';
 
-let CallApi = function(method, path, parameters=null, options={}) {
-  let authToken = options.authToken || authStore.authToken;
-  let url = authStore.host + "/api/" + path;
+let callApi = function callApi(method, path, parameters=null) {
+  const authInfo = Flux.evaluate(authGetters.authInfo);
 
-  return new Promise(function(resolve, reject) {
-    let req = new XMLHttpRequest();
+  const url = `${authInfo.host}/api/${path}`;
+
+  return new Promise(function apiResponse(resolve, reject) {
+    const req = new XMLHttpRequest();
     req.open(method, url, true);
-    req.setRequestHeader("X-HA-access", authToken);
+    req.setRequestHeader('X-HA-access', authInfo.authToken);
 
-    req.onload = function() {
-      if(req.status > 199 && req.status < 300) {
+    req.onload = () => {
+      if (req.status > 199 && req.status < 300) {
         resolve(JSON.parse(req.responseText));
       } else {
         // see if we got an error back.
         try {
-          reject(JSON.parse(req.responseText));  
+          reject(JSON.parse(req.responseText));
         } catch (err) {
           reject({});
         }
@@ -24,17 +26,21 @@ let CallApi = function(method, path, parameters=null, options={}) {
 
     req.onerror = () => reject({});
 
-    parameters ? req.send(JSON.stringify(parameters)) : req.send();
+    if (parameters) {
+      req.send(JSON.stringify(parameters));
+    } else {
+      req.send();
+    }
   });
 };
 
 // To make React Native happy
-if (typeof(__DEMO__) == "boolean" && __DEMO__) {
-  CallApi = function(method, path) {
-    return new Promise(function(resolve, reject) {
+if (typeof __DEMO__ === 'boolean' && __DEMO__) {
+  callApi = function demoCallAPI(method, path) {
+    return new Promise(function demoAPIResponse(resolve, reject) {
 
       if (method !== 'GET') {
-        throw "URL not implemented in demo mode: /api/" + path;
+        throw 'URL not implemented in demo mode: /api/' + path;
       }
 
       // strip off url arguments:
@@ -45,6 +51,7 @@ if (typeof(__DEMO__) == "boolean" && __DEMO__) {
       switch (path) {
         case '':
           resolve();
+          break;
         case 'components':
           resolve(require('./demo/component_data.js'));
           break;
@@ -64,11 +71,11 @@ if (typeof(__DEMO__) == "boolean" && __DEMO__) {
           resolve(require('./demo/logbook_data.js'));
           break;
         default:
-          throw "URL not implemented in demo mode /api/" + path;
+          throw `URL not implemented in demo mode /api/${path}`;
       }
 
     });
   };
 }
 
-export default CallApi;
+export default callApi;

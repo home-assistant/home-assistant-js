@@ -1,0 +1,28 @@
+import { Store } from 'nuclear-js';
+import { dateToStr } from '../../../util';
+import actionTypes from '../action-types';
+
+class CurrentEntityHistoryDate extends Store {
+  getInitialState() {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return dateToStr(yesterday);
+  }
+
+  initialize() {
+    this.on(actionTypes.ENTITY_HISTORY_DATE_SELECTED, dateSelected);
+    this.on(actionTypes.LOG_OUT, logOut);
+  }
+}
+
+const INSTANCE = new CurrentEntityHistoryDate();
+
+export default INSTANCE;
+
+function dateSelected(state, {date}) {
+  return dateToStr(new Date(Math.min(date, new Date())));
+}
+
+function logOut(state) {
+  return INSTANCE.getInitialState();
+}

@@ -1,4 +1,5 @@
+import homeAssistant from '.';
 
 if (!('hass' in window)) {
-    window.hass = require('./homeassistant');
+  window.hass = homeAssistant;
 }

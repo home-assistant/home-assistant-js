@@ -20,11 +20,13 @@ export default [
     {
         "attributes": {
             "entity_picture": "https://graph.facebook.com/KillBillMovie/picture",
-            "friendly_name": "Media Player"
+            "friendly_name": "Chromecast",
+            "supported_media_commands": 509,
+            "media_title": "Kill Bill"
         },
         "entity_id": "media_player.living_room",
         "last_changed": getRandomTime(),
-        "state": "Plex"
+        "state": "playing"
     },
     {
         "attributes": {

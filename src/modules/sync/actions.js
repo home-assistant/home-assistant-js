@@ -2,7 +2,7 @@ import debounce from 'lodash/function/debounce';
 import Flux from '../../flux';
 import actionTypes from './action-types';
 import * as getters from './getters';
-import callApi from '../../call_api';
+import callApi from '../../call-api';
 
 import { actions as entityActions } from '../entity';
 import { actions as serviceActions } from '../service';
@@ -28,7 +28,7 @@ export function fetchAll() {
       scheduleSync();
     }
   }, message => {
-    Flux.dispatch(actionTypes.API_FETCH_ALL_FAIL, {});
+    Flux.dispatch(actionTypes.API_FETCH_ALL_FAIL, {message});
 
     if (isSyncScheduled) {
       scheduleSync();

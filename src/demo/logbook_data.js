@@ -30,14 +30,14 @@ export default [
     {
         "domain": "thermostat",
         "entity_id": "thermostat.nest",
-        "message": "set to 17",
+        "message": "changed to 17 \u00b0C",
         "name": "Nest",
         "when": "09:08:47 24-04-2015"
     },
     {
         "domain": "thermostat",
         "entity_id": "thermostat.nest",
-        "message": "set to 21",
+        "message": "changed to 21 \u00b0C",
         "name": "Nest",
         "when": "16:00:47 24-04-2015"
     },
@@ -86,7 +86,7 @@ export default [
     {
         "domain": "media_player",
         "entity_id": "media_player.living_room",
-        "message": "set to Plex",
+        "message": "changed to Plex",
         "name": "Media Player",
         "when": "19:12:47 24-04-2015"
     },

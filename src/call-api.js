@@ -34,46 +34,28 @@ let callApi = function callApi(method, path, parameters=null) {
   });
 };
 
-// To make React Native happy
-if (typeof __DEMO__ === 'boolean' && __DEMO__) {
+if (__DEMO__) {
   callApi = function demoCallAPI(method, path) {
     return new Promise(function demoAPIResponse(resolve, reject) {
-
       if (method !== 'GET') {
-        throw 'URL not implemented in demo mode: /api/' + path;
+        throw `Method ${method} not allowed in demo mode.`;
       }
 
-      // strip off url arguments:
-      if (path.indexOf('?') !== -1) {
-        path = path.substr(0, path.indexOf('?'));
-      }
+      const component = path.split('/', 1)[0];
 
-      switch (path) {
-        case '':
-          resolve();
-          break;
-        case 'components':
-          resolve(require('./demo/component_data.js'));
-          break;
-        case 'services':
-          resolve(require('./demo/service_data.js'));
-          break;
-        case 'events':
-          resolve(require('./demo/event_data.js'));
-          break;
-        case 'states':
-          resolve(require('./demo/state_data.js'));
-          break;
-        case 'history/period':
-          resolve(require('./demo/state_history_data.js'));
+      switch (component) {
+        case 'bootstrap':
+          resolve(require('./demo/bootstrap_data.js'));
           break;
         case 'logbook':
           resolve(require('./demo/logbook_data.js'));
           break;
+        case 'history':
+          resolve(require('./demo/state_history_data.js'));
+          break;
         default:
           throw `URL not implemented in demo mode /api/${path}`;
       }
-
     });
   };
 }

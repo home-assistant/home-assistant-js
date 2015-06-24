@@ -25,6 +25,13 @@ export function validate(authToken, {
     () => {
       Flux.dispatch(actionTypes.VALID_AUTH_TOKEN, {authToken, host, rememberAuth});
 
+      if(__DEMO__) {
+        // Show as if streaming active in UI
+        Flux.dispatch('STREAM_START');
+        // No need to start streaming/syncing
+        return;
+      }
+
       if (useStreaming) {
         streamActions.start({syncOnInitialConnect: false});
       } else {

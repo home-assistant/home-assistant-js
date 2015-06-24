@@ -1,5 +1,5 @@
 import { Immutable } from 'nuclear-js';
-import callApi from '../../call_api';
+import callApi from '../../call-api';
 
 const ENTITY = 'event';
 

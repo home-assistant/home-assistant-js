@@ -1,5 +1,5 @@
 import Flux from '../../flux';
-import callApi from '../../call_api';
+import callApi from '../../call-api';
 import actionTypes from './action-types';
 
 export function changeCurrentDate(date) {

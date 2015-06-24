@@ -5,7 +5,9 @@ import { actions as entityHistoryActions, getters as entityHistoryGetters } from
 import { actions as eventActions, getters as eventGetters } from './modules/event';
 import { actions as logbookActions, getters as logbookGetters } from './modules/logbook';
 import { actions as moreInfoActions, getters as moreInfoGetters } from './modules/more-info';
-import { actions as navigationActions, getters as navigationGetters } from './modules/navigation';
+import { actions as navigationActions,
+         getters as navigationGetters,
+         urlSync } from './modules/navigation';
 import { actions as notificationActions, getters as notificationGetters } from './modules/notification';
 import reactor from './flux';
 import { actions as serviceActions, getters as serviceGetters } from './modules/service';
@@ -28,6 +30,7 @@ export default {
   serviceActions, serviceGetters,
   streamActions, streamGetters,
   syncActions, syncGetters,
+  urlSync,
   util,
   voiceActions, voiceGetters,
 };

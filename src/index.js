@@ -10,6 +10,7 @@ import { actions as navigationActions,
          urlSync } from './modules/navigation';
 import { actions as notificationActions, getters as notificationGetters } from './modules/notification';
 import reactor from './flux';
+import { localStoragePreferences } from './modules/preferences';
 import { actions as serviceActions, getters as serviceGetters } from './modules/service';
 import { actions as streamActions, getters as streamGetters } from './modules/stream';
 import { actions as syncActions, getters as syncGetters } from './modules/sync';
@@ -23,6 +24,7 @@ export default {
   entityHistoryActions, entityHistoryGetters,
   eventActions, eventGetters,
   logbookActions, logbookGetters,
+  localStoragePreferences,
   moreInfoActions, moreInfoGetters,
   navigationActions, navigationGetters,
   notificationActions, notificationGetters,

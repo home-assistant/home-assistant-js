@@ -21,7 +21,7 @@ export const entityHistoryForCurrentDate = [
 export const hasDataForCurrentDate = [
   currentDate,
   entityHistoryMap,
-  (date, map) => !!map.get(date)
+  (date, map) => !!map.get(date),
 ];
 
 export const recentEntityHistoryMap = [

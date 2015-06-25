@@ -18,6 +18,11 @@ const INSTANCE = new EntityHistory();
 export default INSTANCE;
 
 function entriesLoaded(state, {date, stateHistory}) {
+  // set an empty map to indicate that data was loaded
+  if (stateHistory.length == 0) {
+    return state.set(date, toImmutable({}));
+  }
+
   return state.withMutations(mState => {
     stateHistory.forEach(
       history => mState.setIn(

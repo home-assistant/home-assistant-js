@@ -20,7 +20,7 @@ const INSTANCE = new CurrentEntityHistoryDate();
 export default INSTANCE;
 
 function dateSelected(state, {date}) {
-  return dateToStr(new Date(Math.min(date, new Date())));
+  return dateToStr(date);
 }
 
 function logOut(state) {

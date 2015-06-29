@@ -12,16 +12,20 @@ let unwatchObserver;
 const isSupported = history.pushState && !__DEMO__;
 
 function initialSync() {
+  let pane, filter, url;
   // store current state in url or set state based on url
   if (location.pathname === '/') {
-    const pane = Flux.evaluate(activePane);
-    const filter = Flux.evaluate(activeFilter);
-    const url = paneFilterToPage(pane, filter);
-    history.replaceState({pane, filter}, title, url);
+    pane = Flux.evaluate(activePane);
+    filter = Flux.evaluate(activeFilter);
+    url = paneFilterToPage(pane, filter);
   } else {
-    const {pane, filter} = pageToPaneFilter(location.pathname.substr(1));
+    const paneFilter = pageToPaneFilter(location.pathname.substr(1));
+    pane = paneFilter.pane;
+    filter = paneFilter.filter;
+    url = location.pathname;
     navigate(pane, filter);
   }
+  history.replaceState({pane, filter}, title, url);
 }
 
 function popstateChangeListener(ev) {

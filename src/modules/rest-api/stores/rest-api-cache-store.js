@@ -1,7 +1,7 @@
 /**
  * Stores cached entities for the Rest API
  */
-import isArray from 'lodash/lang/isarray';
+import isArray from 'lodash/lang/isArray';
 import { Store, toImmutable } from 'nuclear-js';
 import actionTypes from '../action-types';
 

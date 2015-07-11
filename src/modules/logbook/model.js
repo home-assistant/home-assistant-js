@@ -1,7 +1,7 @@
-import { Record } from 'immutable';
+import { Immutable } from 'nuclear-js';
 import { parseDateTime } from '../../util';
 
-let ImmutableLogbookEntry = new Record({
+let ImmutableLogbookEntry = new Immutable.Record({
   when: null,
   name: null,
   message: null,

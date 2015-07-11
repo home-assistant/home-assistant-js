@@ -199,5 +199,14 @@ export default [
         "entity_id": "switch.ac",
         "last_changed": getRandomTime(),
         "state": "on"
+    },
+    {
+        "attributes": {
+          "entity_picture": "http://194.218.96.92/jpg/image.jpg",
+          "friendly_name": "Demo Camera",
+        },
+        "entity_id": "camera.ip_camera",
+        "last_changed": getRandomTime(),
+        "state": "idle"
     }
 ];

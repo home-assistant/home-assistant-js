@@ -35,4 +35,5 @@ export default {
   urlSync,
   util,
   voiceActions, voiceGetters,
+  demo: __DEMO__,
 };

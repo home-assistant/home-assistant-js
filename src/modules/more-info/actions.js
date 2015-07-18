@@ -6,5 +6,5 @@ export function selectEntity(entityId) {
 }
 
 export function deselectEntity() {
-  Flux.dispatch(actionTypes.DESELECT_ENTITY, {});
+  Flux.dispatch(actionTypes.SELECT_ENTITY, {entityId: null});
 }

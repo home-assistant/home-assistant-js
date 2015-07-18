@@ -20,10 +20,8 @@ const INSTANCE = new SelectedNavigationPane();
 export default INSTANCE;
 
 function navigate(state, {pane, filter=null}) {
-  return toImmutable({
-    pane,
-    filter,
-  });
+  return state.withMutations(
+    map => map.set('pane', pane).set('filter', filter))
 }
 
 function logOut(state) {

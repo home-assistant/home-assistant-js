@@ -30,21 +30,21 @@ function voiceStart(state) {
 }
 
 function voiceResult(state, {interimTranscript, finalTranscript}) {
-  return toImmutable({
-      finalTranscript,
-      interimTranscript,
-      isListening: true,
-      isTransmitting: false,
-  });
+  return state.withMutations(map => {
+    return map.set('isListening', true)
+              .set('isTransmitting', false)
+              .set('interimTranscript', interimTranscript)
+              .set('finalTranscript', finalTranscript)
+  })
 }
 
 function voiceTransmitting(state, {finalTranscript}) {
-  return toImmutable({
-    finalTranscript,
-    isListening: false,
-    isTransmitting: false,
-    interimTranscript: '',
-  });
+  return state.withMutations(map => {
+    return map.set('isListening', false)
+              .set('isTransmitting', true)
+              .set('interimTranscript', '')
+              .set('finalTranscript', finalTranscript)
+  })
 }
 
 function voiceDone() {

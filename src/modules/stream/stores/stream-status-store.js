@@ -29,31 +29,26 @@ const INSTANCE = new StreamStatusStore();
 export default INSTANCE;
 
 function startStream(state) {
-  return toImmutable({
-    isSupported,
-    isStreaming: true,
-    useStreaming: true,
-    hasError: false,
-  });
+  return state.withMutations(map => {
+    map.set('isStreaming', true)
+       .set('useStreaming', true)
+       .set('hasError', false)
+  })
 }
 
 function stopStream(state) {
-  return toImmutable({
-    isSupported,
-    isStreaming: false,
-    useStreaming: false,
-    hasError: false,
-  });
+  return state.withMutations(map => {
+    map.set('isStreaming', false)
+       .set('useStreaming', false)
+       .set('hasError', false)
+  })
 }
 
 function errorStream(state) {
-  return toImmutable({
-    isSupported,
-    isStreaming: false,
-    useStreaming: state.get('useStreaming'),
-    // workaround where observer wouldn't fire
-    hasError: "true",
-  });
+  return state.withMutations(map => {
+    map.set('isStreaming', false)
+       .set('hasError', "true")
+  })
 }
 
 function logOut() {

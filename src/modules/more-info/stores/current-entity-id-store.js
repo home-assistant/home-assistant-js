@@ -8,7 +8,6 @@ class CurrentEntityIdStore extends Store {
 
   initialize() {
     this.on(actionTypes.SELECT_ENTITY, selectEntity);
-    this.on(actionTypes.DESELECT_ENTITY, deselectEntity);
     this.on(actionTypes.LOG_OUT, logOut);
   }
 }
@@ -19,10 +18,6 @@ export default INSTANCE;
 
 function selectEntity(state, {entityId}) {
   return entityId;
-}
-
-function deselectEntity(state) {
-  return null;
 }
 
 function logOut(state) {

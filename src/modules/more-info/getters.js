@@ -6,6 +6,11 @@ export const currentEntityId = [
   'moreInfoEntityId'
 ];
 
+export const hasCurrentEntityId = [
+  currentEntityId,
+  (entityId) => entityId !== null,
+];
+
 export const currentEntity = [
   currentEntityId,
   entityGetters.entityMap,

@@ -1,3 +1,5 @@
+import { Promise } from 'es6-promise';
+
 import Flux from './flux';
 import { getters as authGetters } from './modules/auth';
 

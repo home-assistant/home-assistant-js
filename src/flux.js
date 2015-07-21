@@ -1,5 +1,3 @@
-var Nuclear = require('nuclear-js')
+import createReactor from './util/create-reactor';
 
-export default Nuclear.Reactor({
-  debug: __DEV__ || __DEMO__,
-});
+export default createReactor();

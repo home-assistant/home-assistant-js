@@ -1,11 +1,13 @@
 import { toImmutable } from 'nuclear-js';
-import Flux from '../../flux';
+import RestApiCacheStore from './stores/rest-api-cache-store';
 
-Flux.registerStores({
-  restApiCache: require('./stores/rest-api-cache-store'),
-});
+export createApiActions from './create-api-actions';
 
-export const createApiActions = require('./create-api-actions');
+export function register(reactor) {
+  reactor.registerStores({
+    restApiCache: RestApiCacheStore,
+  });
+}
 
 /**
  * Creates a getter if a particular entity has data.

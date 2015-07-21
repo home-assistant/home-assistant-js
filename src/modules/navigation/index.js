@@ -1,12 +1,13 @@
-import Flux from '../../flux';
 import selectedNavigationPanel from './stores/selected-navigation-pane-store';
 import * as _actions from './actions';
 import * as _getters from './getters';
 import * as _urlSync from './url-sync';
 
-Flux.registerStores({
-  selectedNavigationPanel
-});
+export function register(reactor) {
+  reactor.registerStores({
+    selectedNavigationPanel
+  });
+}
 
 export const actions = _actions;
 export const getters = _getters;

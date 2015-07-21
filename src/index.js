@@ -1,39 +1,66 @@
-import { actions as authActions, getters as authGetters } from './modules/auth';
-import { actions as configActions, getters as configGetters } from './modules/config';
-import { actions as entityActions, getters as entityGetters } from './modules/entity';
-import { actions as entityHistoryActions, getters as entityHistoryGetters } from './modules/entity-history';
-import { actions as eventActions, getters as eventGetters } from './modules/event';
-import { actions as logbookActions, getters as logbookGetters } from './modules/logbook';
-import { actions as moreInfoActions, getters as moreInfoGetters } from './modules/more-info';
-import { actions as navigationActions,
-         getters as navigationGetters,
-         urlSync } from './modules/navigation';
-import { actions as notificationActions, getters as notificationGetters } from './modules/notification';
 import reactor from './flux';
 import { localStoragePreferences } from './modules/preferences';
-import { actions as serviceActions, getters as serviceGetters } from './modules/service';
-import { actions as streamActions, getters as streamGetters } from './modules/stream';
-import { actions as syncActions, getters as syncGetters } from './modules/sync';
 import * as util from './util';
-import { actions as voiceActions, getters as voiceGetters } from './modules/voice';
+
+import { register as registerRestApi } from './modules/rest-api';
+import * as auth from './modules/auth';
+import * as config from './modules/config';
+import * as entity from './modules/entity';
+import * as entityHistory from './modules/entity-history';
+import * as event from './modules/event';
+import * as logbook from './modules/logbook';
+import * as moreInfo from './modules/more-info';
+import * as navigation from './modules/navigation';
+import * as notification from './modules/notification';
+import * as service from './modules/service';
+import * as stream from './modules/stream';
+import * as sync from './modules/sync';
+import * as voice from './modules/voice';
+import { register } from './modules/rest-api';
+
+registerRestApi(reactor);
+auth.register(reactor);
+config.register(reactor);
+entityHistory.register(reactor);
+logbook.register(reactor);
+moreInfo.register(reactor);
+navigation.register(reactor);
+notification.register(reactor);
+stream.register(reactor);
+sync.register(reactor);
+voice.register(reactor);
 
 export default {
-  authActions, authGetters,
-  configActions, configGetters,
-  entityActions, entityGetters,
-  entityHistoryActions, entityHistoryGetters,
-  eventActions, eventGetters,
-  logbookActions, logbookGetters,
-  localStoragePreferences,
-  moreInfoActions, moreInfoGetters,
-  navigationActions, navigationGetters,
-  notificationActions, notificationGetters,
   reactor,
-  serviceActions, serviceGetters,
-  streamActions, streamGetters,
-  syncActions, syncGetters,
-  urlSync,
+  localStoragePreferences,
   util,
-  voiceActions, voiceGetters,
   demo: __DEMO__,
+  urlSync: navigation.urlSync,
+
+  authActions: auth.actions,
+  authGetters: auth.getters,
+  configActions: config.actions,
+  configGetters: config.getters,
+  entityActions: entity.actions,
+  entityGetters: entity.getters,
+  entityHistoryActions: entityHistory.actions,
+  entityHistoryGetters: entityHistory.getters,
+  eventActions: event.actions,
+  eventGetters: event.getters,
+  logbookActions: logbook.actions,
+  logbookGetters: logbook.getters,
+  moreInfoActions: moreInfo.actions,
+  moreInfoGetters: moreInfo.getters,
+  navigationActions: navigation.actions,
+  navigationGetters: navigation.getters,
+  notificationActions: notification.actions,
+  notificationGetters: notification.getters,
+  serviceActions: service.actions,
+  serviceGetters: service.getters,
+  streamActions: stream.actions,
+  streamGetters: stream.getters,
+  syncActions: sync.actions,
+  syncGetters: sync.getters,
+  voiceActions: voice.actions,
+  voiceGetters: voice.getters,
 };

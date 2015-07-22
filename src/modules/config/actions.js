@@ -1,5 +1,5 @@
 import Flux from '../../flux';
-import callApi from '../../call-api';
+import { callApi } from '../api';
 import actionTypes from './action-types';
 
 export function fetchAll() {

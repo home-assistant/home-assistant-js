@@ -1,5 +1,5 @@
 import Flux from '../../flux';
-import callApi from '../../call-api';
+import { callApi } from '../api';
 import { createApiActions } from '../rest-api';
 import { actions as entityActions } from '../entity';
 import { actions as notificationActions } from '../notification';

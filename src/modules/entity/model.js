@@ -2,7 +2,7 @@ import { Immutable, toJS } from 'nuclear-js';
 // import serviceStore from '../stores/service';
 import { parseDateTime } from '../../util';
 
-import callApi from '../../call-api';
+import { callApi } from '../api';
 
 const ENTITY = 'entity';
 

@@ -1,7 +1,7 @@
 import { Promise } from 'es6-promise';
 
-import Flux from './flux';
-import { getters as authGetters } from './modules/auth';
+import Flux from '../../flux';
+import { getters as authGetters } from '../auth';
 
 let callApi = function callApi(method, path, parameters=null) {
   const authInfo = Flux.evaluate(authGetters.authInfo);

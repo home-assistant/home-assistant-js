@@ -1,5 +1,5 @@
 import { Immutable, toImmutable } from 'nuclear-js';
-import callApi from '../../call-api';
+import { callApi } from '../api';
 
 const ENTITY = 'service';
 

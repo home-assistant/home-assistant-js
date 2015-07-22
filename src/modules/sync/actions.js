@@ -2,7 +2,7 @@ import debounce from 'lodash/function/debounce';
 import Flux from '../../flux';
 import actionTypes from './action-types';
 import * as getters from './getters';
-import callApi from '../../call-api';
+import { callApi } from '../api';
 
 import { actions as entityActions } from '../entity';
 import { actions as serviceActions } from '../service';

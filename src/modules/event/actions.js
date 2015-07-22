@@ -1,4 +1,4 @@
-import callApi from '../../call-api';
+import { callApi } from '../api';
 import { createApiActions } from '../rest-api';
 import { actions as notificationActions } from '../notification';
 import model from './model';

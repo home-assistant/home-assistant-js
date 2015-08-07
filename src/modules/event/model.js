@@ -19,8 +19,8 @@ export default class Event extends ImmutableEvent {
     return this.event;
   }
 
-  static fetchAll() {
-    return callApi('GET', 'events');
+  static fetchAll(reactor) {
+    return callApi(reactor, 'GET', 'events');
   }
 
   static fromJSON({event, listener_count}) {

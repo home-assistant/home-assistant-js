@@ -1,5 +1,4 @@
 import debounce from 'lodash/function/debounce';
-import Flux from '../../flux';
 import actionTypes from './action-types';
 import * as getters from './getters';
 import { callApi } from '../api';
@@ -11,27 +10,27 @@ import { actions as configActions } from '../config';
 
 const SYNC_INTERVAL = 30000;
 
-export function fetchAll() {
-  const isSyncScheduled = Flux.evaluate(getters.isSyncScheduled);
+export function fetchAll(reactor) {
+  const isSyncScheduled = reactor.evaluate(getters.isSyncScheduled);
 
-  Flux.dispatch(actionTypes.API_FETCH_ALL_START, {});
+  reactor.dispatch(actionTypes.API_FETCH_ALL_START, {});
 
-  return callApi('GET', 'bootstrap').then(data => {
-    entityActions.replaceData(data.states);
-    serviceActions.replaceData(data.services);
-    eventActions.replaceData(data.events);
-    configActions.configLoaded(data.config);
+  return callApi(reactor, 'GET', 'bootstrap').then(data => {
+    entityActions.replaceData(reactor, data.states);
+    serviceActions.replaceData(reactor, data.services);
+    eventActions.replaceData(reactor, data.events);
+    configActions.configLoaded(reactor, data.config);
 
-    Flux.dispatch(actionTypes.API_FETCH_ALL_SUCCESS, {});
+    reactor.dispatch(actionTypes.API_FETCH_ALL_SUCCESS, {});
 
     if (isSyncScheduled) {
-      scheduleSync();
+      scheduleSync(reactor);
     }
   }, message => {
-    Flux.dispatch(actionTypes.API_FETCH_ALL_FAIL, {message});
+    reactor.dispatch(actionTypes.API_FETCH_ALL_FAIL, {message});
 
     if (isSyncScheduled) {
-      scheduleSync();
+      scheduleSync(reactor);
     }
 
     return Promise.reject(message);
@@ -40,17 +39,17 @@ export function fetchAll() {
 
 const scheduleSync = debounce(fetchAll, SYNC_INTERVAL);
 
-export function start({skipInitialSync=false}={}) {
-  Flux.dispatch(actionTypes.SYNC_SCHEDULED);
+export function start(reactor, {skipInitialSync=false}={}) {
+  reactor.dispatch(actionTypes.SYNC_SCHEDULED);
 
   if (skipInitialSync) {
-    scheduleSync();
+    scheduleSync(reactor);
   } else {
-    fetchAll();
+    fetchAll(reactor);
   }
 }
 
-export function stop() {
-  Flux.dispatch(actionTypes.SYNC_SCHEDULE_CANCELLED);
+export function stop(reactor) {
+  reactor.dispatch(actionTypes.SYNC_SCHEDULE_CANCELLED);
   scheduleSync.cancel();
 }

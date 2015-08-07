@@ -1,4 +1,3 @@
-import flux from '../../flux';
 import { getters as authGetters } from '../auth';
 import { getters as streamGetters } from '../stream';
 
@@ -33,14 +32,14 @@ Object.keys(observe).forEach(function(prop) {
   });
 });
 
-preferences.startSync = function startSync() {
+preferences.startSync = function startSync(reactor) {
   Object.keys(observe).forEach(function(prop) {
     const { getter } = observe[prop];
     const valueChanged = function valueChanged(value) {
       storage[prop] = JSON.stringify(value);
     };
-    flux.observe(getter, valueChanged);
-    valueChanged(flux.evaluate(getter));
+    reactor.observe(getter, valueChanged);
+    valueChanged(reactor.evaluate(getter));
   });
 };
 

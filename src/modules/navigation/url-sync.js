@@ -1,5 +1,4 @@
 /* Keeps the URL in sync with the navigator store */
-import Flux from '../../flux';
 import {
   getters as moreInfoGetters,
   actions as moreInfoActions
@@ -16,43 +15,43 @@ let ignoreNextDeselectEntity = false;
 let unwatchNavigationObserver;
 let unwatchMoreInfoObserver;
 
-function initialSync() {
+function initialSync(reactor) {
   let pane, filter, url;
   // store current state in url or set state based on url
   if (location.pathname === '/') {
-    pane = Flux.evaluate(activePane);
-    filter = Flux.evaluate(activeFilter);
+    pane = reactor.evaluate(activePane);
+    filter = reactor.evaluate(activeFilter);
     url = paneFilterToPage(pane, filter);
   } else {
     const paneFilter = pageToPaneFilter(location.pathname.substr(1));
     pane = paneFilter.pane;
     filter = paneFilter.filter;
     url = location.pathname;
-    navigate(pane, filter);
+    navigate(reactor, pane, filter);
   }
   history.replaceState({pane, filter}, title, url);
 }
 
-function popstateChangeListener(ev) {
+function popstateChangeListener(reactor, ev) {
   const {pane, filter} = ev.state;
 
-  if (Flux.evaluate(moreInfoGetters.hasCurrentEntityId)) {
+  if (reactor.evaluate(moreInfoGetters.hasCurrentEntityId)) {
     ignoreNextDeselectEntity = true;
     moreInfoActions.deselectEntity();
   } else {
-    navigate(pane, filter);
+    navigate(reactor, pane, filter);
   }
 };
 
-export function startSync() {
+export function startSync(reactor) {
   if (!isSupported) {
     return;
   }
 
-  initialSync();
+  initialSync(reactor);
 
   // keep url in sync with state
-  unwatchNavigationObserver = Flux.observe(activePage, (page) => {
+  unwatchNavigationObserver = reactor.observe(activePage, (page) => {
     const state = pageToPaneFilter(page);
     if (!(state.pane === history.state.pane &&
           state.filter == history.state.filter)) {
@@ -60,7 +59,7 @@ export function startSync() {
     }
   });
 
-  unwatchMoreInfoObserver = Flux.observe(
+  unwatchMoreInfoObserver = reactor.observe(
     moreInfoGetters.hasCurrentEntityId,
     (moreInfoEntitySelected) => {
       if (moreInfoEntitySelected) {
@@ -74,10 +73,10 @@ export function startSync() {
   );
 
   // keep state in sync when url changes via forward/back buttons
-  window.addEventListener('popstate', popstateChangeListener);
+  window.addEventListener('popstate', popstateChangeListener.bind(null, reactor));
 };
 
-export function stopSync() {
+export function stopSync(reactor) {
   if (!isSupported) {
     return;
   }

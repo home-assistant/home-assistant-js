@@ -1,14 +1,13 @@
-import Flux from '../../flux';
 import { callApi } from '../api';
 import actionTypes from './action-types';
 import * as getters from './getters';
 
-export function changeCurrentDate(date) {
-  Flux.dispatch(actionTypes.ENTITY_HISTORY_DATE_SELECTED, {date})
+export function changeCurrentDate(reactor, date) {
+  reactor.dispatch(actionTypes.ENTITY_HISTORY_DATE_SELECTED, {date})
 }
 
-export function fetchRecent(entityId = null) {
-  Flux.dispatch(actionTypes.RECENT_ENTITY_HISTORY_FETCH_START, {})
+export function fetchRecent(reactor, entityId = null) {
+  reactor.dispatch(actionTypes.RECENT_ENTITY_HISTORY_FETCH_START, {})
 
   let url = 'history/period';
 
@@ -16,27 +15,27 @@ export function fetchRecent(entityId = null) {
     url += `?filter_entity_id=${entityId}`;
   }
 
-  return callApi('GET', url).then(
-    stateHistory => Flux.dispatch(
+  return callApi(reactor, 'GET', url).then(
+    stateHistory => reactor.dispatch(
       actionTypes.RECENT_ENTITY_HISTORY_FETCH_SUCCESS, {stateHistory}),
 
-    () => Flux.dispatch(actionTypes.RECENT_ENTITY_HISTORY_FETCH_ERROR, {})
+    () => reactor.dispatch(actionTypes.RECENT_ENTITY_HISTORY_FETCH_ERROR, {})
   );
 }
 
-export function fetchDate(date) {
-  Flux.dispatch(actionTypes.ENTITY_HISTORY_FETCH_START, {date})
+export function fetchDate(reactor, date) {
+  reactor.dispatch(actionTypes.ENTITY_HISTORY_FETCH_START, {date})
 
-  return callApi('GET', `history/period/${date}`).then(
-    stateHistory => Flux.dispatch(
+  return callApi(reactor, 'GET', `history/period/${date}`).then(
+    stateHistory => reactor.dispatch(
       actionTypes.ENTITY_HISTORY_FETCH_SUCCESS, {date, stateHistory}),
 
-    () => Flux.dispatch(actionTypes.ENTITY_HISTORY_FETCH_ERROR, {})
+    () => reactor.dispatch(actionTypes.ENTITY_HISTORY_FETCH_ERROR, {})
   );
 }
 
-export function fetchSelectedDate() {
-  const date = Flux.evaluate(getters.currentDate);
+export function fetchSelectedDate(reactor) {
+  const date = reactor.evaluate(getters.currentDate);
 
-  return fetchDate(date);
+  return fetchDate(reactor, date);
 }

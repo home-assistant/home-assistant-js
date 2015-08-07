@@ -1,4 +1,3 @@
-import Flux from '../../flux';
 import debounce from 'lodash/function/debounce';
 import {actions as serviceActions} from '../service';
 import actionTypes from './action-types';
@@ -10,19 +9,19 @@ let recognition = null;
 let interimTranscript = '';
 let finalTranscript = '';
 
-function process() {
+function process(reactor) {
   const text = finalTranscript || interimTranscript;
 
-  Flux.dispatch(actionTypes.VOICE_TRANSMITTING, {finalTranscript: text})
+  reactor.dispatch(actionTypes.VOICE_TRANSMITTING, {finalTranscript: text})
 
   serviceActions.callService('conversation', 'process', {text: text}).then(function() {
-    Flux.dispatch(actionTypes.VOICE_DONE);
+    reactor.dispatch(actionTypes.VOICE_DONE);
   }, function() {
-    Flux.dispatch(actionTypes.VOICE_ERROR);
+    reactor.dispatch(actionTypes.VOICE_ERROR);
   });
 }
 
-export function stop() {
+export function stop(reactor) {
   if (recognition !== null) {
     recognition.onstart = null;
     recognition.onresult = null;
@@ -31,7 +30,7 @@ export function stop() {
     recognition.stop();
     recognition = null;
 
-    process();
+    process(reactor);
   }
 
   interimTranscript = '';
@@ -40,14 +39,14 @@ export function stop() {
 
 const autostop = debounce(stop, NO_RESULT_TIMEOUT);
 
-export function listen() {
+export function listen(reactor) {
   stop();
 
   recognition = new webkitSpeechRecognition();
   recognition.interimResults = true;
 
   recognition.onstart = function() {
-    Flux.dispatch(actionTypes.VOICE_START);
+    reactor.dispatch(actionTypes.VOICE_START);
   };
 
   recognition.onresult = function(event) {
@@ -61,14 +60,14 @@ export function listen() {
       }
     }
 
-    Flux.dispatch(actionTypes.VOICE_RESULT,
+    reactor.dispatch(actionTypes.VOICE_RESULT,
                   {interimTranscript, finalTranscript})
 
     autostop();
   };
 
   recognition.onerror = function() {
-    Flux.dispatch(actionTypes.VOICE_ERROR);
+    reactor.dispatch(actionTypes.VOICE_ERROR);
   };
 
   recognition.onend = stop;

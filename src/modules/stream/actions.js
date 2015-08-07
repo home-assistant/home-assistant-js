@@ -1,5 +1,4 @@
 import debounce from 'lodash/function/debounce';
-import Flux from '../../flux';
 import {getters as authGetters} from '../auth';
 import {actions as syncActions} from '../sync';
 import actionTypes from './action-types';
@@ -23,12 +22,12 @@ const stopStream = function stopStream() {
   scheduleHealthCheck.cancel();
 };
 
-export function start({syncOnInitialConnect=true} = {}) {
+export function start(reactor, {syncOnInitialConnect=true} = {}) {
   if (source !== null) {
     stopStream();
   }
 
-  const authToken = Flux.evaluate(authGetters.authToken);
+  const authToken = reactor.evaluate(authGetters.authToken);
   const url = `/api/stream?api_password=${authToken}`;
 
   source = new EventSource(url);
@@ -36,13 +35,13 @@ export function start({syncOnInitialConnect=true} = {}) {
   source.addEventListener('open', function() {
     scheduleHealthCheck();
 
-    Flux.dispatch(actionTypes.STREAM_START);
+    reactor.dispatch(actionTypes.STREAM_START);
 
     // We are streaming, fetch latest info but stop syncing
-    syncActions.stop();
+    syncActions.stop(reactor);
 
     if (syncOnInitialConnect) {
-      syncActions.fetchAll();
+      syncActions.fetchAll(reactor);
     } else {
       syncOnInitialConnect = true;
     }
@@ -55,21 +54,21 @@ export function start({syncOnInitialConnect=true} = {}) {
       return;
     }
 
-    handleRemoteEvent(JSON.parse(ev.data));
+    handleRemoteEvent(reactor, JSON.parse(ev.data));
   }, false);
 
   source.addEventListener('error', function() {
     if (source.readyState !== EventSource.CLOSED) {
-      Flux.dispatch(actionTypes.STREAM_ERROR);
+      reactor.dispatch(actionTypes.STREAM_ERROR);
     }
   }, false);
 
 }
 
-export function stop() {
+export function stop(reactor) {
   stopStream();
 
-  Flux.dispatch(actionTypes.STREAM_STOP);
+  reactor.dispatch(actionTypes.STREAM_STOP);
 
-  syncActions.start();
+  syncActions.start(reactor);
 }

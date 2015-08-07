@@ -1,4 +1,3 @@
-import Flux from '../../flux';
 import actionTypes from './action-types';
 
 import { getters as streamGetters } from '../stream';
@@ -14,37 +13,37 @@ const DEFAULT_ERROR_MSG = 'Unexpected result from API';
  *   - rememberLogin: to store login in local storage (default: false)
  *   - host: host to target for API calls
  */
-export function validate(authToken, {
-    useStreaming=Flux.evaluate(streamGetters.isSupported),
+export function validate(reactor, authToken, {
+    useStreaming=reactor.evaluate(streamGetters.isSupported),
     rememberAuth=false,
     host='',
   } = {}) {
-  Flux.dispatch(actionTypes.VALIDATING_AUTH_TOKEN, {authToken, host});
+  reactor.dispatch(actionTypes.VALIDATING_AUTH_TOKEN, {authToken, host});
 
-  syncActions.fetchAll().then(
+  syncActions.fetchAll(reactor).then(
     () => {
-      Flux.dispatch(actionTypes.VALID_AUTH_TOKEN, {authToken, host, rememberAuth});
+      reactor.dispatch(actionTypes.VALID_AUTH_TOKEN, {authToken, host, rememberAuth});
 
       if(__DEMO__) {
         // Show as if streaming active in UI
-        Flux.dispatch('STREAM_START');
+        reactor.dispatch('STREAM_START');
         // No need to start streaming/syncing
         return;
       }
 
       if (useStreaming) {
-        streamActions.start({syncOnInitialConnect: false});
+        streamActions.start(reactor, {syncOnInitialConnect: false});
       } else {
-        syncActions.start({skipInitialSync: true});
+        syncActions.start(reactor, {skipInitialSync: true});
       }
     },
 
     ({message=DEFAULT_ERROR_MSG}={}) => {
-      Flux.dispatch(actionTypes.INVALID_AUTH_TOKEN, {errorMessage: message});
+      reactor.dispatch(actionTypes.INVALID_AUTH_TOKEN, {errorMessage: message});
     }
   );
 }
 
-export function logOut() {
-  Flux.dispatch(actionTypes.LOG_OUT, {});
+export function logOut(reactor) {
+  reactor.dispatch(actionTypes.LOG_OUT, {});
 }

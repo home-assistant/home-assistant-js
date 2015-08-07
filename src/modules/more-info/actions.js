@@ -1,10 +1,9 @@
-import Flux from '../../flux';
 import actionTypes from './action-types';
 
-export function selectEntity(entityId) {
-  Flux.dispatch(actionTypes.SELECT_ENTITY, {entityId});
+export function selectEntity(reactor, entityId) {
+  reactor.dispatch(actionTypes.SELECT_ENTITY, {entityId});
 }
 
-export function deselectEntity() {
-  Flux.dispatch(actionTypes.SELECT_ENTITY, {entityId: null});
+export function deselectEntity(reactor) {
+  reactor.dispatch(actionTypes.SELECT_ENTITY, {entityId: null});
 }

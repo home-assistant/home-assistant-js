@@ -11,7 +11,8 @@
     "dev": "webpack --colors --progress -d --watch",
     "dev_demo": "BUILD_DEMO=1 webpack --colors --progress -d --watch",
     "prod": "BUILD_DEV=0 webpack --colors --progress -p -d",
-    "demo": "BUILD_DEV=0 BUILD_DEMO=1 webpack --colors --progress -p -d"
+    "demo": "BUILD_DEV=0 BUILD_DEMO=1 webpack --colors --progress -p -d",
+    "test": "eslint src"
   },
   "dependencies": {
     "es6-promise": "^2.3.0",
@@ -24,8 +25,9 @@
     "babel-core": "^5.8",
     "babel-eslint": "^4.0.5",
     "babel-loader": "^5.3",
-    "eslint": "^1.0.0",
+    "eslint": "^1.1.0",
     "eslint-config-airbnb": "0.0.7",
-    "webpack": "^1.10"
+    "eslint-plugin-react": "^3.2.1",
+    "webpack": "^1.11"
   }
 }

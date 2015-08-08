@@ -16,29 +16,29 @@ serviceApiActions.serviceRegistered = function serviceRegistered(reactor, domain
     serviceDomain = {
       domain,
       services: [service],
-    }
+    };
   }
 
   serviceApiActions.incrementData(reactor, serviceDomain);
-}
+};
 
-serviceApiActions.callTurnOn = function callTurnOn(reactor, entity_id, params = {}) {
+serviceApiActions.callTurnOn = function callTurnOn(reactor, entityId, params = {}) {
   return serviceApiActions.callService(
-    reactor, 'homeassistant', 'turn_on', {...params, entity_id: entity_id});
-}
+    reactor, 'homeassistant', 'turn_on', {...params, entity_id: entityId});
+};
 
-serviceApiActions.callTurnOff = function callTurnOff(reactor, entity_id, params = {}) {
+serviceApiActions.callTurnOff = function callTurnOff(reactor, entityId, params = {}) {
   return serviceApiActions.callService(
-    reactor, 'homeassistant', 'turn_off', {...params, entity_id: entity_id});
-}
+    reactor, 'homeassistant', 'turn_off', {...params, entity_id: entityId});
+};
 
 serviceApiActions.callService = function callService(reactor, domain, service, params = {}) {
   return callApi(reactor, 'POST', `services/${domain}/${service}`, params).then(
     (states) => {
-      if(service == 'turn_on' && params.entity_id) {
+      if (service === 'turn_on' && params.entity_id) {
         notificationActions.createNotification(
           reactor, `Turned on ${params.entity_id}.`);
-      } else if(service == 'turn_off' && params.entity_id) {
+      } else if (service === 'turn_off' && params.entity_id) {
         notificationActions.createNotification(
           reactor, `Turned off ${params.entity_id}.`);
       } else {
@@ -46,9 +46,9 @@ serviceApiActions.callService = function callService(reactor, domain, service, p
           reactor, `Service ${domain}/${service} called.`);
       }
 
-      entityActions.incrementData(reactor, states)
+      entityActions.incrementData(reactor, states);
     }
   );
-}
+};
 
 module.exports = serviceApiActions;

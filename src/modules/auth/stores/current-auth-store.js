@@ -10,8 +10,10 @@ class CurrentStore extends Store {
   }
 
   initialize() {
+    /* eslint-disable no-use-before-define */
     this.on(actionTypes.VALID_AUTH_TOKEN, validateSuccess);
     this.on(actionTypes.LOG_OUT, logOut);
+    /* eslint-enable no-use-before-define */
   }
 }
 
@@ -23,6 +25,6 @@ function validateSuccess(state, {authToken, host}) {
   return toImmutable({authToken, host});
 }
 
-function logOut(state) {
+function logOut() {
   return INSTANCE.getInitialState();
 }

@@ -5,7 +5,7 @@ import * as _urlSync from './url-sync';
 
 export function register(reactor) {
   reactor.registerStores({
-    selectedNavigationPanel
+    selectedNavigationPanel,
   });
 }
 

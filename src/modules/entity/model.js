@@ -5,7 +5,7 @@ import { callApi } from '../api';
 
 const ENTITY = 'entity';
 
-let ImmutableEntity = new Immutable.Record({
+const ImmutableEntity = new Immutable.Record({
   entityId: null,
   domain: null,
   objectId: null,
@@ -70,7 +70,9 @@ export default class State extends ImmutableEntity {
   }
 
   static fromJSON({entity_id, state, last_changed, attributes}) {
+    /* eslint-disable camelcase */
     return new State(entity_id, state, last_changed, attributes);
+    /* eslint-enable camelcase */
   }
 
 }

@@ -9,9 +9,11 @@ class RecentEntityHistoryUpdated extends Store {
   }
 
   initialize() {
+    /* eslint-disable no-use-before-define */
     this.on(actionTypes.RECENT_ENTITY_HISTORY_FETCH_SUCCESS,
             entriesLoaded);
     this.on(actionTypes.LOG_OUT, logOut);
+    /* eslint-enable no-use-before-define */
   }
 }
 
@@ -23,7 +25,7 @@ function entriesLoaded(state, {stateHistory}) {
   const now = (new Date()).getTime();
 
   return state.withMutations(mState => {
-    stateHistory.forEach(history => mState.set(history[0].entity_id, now))
+    stateHistory.forEach(history => mState.set(history[0].entity_id, now));
 
     if (history.length > 1) {
       mState.set(ALL_ENTRY_FETCH, now);
@@ -31,6 +33,6 @@ function entriesLoaded(state, {stateHistory}) {
   });
 }
 
-function logOut(state) {
+function logOut() {
   return INSTANCE.getInitialState();
 }

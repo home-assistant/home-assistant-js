@@ -7,8 +7,10 @@ class CurrentEntityIdStore extends Store {
   }
 
   initialize() {
+    /* eslint-disable no-use-before-define */
     this.on(actionTypes.SELECT_ENTITY, selectEntity);
     this.on(actionTypes.LOG_OUT, logOut);
+    /* eslint-enable no-use-before-define */
   }
 }
 
@@ -20,6 +22,6 @@ function selectEntity(state, {entityId}) {
   return entityId;
 }
 
-function logOut(state) {
+function logOut() {
   return INSTANCE.getInitialState();
 }

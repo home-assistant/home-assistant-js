@@ -11,10 +11,12 @@ class RestApiCacheStore extends Store {
   }
 
   initialize() {
+    /* eslint-disable no-use-before-define */
     this.on(actionTypes.API_FETCH_SUCCESS, loadData);
     this.on(actionTypes.API_SAVE_SUCCESS, loadData);
     this.on(actionTypes.API_DELETE_SUCCESS, removeData);
     this.on(actionTypes.LOG_OUT, () => this.getInitialState());
+    /* eslint-enable no-use-before-define */
   }
 }
 

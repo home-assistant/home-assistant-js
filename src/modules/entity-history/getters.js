@@ -10,7 +10,7 @@ export const currentDate = [
 
 export const entityHistoryMap = [
   'entityHistory',
-]
+];
 
 export const entityHistoryForCurrentDate = [
   currentDate,
@@ -26,8 +26,8 @@ export const hasDataForCurrentDate = [
 
 export const recentEntityHistoryMap = [
   'recentEntityHistory',
-]
+];
 
 export const recentEntityHistoryUpdatedMap = [
   'recentEntityHistory',
-]
+];

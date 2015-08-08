@@ -37,25 +37,25 @@ let callApi = function callApi(reactor, method, path, parameters=null) {
 
 if (__DEMO__) {
   callApi = function demoCallAPI(method, path) {
-    return new Promise(function demoAPIResponse(resolve, reject) {
+    return new Promise(function demoAPIResponse(resolve) {
       if (method !== 'GET') {
-        throw `Method ${method} not allowed in demo mode.`;
+        throw new Error(`Method ${method} not allowed in demo mode.`);
       }
 
       const component = path.split('/', 1)[0];
 
       switch (component) {
-        case 'bootstrap':
-          resolve(require('../demo/bootstrap_data.js'));
-          break;
-        case 'logbook':
-          resolve(require('../demo/logbook_data.js'));
-          break;
-        case 'history':
-          resolve(require('../demo/state_history_data.js'));
-          break;
-        default:
-          throw `URL not implemented in demo mode /api/${path}`;
+      case 'bootstrap':
+        resolve(require('../demo/bootstrap_data.js'));
+        break;
+      case 'logbook':
+        resolve(require('../demo/logbook_data.js'));
+        break;
+      case 'history':
+        resolve(require('../demo/state_history_data.js'));
+        break;
+      default:
+        throw new Error(`URL not implemented in demo mode /api/${path}`);
       }
     });
   };

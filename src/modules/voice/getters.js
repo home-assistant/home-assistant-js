@@ -3,22 +3,22 @@ export const isVoiceSupported = ['isVoiceSupported'];
 
 export const isListening = [
   'currentVoiceCommand',
-  'isListening'
+  'isListening',
 ];
 
 export const isTransmitting = [
   'currentVoiceCommand',
-  'isTransmitting'
+  'isTransmitting',
 ];
 
 export const interimTranscript = [
   'currentVoiceCommand',
-  'interimTranscript'
+  'interimTranscript',
 ];
 
 export const finalTranscript = [
   'currentVoiceCommand',
-  'finalTranscript'
+  'finalTranscript',
 ];
 
 // interimTranscript contains all text from finalTranscript too
@@ -29,4 +29,4 @@ export const extraInterimTranscript = [
   (interimTranscript_, finalTranscript_) => {
     return interimTranscript_.slice(finalTranscript_.length);
   },
-]
+];

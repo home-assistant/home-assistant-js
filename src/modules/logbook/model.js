@@ -1,7 +1,7 @@
 import { Immutable } from 'nuclear-js';
 import parseDateTime from '../../util/parse-date-time-str';
 
-let ImmutableLogbookEntry = new Immutable.Record({
+const ImmutableLogbookEntry = new Immutable.Record({
   when: null,
   name: null,
   message: null,
@@ -21,6 +21,8 @@ export default class LogbookEntry extends ImmutableLogbookEntry {
   }
 
   static fromJSON({when, name, message, domain, entity_id}) {
+    /* eslint-disable camelcase */
     return new LogbookEntry(parseDateTime(when), name, message, domain, entity_id);
+    /* eslint-enable camelcase */
   }
 }

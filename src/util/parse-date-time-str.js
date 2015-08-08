@@ -1,7 +1,7 @@
 export default function parseDateTime(datetime) {
-  let [time, date] = datetime.split(" ");
-  let [hour, minute, second] = time.split(":");
-  let [day, month, year] = date.split("-");
+  const [time, date] = datetime.split(' ');
+  const [hour, minute, second] = time.split(':');
+  const [day, month, year] = date.split('-');
 
-  return new Date(Date.UTC(year, parseInt(month)-1, day, hour, minute, second));
+  return new Date(Date.UTC(year, parseInt(month, 10) - 1, day, hour, minute, second));
 }

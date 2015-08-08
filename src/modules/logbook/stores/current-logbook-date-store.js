@@ -8,8 +8,10 @@ class CurrentLogbookDate extends Store {
   }
 
   initialize() {
+    /* eslint-disable no-use-before-define */
     this.on(actionTypes.LOGBOOK_DATE_SELECTED, dateSelected);
     this.on(actionTypes.LOG_OUT, logOut);
+    /* eslint-enable no-use-before-define */
   }
 }
 
@@ -21,6 +23,6 @@ function dateSelected(state, {date}) {
   return dateToStr(date);
 }
 
-function logOut(state) {
+function logOut() {
   return INSTANCE.getInitialState();
 }

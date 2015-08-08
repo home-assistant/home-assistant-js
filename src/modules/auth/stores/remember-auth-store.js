@@ -7,7 +7,9 @@ class CurrentStore extends Store {
   }
 
   initialize() {
+    /* eslint-disable no-use-before-define */
     this.on(actionTypes.VALID_AUTH_TOKEN, storeRememberAuth);
+    /* eslint-enable no-use-before-define */
   }
 }
 

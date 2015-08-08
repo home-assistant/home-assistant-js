@@ -12,12 +12,14 @@ class IsFetchingStore extends Store {
   }
 
   initialize() {
+    /* eslint-disable no-use-before-define */
     this.on(actionTypes.VOICE_START, voiceStart);
     this.on(actionTypes.VOICE_RESULT, voiceResult);
     this.on(actionTypes.VOICE_TRANSMITTING, voiceTransmitting);
     this.on(actionTypes.VOICE_DONE, voiceDone);
     this.on(actionTypes.VOICE_ERROR, voiceError);
     this.on(actionTypes.LOG_OUT, logOut);
+    /* eslint-enable no-use-before-define */
   }
 }
 
@@ -34,8 +36,8 @@ function voiceResult(state, {interimTranscript, finalTranscript}) {
     return map.set('isListening', true)
               .set('isTransmitting', false)
               .set('interimTranscript', interimTranscript)
-              .set('finalTranscript', finalTranscript)
-  })
+              .set('finalTranscript', finalTranscript);
+  });
 }
 
 function voiceTransmitting(state, {finalTranscript}) {
@@ -43,18 +45,18 @@ function voiceTransmitting(state, {finalTranscript}) {
     return map.set('isListening', false)
               .set('isTransmitting', true)
               .set('interimTranscript', '')
-              .set('finalTranscript', finalTranscript)
-  })
+              .set('finalTranscript', finalTranscript);
+  });
 }
 
 function voiceDone() {
   return INSTANCE.getInitialState();
 }
 
-function voiceError(state) {
+function voiceError() {
   return INSTANCE.getInitialState();
 }
 
-function logOut(state) {
+function logOut() {
   return INSTANCE.getInitialState();
 }

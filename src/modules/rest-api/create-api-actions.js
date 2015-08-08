@@ -11,7 +11,7 @@ import actionTypes from './action-types';
  */
 export default function createApiActions(model) {
   const apiActions = {};
-
+  /* eslint-disable no-use-before-define */
   apiActions.incrementData = function pushNewData(reactor, data, params = {}) {
     onFetchSuccess(reactor, model, params, data);
   };
@@ -58,6 +58,7 @@ export default function createApiActions(model) {
     };
   }
 
+  /* eslint-disable dot-notation */
   if (model.delete) {
     apiActions['delete'] = function deleteAction(reactor, params = {}) {
       reactor.dispatch(actionTypes.API_DELETE_START, {
@@ -69,7 +70,9 @@ export default function createApiActions(model) {
       );
     };
   }
+  /* eslint-enable dot-notation */
 
+  /* eslint-enable no-use-before-define */
   return apiActions;
 }
 

@@ -8,20 +8,20 @@ function isStaleTime(time) {
 
 export const currentDate = [
   'currentLogbookDate',
-]
+];
 
 export const isCurrentStale = [
   currentDate,
   ['logbookEntriesUpdated'],
-  (currentDate, map) => isStaleTime(map.get(currentDate)),
-]
+  (currentDate_, map) => isStaleTime(map.get(currentDate_)),
+];
 
 export const currentEntries = [
   currentDate,
   ['logbookEntries'],
   (date, map) => map.get(date) || toImmutable([]),
-]
+];
 
 export const isLoadingEntries = [
   'isLoadingLogbookEntries',
-]
+];

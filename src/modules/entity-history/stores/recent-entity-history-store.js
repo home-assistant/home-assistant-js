@@ -8,8 +8,10 @@ class RecentEntityHistory extends Store {
   }
 
   initialize() {
+    /* eslint-disable no-use-before-define */
     this.on(actionTypes.RECENT_ENTITY_HISTORY_FETCH_SUCCESS, entriesLoaded);
     this.on(actionTypes.LOG_OUT, logOut);
+    /* eslint-enable no-use-before-define */
   }
 }
 
@@ -24,10 +26,10 @@ function entriesLoaded(state, {stateHistory}) {
         history[0].entity_id,
         toImmutable(history.map(model.fromJSON))
       )
-    )
+    );
   });
 }
 
-function logOut(state) {
+function logOut() {
   return INSTANCE.getInitialState();
 }

@@ -3,7 +3,7 @@ import {getters as entityGetters} from '../entity';
 import {getters as entityHistoryGetters} from '../entity-history';
 
 export const currentEntityId = [
-  'moreInfoEntityId'
+  'moreInfoEntityId',
 ];
 
 export const hasCurrentEntityId = [
@@ -21,10 +21,10 @@ export const currentEntityHistory = [
   currentEntityId,
   entityHistoryGetters.recentEntityHistoryMap,
   (entityId, map) => map.get(entityId),
-]
+];
 
 export const isCurrentEntityHistoryStale = [
   currentEntityId,
   entityHistoryGetters.recentEntityHistoryUpdatedMap,
   (entityId, map) => isStaleTime(map.get(entityId)),
-]
+];

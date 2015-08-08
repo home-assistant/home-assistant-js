@@ -3,11 +3,11 @@ import actionTypes from './action-types';
 import * as getters from './getters';
 
 export function changeCurrentDate(reactor, date) {
-  reactor.dispatch(actionTypes.ENTITY_HISTORY_DATE_SELECTED, {date})
+  reactor.dispatch(actionTypes.ENTITY_HISTORY_DATE_SELECTED, {date});
 }
 
 export function fetchRecent(reactor, entityId = null) {
-  reactor.dispatch(actionTypes.RECENT_ENTITY_HISTORY_FETCH_START, {})
+  reactor.dispatch(actionTypes.RECENT_ENTITY_HISTORY_FETCH_START, {});
 
   let url = 'history/period';
 
@@ -24,7 +24,7 @@ export function fetchRecent(reactor, entityId = null) {
 }
 
 export function fetchDate(reactor, date) {
-  reactor.dispatch(actionTypes.ENTITY_HISTORY_FETCH_START, {date})
+  reactor.dispatch(actionTypes.ENTITY_HISTORY_FETCH_START, {date});
 
   return callApi(reactor, 'GET', `history/period/${date}`).then(
     stateHistory => reactor.dispatch(

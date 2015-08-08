@@ -28,8 +28,8 @@ const hass = {
   startUrlSync: navigation.urlSync.startSync.bind(null, reactor),
   stopUrlSync: navigation.urlSync.stopSync.bind(null, reactor),
   startLocalStoragePreferencesSync: localStoragePreferences.startSync.bind(
-    localStoragePreferences, reactor)
-}
+    localStoragePreferences, reactor),
+};
 
 exposeModules(hass, reactor, {
   auth,
@@ -46,6 +46,6 @@ exposeModules(hass, reactor, {
   sync,
   voice,
   restApi,
-})
+});
 
 export default hass;

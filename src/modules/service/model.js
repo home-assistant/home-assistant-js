@@ -3,7 +3,7 @@ import { callApi } from '../api';
 
 const ENTITY = 'service';
 
-let ImmutableService = new Immutable.Record({
+const ImmutableService = new Immutable.Record({
   domain: null,
   services: [],
 }, 'ServiceDomain');

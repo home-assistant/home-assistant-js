@@ -3,7 +3,7 @@ import { callApi } from '../api';
 
 const ENTITY = 'event';
 
-let ImmutableEvent = new Immutable.Record({
+const ImmutableEvent = new Immutable.Record({
   event: null,
   listenerCount: 0,
 }, 'Event');
@@ -24,7 +24,9 @@ export default class Event extends ImmutableEvent {
   }
 
   static fromJSON({event, listener_count}) {
+    /* eslint-disable camelcase */
     return new Event(event, listener_count);
+    /* eslint-enable camelcase */
   }
 
 }

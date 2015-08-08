@@ -23,15 +23,15 @@ export const activePage = [
 
 export const possibleEntityDomainFilters = [
   entityGetters.domainSet,
-  domains => domains.filter(domain => domain in entityDomainFilters)
+  domains => domains.filter(domain => domain in entityDomainFilters),
 ];
 
 export function isActivePane(pane) {
   return [
     activePane,
-    activePane => activePane === pane,
+    activePane_ => activePane_ === pane,
   ];
-};
+}
 
 export const filteredStates = [
   entityGetters.visibleEntityList,
@@ -40,5 +40,5 @@ export const filteredStates = [
     return filter ?
       entities.filter(entity => entity.domain === filter) :
       entities.filter(entity => !(entity.domain in entityDomainFilters));
-  }
+  },
 ];

@@ -8,7 +8,7 @@ export const isDataLoaded = [
   serviceGetters.hasData,
   (hasEntityData, hasEventData, hasServiceData) => {
     return hasEntityData && hasEventData && hasServiceData;
-  }
+  },
 ];
 
 export const isFetching = [

@@ -8,9 +8,7 @@ const observe = {
     getter: [
       authGetters.currentAuthToken,
       authGetters.rememberAuth,
-      function(authToken, rememberAuth) {
-        return rememberAuth ? authToken : null;
-      },
+      (authToken, rememberAuth) => rememberAuth ? authToken : null,
     ],
     defaultValue: null,
   },
@@ -22,18 +20,18 @@ const observe = {
 
 const preferences = {};
 
-Object.keys(observe).forEach(function(prop) {
+Object.keys(observe).forEach(prop => {
   if (!(prop in storage)) {
     storage[prop] = observe[prop].defaultValue;
   }
 
   Object.defineProperty(preferences, prop, {
-    get: function() { return JSON.parse(storage[prop]); }
+    get: () => { return JSON.parse(storage[prop]); },
   });
 });
 
 preferences.startSync = function startSync(reactor) {
-  Object.keys(observe).forEach(function(prop) {
+  Object.keys(observe).forEach(prop => {
     const { getter } = observe[prop];
     const valueChanged = function valueChanged(value) {
       storage[prop] = JSON.stringify(value);

@@ -10,8 +10,10 @@ class SelectedNavigationPane extends Store {
   }
 
   initialize() {
+    /* eslint-disable no-use-before-define */
     this.on(actionTypes.NAVIGATE, navigate);
     this.on(actionTypes.LOG_OUT, logOut);
+    /* eslint-enable no-use-before-define */
   }
 }
 
@@ -21,9 +23,9 @@ export default INSTANCE;
 
 function navigate(state, {pane, filter=null}) {
   return state.withMutations(
-    map => map.set('pane', pane).set('filter', filter))
+    map => map.set('pane', pane).set('filter', filter));
 }
 
-function logOut(state) {
+function logOut() {
   return INSTANCE.getInitialState();
 }

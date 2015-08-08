@@ -17,10 +17,12 @@ class StreamStatusStore extends Store {
   }
 
   initialize() {
+    /* eslint-disable no-use-before-define */
     this.on(actionTypes.STREAM_START, startStream);
     this.on(actionTypes.STREAM_STOP, stopStream);
     this.on(actionTypes.STREAM_ERROR, errorStream);
     this.on(actionTypes.LOG_OUT, logOut);
+    /* eslint-enable no-use-before-define */
   }
 }
 
@@ -32,23 +34,23 @@ function startStream(state) {
   return state.withMutations(map => {
     map.set('isStreaming', true)
        .set('useStreaming', true)
-       .set('hasError', false)
-  })
+       .set('hasError', false);
+  });
 }
 
 function stopStream(state) {
   return state.withMutations(map => {
     map.set('isStreaming', false)
        .set('useStreaming', false)
-       .set('hasError', false)
-  })
+       .set('hasError', false);
+  });
 }
 
 function errorStream(state) {
   return state.withMutations(map => {
     map.set('isStreaming', false)
-       .set('hasError', "true")
-  })
+       .set('hasError', 'true');
+  });
 }
 
 function logOut() {

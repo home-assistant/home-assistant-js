@@ -29,5 +29,5 @@ export function byDomain(domain) {
 
 export const domainSet = [
   entityList,
-  list => list.map(entity => entity.domain).toSet()
-]
+  list => list.map(entity => entity.domain).toSet(),
+];

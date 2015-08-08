@@ -8,15 +8,18 @@ import { navigate } from './actions';
 import paneFilterToPage from './pane-filter-to-page';
 import pageToPaneFilter from './page-to-pane-filter';
 
-const isSupported = history.pushState && !__DEMO__;
-const title = 'Home Assistant';
+const IS_SUPPORTED = history.pushState && !__DEMO__;
+const PAGE_TITLE = 'Home Assistant';
+const SYNCS = {};
 
-let ignoreNextDeselectEntity = false;
-let unwatchNavigationObserver;
-let unwatchMoreInfoObserver;
+function getSync(reactor) {
+  return SYNCS[reactor.hassId];
+}
 
 function initialSync(reactor) {
-  let pane, filter, url;
+  let pane;
+  let filter;
+  let url;
   // store current state in url or set state based on url
   if (location.pathname === '/') {
     pane = reactor.evaluate(activePane);
@@ -29,62 +32,75 @@ function initialSync(reactor) {
     url = location.pathname;
     navigate(reactor, pane, filter);
   }
-  history.replaceState({pane, filter}, title, url);
+  history.replaceState({pane, filter}, PAGE_TITLE, url);
 }
 
 function popstateChangeListener(reactor, ev) {
   const {pane, filter} = ev.state;
 
   if (reactor.evaluate(moreInfoGetters.hasCurrentEntityId)) {
-    ignoreNextDeselectEntity = true;
-    moreInfoActions.deselectEntity();
+    getSync(reactor).ignoreNextDeselectEntity = true;
+    moreInfoActions.deselectEntity(reactor);
   } else {
     navigate(reactor, pane, filter);
   }
-};
+}
 
 export function startSync(reactor) {
-  if (!isSupported) {
+  if (!IS_SUPPORTED) {
     return;
   }
 
   initialSync(reactor);
 
   // keep url in sync with state
-  unwatchNavigationObserver = reactor.observe(activePage, (page) => {
+  const unwatchNavigationObserver = reactor.observe(activePage, (page) => {
     const state = pageToPaneFilter(page);
     if (!(state.pane === history.state.pane &&
-          state.filter == history.state.filter)) {
+          state.filter === history.state.filter)) {
       history.pushState(state, page, `/${page}`);
     }
   });
-
-  unwatchMoreInfoObserver = reactor.observe(
+  const unwatchMoreInfoObserver = reactor.observe(
     moreInfoGetters.hasCurrentEntityId,
     (moreInfoEntitySelected) => {
       if (moreInfoEntitySelected) {
-        history.pushState(history.state, title, location.pathname);
-      } else if (ignoreNextDeselectEntity) {
-        ignoreNextDeselectEntity = false;
+        history.pushState(history.state, PAGE_TITLE, location.pathname);
+      /* eslint-disable no-use-before-define */
+      } else if (sync.ignoreNextDeselectEntity) {
+        sync.ignoreNextDeselectEntity = false;
+      /* eslint-enable no-use-before-define */
       } else {
         history.back();
       }
     }
   );
+  const boundPopstateChangeListener = popstateChangeListener.bind(null, reactor);
+  const sync = {
+    unwatchNavigationObserver,
+    unwatchMoreInfoObserver,
+    popstateChangeListener: boundPopstateChangeListener,
+    ignoreNextDeselectEntity: false,
+  };
+
+  SYNCS[reactor.hassId] = sync;
 
   // keep state in sync when url changes via forward/back buttons
-  window.addEventListener('popstate', popstateChangeListener.bind(null, reactor));
-};
+  window.addEventListener('popstate', boundPopstateChangeListener);
+}
 
 export function stopSync(reactor) {
-  if (!isSupported) {
+  if (!IS_SUPPORTED) {
     return;
   }
 
-  if (unwatchNavigationObserver) {
-    unwatchNavigationObserver();
-    unwatchMoreInfoObserver();
+  const sync = getSync(reactor);
+  if (!sync) {
+    return;
   }
 
-  window.removeEventListener('popstate', popstateChangeListener);
+  sync.unwatchNavigationObserver();
+  sync.unwatchMoreInfoObserver();
+  window.removeEventListener('popstate', sync.popstateChangeListener);
+  SYNCS[reactor.hassId] = false;
 }

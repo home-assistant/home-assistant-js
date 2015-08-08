@@ -4,55 +4,67 @@ import actionTypes from './action-types';
 
 // Time to wait after last result to start processing.
 const NO_RESULT_TIMEOUT = 3000;
+const RESULTS = {};
 
-let recognition = null;
-let interimTranscript = '';
-let finalTranscript = '';
+function getResult(reactor) {
+  return RESULTS[reactor.hassId];
+}
 
 function process(reactor) {
-  const text = finalTranscript || interimTranscript;
+  const recognition = getResult(reactor);
+  const text = recognition.finalTranscript || recognition.interimTranscript;
 
-  reactor.dispatch(actionTypes.VOICE_TRANSMITTING, {finalTranscript: text})
+  reactor.dispatch(actionTypes.VOICE_TRANSMITTING, {finalTranscript: text});
 
-  serviceActions.callService('conversation', 'process', {text: text}).then(function() {
-    reactor.dispatch(actionTypes.VOICE_DONE);
-  }, function() {
-    reactor.dispatch(actionTypes.VOICE_ERROR);
-  });
+  serviceActions.callService(reactor, 'conversation', 'process', {text}).then(
+    () => { reactor.dispatch(actionTypes.VOICE_DONE); },
+    () => { reactor.dispatch(actionTypes.VOICE_ERROR); }
+  );
 }
 
 export function stop(reactor) {
-  if (recognition !== null) {
-    recognition.onstart = null;
-    recognition.onresult = null;
-    recognition.onerror = null;
-    recognition.onend = null;
-    recognition.stop();
-    recognition = null;
+  const result = getResult(reactor);
 
+  if (result) {
+    result.recognition.stop();
     process(reactor);
+    RESULTS[reactor.hassId] = false;
   }
-
-  interimTranscript = '';
-  finalTranscript = '';
 }
 
-const autostop = debounce(stop, NO_RESULT_TIMEOUT);
-
 export function listen(reactor) {
-  stop();
+  const stopForReactor = stop.bind(null, reactor);
+  stopForReactor();
 
-  recognition = new webkitSpeechRecognition();
-  recognition.interimResults = true;
+  const autostop = debounce(stopForReactor, NO_RESULT_TIMEOUT);
 
-  recognition.onstart = function() {
-    reactor.dispatch(actionTypes.VOICE_START);
+  /* eslint-disable new-cap */
+  const recognition = new webkitSpeechRecognition();
+  /* eslint-enable new-cap */
+
+  RESULTS[reactor.hassId] = {
+    recognition,
+    interimTranscript: '',
+    finalTranscript: '',
   };
 
-  recognition.onresult = function(event) {
-    interimTranscript = '';
+  recognition.interimResults = true;
 
-    for (var i = event.resultIndex; i < event.results.length; ++i) {
+  recognition.onstart = () => reactor.dispatch(actionTypes.VOICE_START);
+  recognition.onerror = () => reactor.dispatch(actionTypes.VOICE_ERROR);
+  recognition.onend = stopForReactor;
+
+  recognition.onresult = (event) => {
+    const result = getResult(reactor);
+
+    if (!result) {
+      return;
+    }
+
+    let finalTranscript = '';
+    let interimTranscript = '';
+
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
         finalTranscript += event.results[i][0].transcript;
       } else {
@@ -60,17 +72,16 @@ export function listen(reactor) {
       }
     }
 
-    reactor.dispatch(actionTypes.VOICE_RESULT,
-                  {interimTranscript, finalTranscript})
+    result.interimTranscript = interimTranscript;
+    result.finalTranscript += finalTranscript;
+
+    reactor.dispatch(actionTypes.VOICE_RESULT, {
+      interimTranscript,
+      finalTranscript: result.finalTranscript,
+    });
 
     autostop();
   };
-
-  recognition.onerror = function() {
-    reactor.dispatch(actionTypes.VOICE_ERROR);
-  };
-
-  recognition.onend = stop;
 
   recognition.start();
 }

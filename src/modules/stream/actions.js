@@ -6,69 +6,76 @@ import handleRemoteEvent from './handle-remote-event';
 
 // maximum time we can go without receiving anything from the server
 const MAX_INACTIVITY_TIME = 60000;
+const STREAMS = {};
 
-let source = null;
+function stopStream(reactor) {
+  const stream = STREAMS[reactor.hassId];
 
-// Called on each interaction with the server
-// So when debounce is done we exceeded MAX_INACTIVITY_TIME.
-// Why? Because the error event listener on EventSource cannot be trusted.
-const scheduleHealthCheck = debounce(function() {
-  start();
-}, MAX_INACTIVITY_TIME);
-
-const stopStream = function stopStream() {
-  source.close();
-  source = null;
-  scheduleHealthCheck.cancel();
-};
-
-export function start(reactor, {syncOnInitialConnect=true} = {}) {
-  if (source !== null) {
-    stopStream();
+  if (!stream) {
+    return;
   }
 
+  stream.scheduleHealthCheck.cancel();
+  stream.source.cancel();
+  STREAMS[reactor.hassId] = false;
+}
+
+export function start(reactor, {syncOnInitialConnect=true} = {}) {
+  stopStream(reactor);
+
+  // Called on each interaction with EventSource
+  // When debounce is done we exceeded MAX_INACTIVITY_TIME.
+  // Why? Because the error event listener on EventSource cannot be trusted.
+  const scheduleHealthCheck = debounce(start.bind(null, reactor), MAX_INACTIVITY_TIME);
   const authToken = reactor.evaluate(authGetters.authToken);
-  const url = `/api/stream?api_password=${authToken}`;
+  const source = new EventSource(`/api/stream?api_password=${authToken}`);
+  let syncOnConnect = syncOnInitialConnect;
 
-  source = new EventSource(url);
+  STREAMS[reactor.hassId] = {
+    source,
+    scheduleHealthCheck,
+  };
 
-  source.addEventListener('open', function() {
+  source.addEventListener('open', () => {
     scheduleHealthCheck();
 
-    reactor.dispatch(actionTypes.STREAM_START);
+    reactor.batch(() => {
+      reactor.dispatch(actionTypes.STREAM_START);
 
-    // We are streaming, fetch latest info but stop syncing
-    syncActions.stop(reactor);
+      // We are streaming, fetch latest info but stop syncing
+      syncActions.stop(reactor);
 
-    if (syncOnInitialConnect) {
-      syncActions.fetchAll(reactor);
-    } else {
-      syncOnInitialConnect = true;
+      if (syncOnConnect) {
+        syncActions.fetchAll(reactor);
+      } else {
+        syncOnConnect = true;
+      }
+    });
+  }, false);
+
+  source.addEventListener('message', (ev) => {
+    scheduleHealthCheck();
+
+    if (ev.data !== 'ping') {
+      handleRemoteEvent(reactor, JSON.parse(ev.data));
     }
   }, false);
 
-  source.addEventListener('message', function(ev) {
+  source.addEventListener('error', () => {
     scheduleHealthCheck();
 
-    if (ev.data === 'ping') {
-      return;
-    }
-
-    handleRemoteEvent(reactor, JSON.parse(ev.data));
-  }, false);
-
-  source.addEventListener('error', function() {
     if (source.readyState !== EventSource.CLOSED) {
       reactor.dispatch(actionTypes.STREAM_ERROR);
     }
   }, false);
-
 }
 
 export function stop(reactor) {
   stopStream();
 
-  reactor.dispatch(actionTypes.STREAM_STOP);
+  reactor.batch(() => {
+    reactor.dispatch(actionTypes.STREAM_STOP);
 
-  syncActions.start(reactor);
+    syncActions.start(reactor);
+  });
 }

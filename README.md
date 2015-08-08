@@ -1,4 +1,4 @@
-# home-assistant-js
+# home-assistant-js [![Build Status](https://travis-ci.org/balloob/home-assistant-js.svg?branch=master)](https://travis-ci.org/balloob/home-assistant-js)
 JavaScript backend in [NuclearJS][nuclear-js] for [Home Assistant][home-assistant]. Used by [the Home Assistant Polymer frontend][home-assistant-polymer].
 
 To see it in action, [check out the demo][home-assistant-demo]. Debug mode has been enabled for NuclearJS so make sure to open your developer tools!

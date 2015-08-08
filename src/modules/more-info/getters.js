@@ -1,4 +1,4 @@
-import {isStaleTime} from '../../util';
+import isStaleTime from '../../util/is-stale-time';
 import {getters as entityGetters} from '../entity';
 import {getters as entityHistoryGetters} from '../entity-history';
 

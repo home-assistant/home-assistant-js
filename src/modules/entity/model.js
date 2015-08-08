@@ -1,6 +1,5 @@
 import { Immutable, toJS } from 'nuclear-js';
-// import serviceStore from '../stores/service';
-import { parseDateTime } from '../../util';
+import parseDateTime from '../../util/parse-date-time-str';
 
 import { callApi } from '../api';
 
@@ -55,19 +54,19 @@ export default class State extends ImmutableEntity {
   //           serviceStore.has(this.domain, 'turn_on'));
   // }
 
-  static save(instance) {
+  static save(reactor, instance) {
     const {entityId, state, attributes = {}} = toJS(instance);
     const payload = {state, attributes};
 
-    return callApi('POST', `states/${entityId}`, payload);
+    return callApi(reactor, 'POST', `states/${entityId}`, payload);
   }
 
-  static fetch(id) {
-    return callApi('GET', `states/${id}`);
+  static fetch(reactor, id) {
+    return callApi(reactor, 'GET', `states/${id}`);
   }
 
-  static fetchAll() {
-    return callApi('GET', 'states');
+  static fetchAll(reactor) {
+    return callApi(reactor, 'GET', 'states');
   }
 
   static fromJSON({entity_id, state, last_changed, attributes}) {

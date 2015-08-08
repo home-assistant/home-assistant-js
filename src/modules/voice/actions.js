@@ -1,59 +1,70 @@
-import Flux from '../../flux';
 import debounce from 'lodash/function/debounce';
 import {actions as serviceActions} from '../service';
 import actionTypes from './action-types';
 
 // Time to wait after last result to start processing.
 const NO_RESULT_TIMEOUT = 3000;
+const RESULTS = {};
 
-let recognition = null;
-let interimTranscript = '';
-let finalTranscript = '';
-
-function process() {
-  const text = finalTranscript || interimTranscript;
-
-  Flux.dispatch(actionTypes.VOICE_TRANSMITTING, {finalTranscript: text})
-
-  serviceActions.callService('conversation', 'process', {text: text}).then(function() {
-    Flux.dispatch(actionTypes.VOICE_DONE);
-  }, function() {
-    Flux.dispatch(actionTypes.VOICE_ERROR);
-  });
+function getResult(reactor) {
+  return RESULTS[reactor.hassId];
 }
 
-export function stop() {
-  if (recognition !== null) {
-    recognition.onstart = null;
-    recognition.onresult = null;
-    recognition.onerror = null;
-    recognition.onend = null;
-    recognition.stop();
-    recognition = null;
+function process(reactor) {
+  const recognition = getResult(reactor);
+  const text = recognition.finalTranscript || recognition.interimTranscript;
 
-    process();
+  reactor.dispatch(actionTypes.VOICE_TRANSMITTING, {finalTranscript: text});
+
+  serviceActions.callService(reactor, 'conversation', 'process', {text}).then(
+    () => { reactor.dispatch(actionTypes.VOICE_DONE); },
+    () => { reactor.dispatch(actionTypes.VOICE_ERROR); }
+  );
+}
+
+export function stop(reactor) {
+  const result = getResult(reactor);
+
+  if (result) {
+    result.recognition.stop();
+    process(reactor);
+    RESULTS[reactor.hassId] = false;
   }
-
-  interimTranscript = '';
-  finalTranscript = '';
 }
 
-const autostop = debounce(stop, NO_RESULT_TIMEOUT);
+export function listen(reactor) {
+  const stopForReactor = stop.bind(null, reactor);
+  stopForReactor();
 
-export function listen() {
-  stop();
+  const autostop = debounce(stopForReactor, NO_RESULT_TIMEOUT);
 
-  recognition = new webkitSpeechRecognition();
-  recognition.interimResults = true;
+  /* eslint-disable new-cap */
+  const recognition = new webkitSpeechRecognition();
+  /* eslint-enable new-cap */
 
-  recognition.onstart = function() {
-    Flux.dispatch(actionTypes.VOICE_START);
+  RESULTS[reactor.hassId] = {
+    recognition,
+    interimTranscript: '',
+    finalTranscript: '',
   };
 
-  recognition.onresult = function(event) {
-    interimTranscript = '';
+  recognition.interimResults = true;
 
-    for (var i = event.resultIndex; i < event.results.length; ++i) {
+  recognition.onstart = () => reactor.dispatch(actionTypes.VOICE_START);
+  recognition.onerror = () => reactor.dispatch(actionTypes.VOICE_ERROR);
+  recognition.onend = stopForReactor;
+
+  recognition.onresult = (event) => {
+    const result = getResult(reactor);
+
+    if (!result) {
+      return;
+    }
+
+    let finalTranscript = '';
+    let interimTranscript = '';
+
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
         finalTranscript += event.results[i][0].transcript;
       } else {
@@ -61,17 +72,16 @@ export function listen() {
       }
     }
 
-    Flux.dispatch(actionTypes.VOICE_RESULT,
-                  {interimTranscript, finalTranscript})
+    result.interimTranscript = interimTranscript;
+    result.finalTranscript += finalTranscript;
+
+    reactor.dispatch(actionTypes.VOICE_RESULT, {
+      interimTranscript,
+      finalTranscript: result.finalTranscript,
+    });
 
     autostop();
   };
-
-  recognition.onerror = function() {
-    Flux.dispatch(actionTypes.VOICE_ERROR);
-  };
-
-  recognition.onend = stop;
 
   recognition.start();
 }

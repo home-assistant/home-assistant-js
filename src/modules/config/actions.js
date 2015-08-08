@@ -1,15 +1,15 @@
-import Flux from '../../flux';
 import { callApi } from '../api';
 import actionTypes from './action-types';
 
 export function fetchAll() {
-  callApi('GET', 'config').then(configLoaded);
+  callApi(reactor, 'GET', 'config').then(
+    config => configLoaded(reactor, config));
 }
 
-export function configLoaded(config) {
-  Flux.dispatch(actionTypes.SERVER_CONFIG_LOADED, config);
+export function configLoaded(reactor, config) {
+  reactor.dispatch(actionTypes.SERVER_CONFIG_LOADED, config);
 }
 
-export function componentLoaded(component) {
-  Flux.dispatch(actionTypes.COMPONENT_LOADED, {component});
+export function componentLoaded(reactor, component) {
+  reactor.dispatch(actionTypes.COMPONENT_LOADED, {component});
 }

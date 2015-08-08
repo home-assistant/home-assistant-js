@@ -1,5 +1,4 @@
 import debounce from 'lodash/function/debounce';
-import Flux from '../../flux';
 import actionTypes from './action-types';
 import * as getters from './getters';
 import { callApi } from '../api';
@@ -10,47 +9,67 @@ import { actions as eventActions } from '../event';
 import { actions as configActions } from '../config';
 
 const SYNC_INTERVAL = 30000;
+const SCHEDULED_SYNCS = {};
 
-export function fetchAll() {
-  const isSyncScheduled = Flux.evaluate(getters.isSyncScheduled);
+function isSyncing(reactor) {
+  return reactor.evaluate(getters.isSyncScheduled);
+}
 
-  Flux.dispatch(actionTypes.API_FETCH_ALL_START, {});
+function scheduleSync(reactor) {
+  if (!isSyncing(reactor)) {
+    return;
+  }
+  if (!(reactor.hassId in SCHEDULED_SYNCS)) {
+    /* eslint-disable no-use-before-define */
+    SCHEDULED_SYNCS[reactor.hassId] = debounce(fetchAll.bind(null, reactor), SYNC_INTERVAL);
+    /* eslint-enable no-use-before-define */
+  }
 
-  return callApi('GET', 'bootstrap').then(data => {
-    entityActions.replaceData(data.states);
-    serviceActions.replaceData(data.services);
-    eventActions.replaceData(data.events);
-    configActions.configLoaded(data.config);
+  SCHEDULED_SYNCS[reactor.hassId]();
+}
 
-    Flux.dispatch(actionTypes.API_FETCH_ALL_SUCCESS, {});
+function unscheduleSync(reactor) {
+  const sync = SCHEDULED_SYNCS[reactor.hassId];
 
-    if (isSyncScheduled) {
-      scheduleSync();
-    }
+  if (sync) {
+    sync.cancel();
+  }
+}
+
+export function fetchAll(reactor) {
+  reactor.dispatch(actionTypes.API_FETCH_ALL_START, {});
+
+  return callApi(reactor, 'GET', 'bootstrap').then(data => {
+    reactor.batch(() => {
+      entityActions.replaceData(reactor, data.states);
+      serviceActions.replaceData(reactor, data.services);
+      eventActions.replaceData(reactor, data.events);
+      configActions.configLoaded(reactor, data.config);
+
+      reactor.dispatch(actionTypes.API_FETCH_ALL_SUCCESS, {});
+    });
+
+    scheduleSync(reactor);
   }, message => {
-    Flux.dispatch(actionTypes.API_FETCH_ALL_FAIL, {message});
+    reactor.dispatch(actionTypes.API_FETCH_ALL_FAIL, {message});
 
-    if (isSyncScheduled) {
-      scheduleSync();
-    }
+    scheduleSync(reactor);
 
     return Promise.reject(message);
   });
 }
 
-const scheduleSync = debounce(fetchAll, SYNC_INTERVAL);
-
-export function start({skipInitialSync=false}={}) {
-  Flux.dispatch(actionTypes.SYNC_SCHEDULED);
+export function start(reactor, {skipInitialSync=false}={}) {
+  reactor.dispatch(actionTypes.SYNC_SCHEDULED);
 
   if (skipInitialSync) {
-    scheduleSync();
+    scheduleSync(reactor);
   } else {
-    fetchAll();
+    fetchAll(reactor);
   }
 }
 
-export function stop() {
-  Flux.dispatch(actionTypes.SYNC_SCHEDULE_CANCELLED);
-  scheduleSync.cancel();
+export function stop(reactor) {
+  reactor.dispatch(actionTypes.SYNC_SCHEDULE_CANCELLED);
+  unscheduleSync(reactor);
 }

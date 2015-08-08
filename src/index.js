@@ -1,39 +1,51 @@
-import { actions as authActions, getters as authGetters } from './modules/auth';
-import { actions as configActions, getters as configGetters } from './modules/config';
-import { actions as entityActions, getters as entityGetters } from './modules/entity';
-import { actions as entityHistoryActions, getters as entityHistoryGetters } from './modules/entity-history';
-import { actions as eventActions, getters as eventGetters } from './modules/event';
-import { actions as logbookActions, getters as logbookGetters } from './modules/logbook';
-import { actions as moreInfoActions, getters as moreInfoGetters } from './modules/more-info';
-import { actions as navigationActions,
-         getters as navigationGetters,
-         urlSync } from './modules/navigation';
-import { actions as notificationActions, getters as notificationGetters } from './modules/notification';
-import reactor from './flux';
 import { localStoragePreferences } from './modules/preferences';
-import { actions as serviceActions, getters as serviceGetters } from './modules/service';
-import { actions as streamActions, getters as streamGetters } from './modules/stream';
-import { actions as syncActions, getters as syncGetters } from './modules/sync';
-import * as util from './util';
-import { actions as voiceActions, getters as voiceGetters } from './modules/voice';
+import createReactor from './util/create-reactor';
+import exposeModules from './util/expose-modules';
+import util from './util/ui-util';
 
-export default {
-  authActions, authGetters,
-  configActions, configGetters,
-  entityActions, entityGetters,
-  entityHistoryActions, entityHistoryGetters,
-  eventActions, eventGetters,
-  logbookActions, logbookGetters,
-  localStoragePreferences,
-  moreInfoActions, moreInfoGetters,
-  navigationActions, navigationGetters,
-  notificationActions, notificationGetters,
+import * as auth from './modules/auth';
+import * as config from './modules/config';
+import * as entity from './modules/entity';
+import * as entityHistory from './modules/entity-history';
+import * as event from './modules/event';
+import * as logbook from './modules/logbook';
+import * as moreInfo from './modules/more-info';
+import * as navigation from './modules/navigation';
+import * as notification from './modules/notification';
+import * as service from './modules/service';
+import * as stream from './modules/stream';
+import * as sync from './modules/sync';
+import * as voice from './modules/voice';
+import * as restApi from './modules/rest-api';
+
+const reactor = createReactor();
+
+const hass = {
   reactor,
-  serviceActions, serviceGetters,
-  streamActions, streamGetters,
-  syncActions, syncGetters,
-  urlSync,
+  localStoragePreferences,
   util,
-  voiceActions, voiceGetters,
   demo: __DEMO__,
-};
+  startUrlSync: navigation.urlSync.startSync.bind(null, reactor),
+  stopUrlSync: navigation.urlSync.stopSync.bind(null, reactor),
+  startLocalStoragePreferencesSync: localStoragePreferences.startSync.bind(
+    localStoragePreferences, reactor)
+}
+
+exposeModules(hass, reactor, {
+  auth,
+  config,
+  entity,
+  entityHistory,
+  event,
+  logbook,
+  moreInfo,
+  navigation,
+  notification,
+  service,
+  stream,
+  sync,
+  voice,
+  restApi,
+})
+
+export default hass;

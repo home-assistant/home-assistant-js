@@ -1,5 +1,5 @@
 import { Store } from 'nuclear-js';
-import { dateToStr } from '../../../util';
+import dateToStr from '../../../util/date-to-str';
 import actionTypes from '../action-types';
 
 class CurrentLogbookDate extends Store {

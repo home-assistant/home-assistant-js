@@ -1,10 +1,9 @@
 import { Promise } from 'es6-promise';
 
-import Flux from '../../flux';
 import { getters as authGetters } from '../auth';
 
-let callApi = function callApi(method, path, parameters=null) {
-  const authInfo = Flux.evaluate(authGetters.authInfo);
+let callApi = function callApi(reactor, method, path, parameters=null) {
+  const authInfo = reactor.evaluate(authGetters.authInfo);
 
   const url = `${authInfo.host}/api/${path}`;
 

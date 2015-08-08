@@ -1,4 +1,3 @@
-import Flux from '../../flux';
 import actionTypes from './action-types';
 
 /**
@@ -13,60 +12,60 @@ import actionTypes from './action-types';
 export default function createApiActions(model) {
   const apiActions = {};
 
-  apiActions.incrementData = function pushNewData(data, params = {}) {
-    onFetchSuccess(model, params, data);
+  apiActions.incrementData = function pushNewData(reactor, data, params = {}) {
+    onFetchSuccess(reactor, model, params, data);
   };
 
-  apiActions.replaceData = function pushNewData(data, params = {}) {
-    onFetchSuccess(model, {...params, replace: true}, data);
+  apiActions.replaceData = function pushNewData(reactor, data, params = {}) {
+    onFetchSuccess(reactor, model, {...params, replace: true}, data);
   };
 
   if (model.fetch) {
-    apiActions.fetch = function fetchAction(params = {}) {
-      Flux.dispatch(actionTypes.API_FETCH_START, {
+    apiActions.fetch = function fetchAction(reactor, params = {}) {
+      reactor.dispatch(actionTypes.API_FETCH_START, {
         model: model,
         method: 'fetch',
         params: params,
       });
-      return model.fetch(params).then(
-        onFetchSuccess.bind(null, model, params),
-        onFetchFail.bind(null, model, params)
+      return model.fetch(reactor, params).then(
+        onFetchSuccess.bind(null, reactor, model, params),
+        onFetchFail.bind(null, reactor, model, params)
       );
     };
   }
 
-  apiActions.fetchAll = function fetchAllAction(params = {}) {
-    Flux.dispatch(actionTypes.API_FETCH_START, {
+  apiActions.fetchAll = function fetchAllAction(reactor, params = {}) {
+    reactor.dispatch(actionTypes.API_FETCH_START, {
       model: model,
       method: 'fetchAll',
       params: params,
     });
-    return model.fetchAll(params).then(
-      onFetchSuccess.bind(null, model, {...params, replace: true}),
-      onFetchFail.bind(null, model, params)
+    return model.fetchAll(reactor, params).then(
+      onFetchSuccess.bind(null, reactor, model, {...params, replace: true}),
+      onFetchFail.bind(null, reactor, model, params)
     );
   };
 
   if (model.save) {
-    apiActions.save = function saveAction(params = {}) {
-      Flux.dispatch(actionTypes.API_SAVE_START, {
+    apiActions.save = function saveAction(reactor, params = {}) {
+      reactor.dispatch(actionTypes.API_SAVE_START, {
         params: params,
       });
-      return model.save(params).then(
-        onSaveSuccess.bind(null, model, params),
-        onSaveFail.bind(null, model, params)
+      return model.save(reactor, params).then(
+        onSaveSuccess.bind(null, reactor, model, params),
+        onSaveFail.bind(null, reactor, model, params)
       );
     };
   }
 
   if (model.delete) {
-    apiActions['delete'] = function deleteAction(params = {}) {
-      Flux.dispatch(actionTypes.API_DELETE_START, {
+    apiActions['delete'] = function deleteAction(reactor, params = {}) {
+      reactor.dispatch(actionTypes.API_DELETE_START, {
         params: params,
       });
-      return model['delete'](params).then(
-        onDeleteSuccess.bind(null, model, params),
-        onDeleteFail.bind(null, model, params)
+      return model['delete'](reactor, params).then(
+        onDeleteSuccess.bind(null, reactor, model, params),
+        onDeleteFail.bind(null, reactor, model, params)
       );
     };
   }
@@ -82,8 +81,8 @@ export default function createApiActions(model) {
  * @param {Object} result
  * @return {Object}
  */
-function onFetchSuccess(model, params, result) {
-  Flux.dispatch(actionTypes.API_FETCH_SUCCESS, {
+function onFetchSuccess(reactor, model, params, result) {
+  reactor.dispatch(actionTypes.API_FETCH_SUCCESS, {
     model,
     params,
     result,
@@ -99,8 +98,8 @@ function onFetchSuccess(model, params, result) {
  * @param {*} reason
  * @return {Object}
  */
-function onFetchFail(model, params, reason) {
-  Flux.dispatch(actionTypes.API_FETCH_FAIL, {
+function onFetchFail(reactor, model, params, reason) {
+  reactor.dispatch(actionTypes.API_FETCH_FAIL, {
     model,
     params,
     reason,
@@ -116,8 +115,8 @@ function onFetchFail(model, params, reason) {
  * @param {Object} result
  * @return {Object}
  */
-function onSaveSuccess(model, params, result) {
-  Flux.dispatch(actionTypes.API_SAVE_SUCCESS, {
+function onSaveSuccess(reactor, model, params, result) {
+  reactor.dispatch(actionTypes.API_SAVE_SUCCESS, {
     model,
     params,
     result,
@@ -133,8 +132,8 @@ function onSaveSuccess(model, params, result) {
  * @param {*} reason
  * @return {Object}
  */
-function onSaveFail(model, params, reason) {
-  Flux.dispatch(actionTypes.API_SAVE_FAIL, {
+function onSaveFail(reactor, model, params, reason) {
+  reactor.dispatch(actionTypes.API_SAVE_FAIL, {
     model,
     params,
     reason,
@@ -149,8 +148,8 @@ function onSaveFail(model, params, reason) {
  * @param {Object} result
  * @return {Object}
  */
-function onDeleteSuccess(model, params, result) {
-  Flux.dispatch(actionTypes.API_DELETE_SUCCESS, {
+function onDeleteSuccess(reactor, model, params, result) {
+  reactor.dispatch(actionTypes.API_DELETE_SUCCESS, {
     model,
     params,
     result,
@@ -165,8 +164,8 @@ function onDeleteSuccess(model, params, result) {
  * @param {Object} result
  * @return {Object}
  */
-function onDeleteFail(model, params, reason) {
-  Flux.dispatch(actionTypes.API_DELETE_FAIL, {
+function onDeleteFail(reactor, model, params, reason) {
+  reactor.dispatch(actionTypes.API_DELETE_FAIL, {
     model,
     params,
     reason,

@@ -1,1 +1,1 @@
-export default 'EventSource' in window;
+export default typeof window === 'object' && 'EventSource' in window;

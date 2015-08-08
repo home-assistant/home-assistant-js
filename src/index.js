@@ -1,6 +1,6 @@
 import { localStoragePreferences } from './modules/preferences';
 import createReactor from './util/create-reactor';
-import exposeModule from './util/expose-module';
+import exposeModules from './util/expose-modules';
 import util from './util/ui-util';
 
 import * as auth from './modules/auth';
@@ -25,22 +25,27 @@ const hass = {
   localStoragePreferences,
   util,
   demo: __DEMO__,
-  urlSync: navigation.urlSync,
+  startUrlSync: navigation.urlSync.startSync.bind(null, reactor),
+  stopUrlSync: navigation.urlSync.stopSync.bind(null, reactor),
+  startLocalStoragePreferencesSync: localStoragePreferences.startSync.bind(
+    localStoragePreferences, reactor)
 }
 
-exposeModule(hass, reactor, 'auth', auth);
-exposeModule(hass, reactor, 'config', config);
-exposeModule(hass, reactor, 'entity', entity);
-exposeModule(hass, reactor, 'entityHistory', entityHistory);
-exposeModule(hass, reactor, 'event', event);
-exposeModule(hass, reactor, 'logbook', logbook);
-exposeModule(hass, reactor, 'moreInfo', moreInfo);
-exposeModule(hass, reactor, 'navigation', navigation);
-exposeModule(hass, reactor, 'notification', notification);
-exposeModule(hass, reactor, 'service', service);
-exposeModule(hass, reactor, 'stream', stream);
-exposeModule(hass, reactor, 'sync', sync);
-exposeModule(hass, reactor, 'voice', voice);
-exposeModule(hass, reactor, 'restApi', restApi);
+exposeModules(hass, reactor, {
+  auth,
+  config,
+  entity,
+  entityHistory,
+  event,
+  logbook,
+  moreInfo,
+  navigation,
+  notification,
+  service,
+  stream,
+  sync,
+  voice,
+  restApi,
+})
 
 export default hass;

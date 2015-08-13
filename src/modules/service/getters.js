@@ -15,15 +15,16 @@ export function hasService(domain, service) {
   ];
 }
 
-export function canToggle(entityId) {
+export function canToggleEntity(entityId) {
   return [
     entityGetters.byId(entityId),
     entityMap,
-    (entity, map) => {
-      const serviceDomain = map.get(entity.domain);
-      return entity.domain === 'group' ?
-        entity.state === 'on' || entity.state === 'off' :
-        !!serviceDomain && serviceDomain.services.contains('turn_on');
+    (entity, servicesMap) => {
+      if (entity.domain === 'group') {
+        return entity.state === 'on' || entity.state === 'off';
+      }
+      const serviceDomain = servicesMap.get(entity.domain);
+      return !!serviceDomain && serviceDomain.services.contains('turn_on');
     },
   ];
 }

@@ -18,34 +18,61 @@ import * as sync from './modules/sync';
 import * as voice from './modules/voice';
 import * as restApi from './modules/rest-api';
 
-const reactor = createReactor();
+export default class HomeAssistant {
+  constructor() {
+    const reactor = createReactor();
 
-const hass = {
-  reactor,
-  localStoragePreferences,
-  util,
-  demo: __DEMO__,
-  startUrlSync: navigation.urlSync.startSync.bind(null, reactor),
-  stopUrlSync: navigation.urlSync.stopSync.bind(null, reactor),
-  startLocalStoragePreferencesSync: localStoragePreferences.startSync.bind(
-    localStoragePreferences, reactor),
-};
+    Object.defineProperties(this, {
+      // attributes
+      demo: {
+        value: __DEMO__,
+        enumerable: true,
+      },
 
-exposeModules(hass, reactor, {
-  auth,
-  config,
-  entity,
-  entityHistory,
-  event,
-  logbook,
-  moreInfo,
-  navigation,
-  notification,
-  service,
-  stream,
-  sync,
-  voice,
-  restApi,
-});
+      localStoragePreferences: {
+        value: localStoragePreferences,
+        enumerable: true,
+      },
 
-export default hass;
+      reactor: {
+        value: reactor,
+        enumerable: true,
+      },
+
+      util: {
+        value: util,
+        enumerable: true,
+      },
+
+      // methods
+      startLocalStoragePreferencesSync: {
+        value: localStoragePreferences.startSync.bind(localStoragePreferences, reactor),
+      },
+
+      startUrlSync: {
+        value: navigation.urlSync.startSync.bind(null, reactor),
+      },
+
+      stopUrlSync: {
+        value: navigation.urlSync.stopSync.bind(null, reactor),
+      },
+    });
+
+    exposeModules(this, reactor, {
+      auth,
+      config,
+      entity,
+      entityHistory,
+      event,
+      logbook,
+      moreInfo,
+      navigation,
+      notification,
+      service,
+      stream,
+      sync,
+      voice,
+      restApi,
+    });
+  }
+}

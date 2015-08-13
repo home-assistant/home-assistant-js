@@ -9,21 +9,28 @@ export default function exposeModules(target, reactor, modules) {
     }
 
     if ('getters' in module) {
-      const gettersKey = `${name}Getters`;
-      target[gettersKey] = module.getters;
+      Object.defineProperty(target, `${name}Getters`, {
+        value: module.getters,
+        enumerable: true,
+      });
     }
 
     if ('actions' in module) {
-      const actionsKey = `${name}Actions`;
       const actions = {};
 
       Object.getOwnPropertyNames(module.actions).forEach(actionKey => {
         if (isFunction(module.actions[actionKey])) {
-          actions[actionKey] = module.actions[actionKey].bind(null, reactor);
+          Object.defineProperty(actions, actionKey, {
+            value: module.actions[actionKey].bind(null, reactor),
+            enumerable: true,
+          });
         }
       });
 
-      target[actionsKey] = actions;
+      Object.defineProperty(target, `${name}Actions`, {
+        value: actions,
+        enumerable: true,
+      });
     }
   });
 }

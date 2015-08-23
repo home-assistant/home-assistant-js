@@ -1,6 +1,7 @@
 import { createByIdGetter, createEntityMapGetter, createHasDataGetter } from '../rest-api';
 import { getters as entityGetters } from '../entity';
 import model from './model';
+import canToggleEntityHelper from './can-toggle-entity';
 
 export const hasData = createHasDataGetter(model);
 
@@ -19,12 +20,6 @@ export function canToggleEntity(entityId) {
   return [
     entityGetters.byId(entityId),
     entityMap,
-    (entity, servicesMap) => {
-      if (entity.domain === 'group') {
-        return entity.state === 'on' || entity.state === 'off';
-      }
-      const serviceDomain = servicesMap.get(entity.domain);
-      return !!serviceDomain && serviceDomain.services.contains('turn_on');
-    },
+    canToggleEntityHelper,
   ];
 }

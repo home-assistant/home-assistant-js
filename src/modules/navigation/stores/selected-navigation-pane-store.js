@@ -1,12 +1,9 @@
-import { Store, toImmutable } from 'nuclear-js';
+import { Store } from 'nuclear-js';
 import actionTypes from '../action-types';
 
 class SelectedNavigationPane extends Store {
   getInitialState() {
-    return toImmutable({
-      pane: 'states',
-      filter: null,
-    });
+    return 'states';
   }
 
   initialize() {
@@ -21,9 +18,8 @@ const INSTANCE = new SelectedNavigationPane();
 
 export default INSTANCE;
 
-function navigate(state, {pane, filter=null}) {
-  return state.withMutations(
-    map => map.set('pane', pane).set('filter', filter));
+function navigate(state, {pane}) {
+  return pane;
 }
 
 function logOut() {

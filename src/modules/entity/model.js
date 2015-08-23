@@ -21,7 +21,7 @@ const ImmutableEntity = new Immutable.Record({
 export default class State extends ImmutableEntity {
   static entity = ENTITY
 
-  constructor(entityId, state, lastChanged, attributes={}) {
+  constructor(entityId, state, lastChanged, attributes = {}) {
     const [domain, objectId] = entityId.split('.');
     let stateDisplay = state.replace(/_/g, ' ');
 

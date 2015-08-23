@@ -20,7 +20,7 @@ function stopStream(reactor) {
   STREAMS[reactor.hassId] = false;
 }
 
-export function start(reactor, {syncOnInitialConnect=true} = {}) {
+export function start(reactor, {syncOnInitialConnect = true} = {}) {
   stopStream(reactor);
 
   // Called on each interaction with EventSource

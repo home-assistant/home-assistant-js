@@ -59,7 +59,7 @@ export function fetchAll(reactor) {
   });
 }
 
-export function start(reactor, {skipInitialSync=false}={}) {
+export function start(reactor, {skipInitialSync = false} = {}) {
   reactor.dispatch(actionTypes.SYNC_SCHEDULED);
 
   if (skipInitialSync) {

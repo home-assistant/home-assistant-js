@@ -5,7 +5,7 @@ import model from './model';
 
 const eventApiActions = createApiActions(model);
 
-eventApiActions.fireEvent = function fireEvent(reactor, eventType, eventData={}) {
+eventApiActions.fireEvent = function fireEvent(reactor, eventType, eventData = {}) {
   return callApi(reactor, 'POST', `events/${eventType}`, eventData).then(
     () => {
       notificationActions.createNotification(

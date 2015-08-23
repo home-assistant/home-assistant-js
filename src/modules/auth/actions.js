@@ -14,9 +14,9 @@ const DEFAULT_ERROR_MSG = 'Unexpected result from API';
  *   - host: host to target for API calls
  */
 export function validate(reactor, authToken, {
-    useStreaming=reactor.evaluate(streamGetters.isSupported),
-    rememberAuth=false,
-    host='',
+    useStreaming = reactor.evaluate(streamGetters.isSupported),
+    rememberAuth = false,
+    host = '',
   } = {}) {
     reactor.dispatch(actionTypes.VALIDATING_AUTH_TOKEN, {authToken, host});
 
@@ -38,7 +38,7 @@ export function validate(reactor, authToken, {
         }
       },
 
-      ({message=DEFAULT_ERROR_MSG}={}) => {
+      ({message = DEFAULT_ERROR_MSG} = {}) => {
         reactor.dispatch(actionTypes.INVALID_AUTH_TOKEN, {errorMessage: message});
       }
     );

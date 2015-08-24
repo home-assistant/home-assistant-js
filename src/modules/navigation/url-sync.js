@@ -19,7 +19,7 @@ function initialSync(reactor) {
   let url;
   // store current state in url or set state based on url
   if (location.pathname === '/') {
-    url = reactor.evaluate(activePane);
+    pane = url = reactor.evaluate(activePane);
   } else {
     pane = location.pathname.substr(1);
     url = location.pathname;

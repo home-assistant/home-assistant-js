@@ -1,6 +1,7 @@
 function getTime(minutesAgo) {
-  let ts = new Date(new Date().getTime() - (minutesAgo * 60 * 1000));
-  return `${ts.getHours()}:${ts.getMinutes()}:${ts.getSeconds()} ${ts.getDate()}-${ts.getMonth()+1}-${ts.getFullYear()}`
+  let ts = new Date(Date.now() - (minutesAgo * 60 * 1000));
+  return `${ts.getUTCHours()}:${ts.getUTCMinutes()}:${ts.getUTCSeconds()} ` +
+         `${ts.getUTCDate()}-${ts.getUTCMonth() + 1}-${ts.getUTCFullYear()}`;
 }
 
 export default [

@@ -36,7 +36,7 @@ let callApi = function callApi(reactor, method, path, parameters = null) {
 };
 
 if (__DEMO__) {
-  callApi = function demoCallAPI(method, path) {
+  callApi = function demoCallAPI(reactor, method, path) {
     return new Promise(function demoAPIResponse(resolve) {
       if (method !== 'GET') {
         throw new Error(`Method ${method} not allowed in demo mode.`);

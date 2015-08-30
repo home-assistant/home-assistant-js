@@ -71,7 +71,7 @@ export function start(reactor, {syncOnInitialConnect = true} = {}) {
 }
 
 export function stop(reactor) {
-  stopStream();
+  stopStream(reactor);
 
   reactor.batch(() => {
     reactor.dispatch(actionTypes.STREAM_STOP);

@@ -313,7 +313,7 @@ export default [
         {
             "attributes": {
                 "brightness": 144,
-                "friendly_name": "TV back light",
+                "friendly_name": "TV Ambient Light",
                 "xy_color": [
                     0.5119,
                     0.4147
@@ -325,7 +325,7 @@ export default [
         },
         {
             "attributes": {
-                "friendly_name": "TV back light"
+                "friendly_name": "TV Ambient Light"
             },
             "entity_id": "light.tv_back_light",
             "last_changed": getTime(800),
@@ -334,7 +334,7 @@ export default [
         {
             "attributes": {
                 "brightness": 144,
-                "friendly_name": "TV back light",
+                "friendly_name": "TV Ambient Light",
                 "xy_color": [
                     0.5119,
                     0.4147
@@ -346,7 +346,7 @@ export default [
         },
         {
             "attributes": {
-                "friendly_name": "TV back light"
+                "friendly_name": "TV Ambient Light"
             },
             "entity_id": "light.tv_back_light",
             "last_changed": getTime(300),
@@ -355,7 +355,7 @@ export default [
         {
             "attributes": {
                 "brightness": 144,
-                "friendly_name": "TV back light",
+                "friendly_name": "TV Ambient Light",
                 "xy_color": [
                     0.5119,
                     0.4147
@@ -370,7 +370,121 @@ export default [
         {
             "attributes": {
                 "brightness": 144,
-                "friendly_name": "Bowl",
+                "friendly_name": "AC",
+                "xy_color": [
+                    0.5119,
+                    0.4147
+                ]
+            },
+            "entity_id": "switch.ac",
+            "last_changed": getTime(1440),
+            "state": "on"
+        },
+        {
+            "attributes": {
+                "friendly_name": "TV Ambient Light"
+            },
+            "entity_id": "switch.ac",
+            "last_changed": getTime(800),
+            "state": "off"
+        },
+        {
+            "attributes": {
+                "brightness": 144,
+                "friendly_name": "TV Ambient Light",
+                "xy_color": [
+                    0.5119,
+                    0.4147
+                ]
+            },
+            "entity_id": "switch.ac",
+            "last_changed": getTime(500),
+            "state": "on"
+        },
+        {
+            "attributes": {
+                "friendly_name": "TV Ambient Light"
+            },
+            "entity_id": "switch.ac",
+            "last_changed": getTime(300),
+            "state": "off"
+        },
+        {
+            "attributes": {
+                "brightness": 144,
+                "friendly_name": "TV Ambient Light",
+                "xy_color": [
+                    0.5119,
+                    0.4147
+                ]
+            },
+            "entity_id": "switch.ac",
+            "last_changed": getTime(100),
+            "state": "on"
+        }
+    ],
+    [
+        {
+            "attributes": {
+                "brightness": 144,
+                "friendly_name": "Decorative Lights",
+                "xy_color": [
+                    0.5119,
+                    0.4147
+                ]
+            },
+            "entity_id": "switch.decorative_lights",
+            "last_changed": getTime(1440),
+            "state": "on"
+        },
+        {
+            "attributes": {
+                "friendly_name": "TV Ambient Light"
+            },
+            "entity_id": "switch.decorative_lights",
+            "last_changed": getTime(800),
+            "state": "off"
+        },
+        {
+            "attributes": {
+                "brightness": 144,
+                "friendly_name": "TV Ambient Light",
+                "xy_color": [
+                    0.5119,
+                    0.4147
+                ]
+            },
+            "entity_id": "switch.decorative_lights",
+            "last_changed": getTime(500),
+            "state": "on"
+        },
+        {
+            "attributes": {
+                "friendly_name": "TV Ambient Light"
+            },
+            "entity_id": "switch.decorative_lights",
+            "last_changed": getTime(300),
+            "state": "off"
+        },
+        {
+            "attributes": {
+                "brightness": 144,
+                "friendly_name": "TV Ambient Light",
+                "xy_color": [
+                    0.5119,
+                    0.4147
+                ]
+            },
+            "entity_id": "switch.decorative_lights",
+            "last_changed": getTime(100),
+            "state": "on"
+        }
+    ],
+    [
+        {
+            "attributes": {
+                "brightness": 144,
+                "friendly_name": "Table Lamp",
                 "xy_color": [
                     0.5119,
                     0.4147
@@ -382,7 +496,7 @@ export default [
         },
         {
             "attributes": {
-                "friendly_name": "Bowl"
+                "friendly_name": "Table Lamp"
             },
             "entity_id": "light.bowl",
             "last_changed": getTime(1200),
@@ -390,7 +504,7 @@ export default [
         },
         {
             "attributes": {
-                "friendly_name": "Bowl"
+                "friendly_name": "Table Lamp"
             },
             "entity_id": "light.bowl",
             "last_changed": getTime(1000),
@@ -399,7 +513,7 @@ export default [
         {
             "attributes": {
                 "brightness": 144,
-                "friendly_name": "Bowl",
+                "friendly_name": "Table Lamp",
                 "xy_color": [
                     0.5119,
                     0.4147
@@ -411,7 +525,7 @@ export default [
         },
         {
             "attributes": {
-                "friendly_name": "Bowl"
+                "friendly_name": "Table Lamp"
             },
             "entity_id": "light.bowl",
             "last_changed": getTime(500),
@@ -420,7 +534,7 @@ export default [
         {
             "attributes": {
                 "brightness": 144,
-                "friendly_name": "Bowl",
+                "friendly_name": "Table Lamp",
                 "xy_color": [
                     0.5119,
                     0.4147
@@ -432,7 +546,7 @@ export default [
         },
         {
             "attributes": {
-                "friendly_name": "Bowl"
+                "friendly_name": "Table Lamp"
             },
             "entity_id": "light.bowl",
             "last_changed": getTime(200),

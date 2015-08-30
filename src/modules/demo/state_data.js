@@ -7,10 +7,11 @@ function getRandomTime() {
 export default [
     {
         "attributes": {
+            "friendly_name": "Ceiling Lights",
             "brightness": 200,
             "xy_color": [
                 0.6389,
-                0.3028
+                0.5028,
             ]
         },
         "entity_id": "light.ceiling",
@@ -36,14 +37,6 @@ export default [
         "entity_id": "sensor.outside_humidity",
         "last_changed": getRandomTime(),
         "state": "54"
-    },
-    {
-        "attributes": {
-            "friendly_name": "Kodi",
-        },
-        "entity_id": "sensor.kodi",
-        "last_changed": getRandomTime(),
-        "state": "on"
     },
     {
         "attributes": {
@@ -89,11 +82,8 @@ export default [
     },
     {
         "attributes": {
+            "friendly_name": "Table Lamp",
             "brightness": 200,
-            "xy_color": [
-                0.6389,
-                0.3028
-            ]
         },
         "entity_id": "light.bowl",
         "last_changed": getRandomTime(),
@@ -117,15 +107,6 @@ export default [
     },
     {
         "attributes": {
-            "next_rising": "06:37:32 09-02-2015",
-            "next_setting": "17:29:01 09-02-2015"
-        },
-        "entity_id": "sun.sun",
-        "last_changed": getRandomTime(),
-        "state": "below_horizon"
-    },
-    {
-        "attributes": {
             "configure_id": "4415244496-1",
             "description": "Press the button on the bridge to register Philips Hue with Home Assistant.",
             "description_image": "/demo/images/config_philips_hue.jpg",
@@ -138,7 +119,7 @@ export default [
     },
     {
         "attributes": {},
-        "entity_id": "switch.christmas_lights",
+        "entity_id": "switch.decorative_lights",
         "last_changed": getRandomTime(),
         "state": "off"
     },
@@ -147,7 +128,7 @@ export default [
             "auto": false,
             "entity_id": [
                 "light.bed_light",
-                "switch.christmas_lights"
+                "switch.decorative_lights"
             ],
             "friendly_name": "bedroom"
         },
@@ -156,7 +137,7 @@ export default [
         "state": "off"
     },
     {
-        "attributes": {"friendly_name": "TV Back Light"},
+        "attributes": {"friendly_name": "TV Ambient Light"},
         "entity_id": "light.tv_back_light",
         "last_changed": getRandomTime(),
         "state": "off"
@@ -168,7 +149,8 @@ export default [
                 "light.bowl",
                 "light.ceiling",
                 "light.tv_back_light",
-                "switch.ac"
+                "switch.ac",
+                "media_player.living_room",
             ],
             "friendly_name": "living room"
         },
@@ -178,7 +160,8 @@ export default [
     },
     {
         "attributes": {
-            "entity_picture": "https://graph.facebook.com/297400035/picture"
+            "entity_picture": "https://graph.facebook.com/297400035/picture",
+            "friendly_name": "Paulus",
         },
         "entity_id": "device_tracker.paulus",
         "last_changed": getRandomTime(),
@@ -186,7 +169,8 @@ export default [
     },
     {
         "attributes": {
-            "entity_picture": "https://graph.facebook.com/621994601/picture"
+            "entity_picture": "https://graph.facebook.com/621994601/picture",
+            "friendly_name": "Anne Therese",
         },
         "entity_id": "device_tracker.anne_therese",
         "last_changed": getRandomTime(),

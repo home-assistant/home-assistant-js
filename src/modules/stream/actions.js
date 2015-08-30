@@ -16,7 +16,7 @@ function stopStream(reactor) {
   }
 
   stream.scheduleHealthCheck.cancel();
-  stream.source.cancel();
+  stream.source.close();
   STREAMS[reactor.hassId] = false;
 }
 

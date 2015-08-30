@@ -1,5 +1,6 @@
 import { getters as authGetters } from '../auth';
 import { getters as streamGetters } from '../stream';
+import { getters as navigationGetters } from '../navigation';
 
 const storage = 'localStorage' in window ? localStorage : {};
 
@@ -15,6 +16,10 @@ const observe = {
   useStreaming: {
     getter: streamGetters.useStreaming,
     defaultValue: true,
+  },
+  showSidebar: {
+    getter: navigationGetters.showSidebar,
+    defaultValue: false,
   },
 };
 

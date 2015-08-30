@@ -9,3 +9,8 @@ export function isActivePane(pane) {
     activePane_ => activePane_ === pane,
   ];
 }
+
+export const showSidebar = [
+  ['showSidebar'],
+  show => !!show,
+];

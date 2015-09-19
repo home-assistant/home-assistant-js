@@ -186,7 +186,7 @@ export default [
     },
     {
         "attributes": {
-          "entity_picture": "http://194.218.96.92/jpg/image.jpg",
+          "entity_picture": "/demo/webcam.jpg",
           "friendly_name": "Demo Camera",
         },
         "entity_id": "camera.ip_camera",

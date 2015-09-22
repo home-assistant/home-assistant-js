@@ -1,7 +1,7 @@
 /* Keeps the URL in sync with the navigator store */
 import {
   getters as moreInfoGetters,
-  actions as moreInfoActions
+  actions as moreInfoActions,
 } from '../more-info';
 import { activePane } from './getters';
 import { navigate } from './actions';

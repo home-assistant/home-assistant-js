@@ -28,7 +28,7 @@ export function start(reactor, {syncOnInitialConnect = true} = {}) {
   // Why? Because the error event listener on EventSource cannot be trusted.
   const scheduleHealthCheck = debounce(start.bind(null, reactor), MAX_INACTIVITY_TIME);
   const authToken = reactor.evaluate(authGetters.authToken);
-  const source = new EventSource(`/api/stream?api_password=${authToken}`);
+  const source = new EventSource(`/api/stream?api_password=${authToken}&restrict=state_changed,component_loaded,service_registered`);
   let syncOnConnect = syncOnInitialConnect;
 
   STREAMS[reactor.hassId] = {

@@ -171,6 +171,9 @@ export default [
         "attributes": {
             "entity_picture": "https://graph.facebook.com/621994601/picture",
             "friendly_name": "Anne Therese",
+            "latitude": "32.880839",
+            "longitude": "-117.237557",
+            "gps_accuracy": 100
         },
         "entity_id": "device_tracker.anne_therese",
         "last_changed": getRandomTime(),

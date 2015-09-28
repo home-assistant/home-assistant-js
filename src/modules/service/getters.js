@@ -12,7 +12,7 @@ export const byDomain = createByIdGetter(model);
 export function hasService(domain, service) {
   return [
     byDomain(domain),
-    serviceDomain => !!serviceDomain && serviceDomain.services.contains(service),
+    serviceDomain => !!serviceDomain && serviceDomain.services.has(service),
   ];
 }
 

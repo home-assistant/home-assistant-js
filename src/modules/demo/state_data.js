@@ -160,6 +160,15 @@ export default [
     },
     {
         "attributes": {
+            "friendly_name": "Alarm",
+            "code_format": "^\\d{4}",
+        },
+        "entity_id": "alarm_control_panel.home",
+        "last_changed": getRandomTime(),
+        "state": "armed_away"
+    },
+    {
+        "attributes": {
             "radius": 100,
             "latitude": 32.873708,
             "longitude": -117.226590,

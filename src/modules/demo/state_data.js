@@ -160,24 +160,65 @@ export default [
     },
     {
         "attributes": {
+            "radius": 100,
+            "latitude": 32.873708,
+            "longitude": -117.226590,
+            "icon": "home",
+            "hidden": true
+        },
+        "entity_id": "zone.home",
+        "last_changed": getRandomTime(),
+        "state": "zoning"
+    },
+    {
+        "attributes": {
+            "radius": 250,
+            "latitude": 32.896844,
+            "longitude": -117.202204,
+            "icon": "work",
+            "hidden": true
+        },
+        "entity_id": "zone.work",
+        "last_changed": getRandomTime(),
+        "state": "zoning"
+    },
+    {
+        "attributes": {
+            "radius": 250,
+            "latitude": 32.880834,
+            "longitude": -117.237556,
+            "icon": "maps:local-library",
+            "hidden": true
+        },
+        "entity_id": "zone.school",
+        "last_changed": getRandomTime(),
+        "state": "zoning"
+    },
+    {
+        "attributes": {
             "entity_picture": "https://graph.facebook.com/297400035/picture",
             "friendly_name": "Paulus",
+            "gps_accuracy": 75,
+            "latitude": 32.892950,
+            "longitude": -117.203431,
+            "battery": 56
         },
         "entity_id": "device_tracker.paulus",
         "last_changed": getRandomTime(),
-        "state": "home"
+        "state": "not_home"
     },
     {
         "attributes": {
             "entity_picture": "https://graph.facebook.com/621994601/picture",
             "friendly_name": "Anne Therese",
-            "latitude": "32.880839",
-            "longitude": "-117.237557",
-            "gps_accuracy": 100
+            "latitude": 32.879898,
+            "longitude": -117.236776,
+            "gps_accuracy": 250,
+            "battery": 76
         },
         "entity_id": "device_tracker.anne_therese",
         "last_changed": getRandomTime(),
-        "state": "not_home"
+        "state": "school"
     },
     {
         "attributes": {

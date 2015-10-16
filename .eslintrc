@@ -2,7 +2,8 @@
   "extends": "airbnb",
   "globals": {
     "__DEV__": false,
-    "__DEMO__": false
+    "__DEMO__": false,
+    "webkitSpeechRecognition": false
   },
   "rules": {
     "comma-dangle": [2, "always-multiline"],

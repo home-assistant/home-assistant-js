@@ -5,7 +5,7 @@ export function configLoaded(reactor, config) {
   reactor.dispatch(actionTypes.SERVER_CONFIG_LOADED, config);
 }
 
-export function fetchAll() {
+export function fetchAll(reactor) {
   callApi(reactor, 'GET', 'config').then(
     config => configLoaded(reactor, config));
 }

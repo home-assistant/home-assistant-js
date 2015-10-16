@@ -64,11 +64,11 @@ export function listen(reactor) {
     let finalTranscript = '';
     let interimTranscript = '';
 
-    for (let i = event.resultIndex; i < event.results.length; ++i) {
-      if (event.results[i].isFinal) {
-        finalTranscript += event.results[i][0].transcript;
+    for (let ind = event.resultIndex; ind < event.results.length; ind++) {
+      if (event.results[ind].isFinal) {
+        finalTranscript += event.results[ind][0].transcript;
       } else {
-        interimTranscript += event.results[i][0].transcript;
+        interimTranscript += event.results[ind][0].transcript;
       }
     }
 

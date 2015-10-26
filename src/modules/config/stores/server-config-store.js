@@ -9,6 +9,7 @@ class ServerConfigStore extends Store {
       location_name: 'Home',
       temperature_unit: '°C',
       time_zone: 'UTC',
+      serverVersion: 'unknown',
     });
   }
 
@@ -25,7 +26,7 @@ const INSTANCE = new ServerConfigStore();
 export default INSTANCE;
 
 function serverConfigLoaded(state, {
-  latitude, longitude, location_name, temperature_unit, time_zone,
+  latitude, longitude, location_name, temperature_unit, time_zone, version,
 }) {
   return toImmutable({
     latitude,
@@ -33,6 +34,7 @@ function serverConfigLoaded(state, {
     location_name,
     temperature_unit,
     time_zone,
+    serverVersion: version,
   });
 }
 

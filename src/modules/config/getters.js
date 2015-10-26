@@ -10,6 +10,11 @@ export const locationName = [
   'location_name',
 ];
 
+export const serverVersion = [
+  'serverConfig',
+  'serverVersion',
+];
+
 export function isComponentLoaded(component) {
   return [
     ['serverComponent'],

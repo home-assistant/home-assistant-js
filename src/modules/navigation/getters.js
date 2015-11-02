@@ -11,6 +11,5 @@ export function isActivePane(pane) {
 }
 
 export const showSidebar = [
-  ['showSidebar'],
-  show => !!show,
+  'showSidebar',
 ];

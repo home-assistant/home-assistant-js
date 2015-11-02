@@ -49,7 +49,7 @@ function stopStream(state) {
 function errorStream(state) {
   return state.withMutations(map => {
     map.set('isStreaming', false)
-       .set('hasError', 'true');
+       .set('hasError', true);
   });
 }
 

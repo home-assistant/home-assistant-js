@@ -1,12 +1,12 @@
 
 export const isValidating = [
-  ['authAttempt', 'isValidating'],
-  isValidating_ => !!isValidating_,
+  'authAttempt',
+  'isValidating',
 ];
 
 export const isInvalidAttempt = [
-  ['authAttempt', 'isInvalid'],
-  isInvalid => !!isInvalid,
+  'authAttempt',
+  'isInvalid',
 ];
 
 export const attemptErrorMessage = [

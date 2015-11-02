@@ -15,6 +15,6 @@ export const useStreaming = [
 ];
 
 export const hasStreamingEventsError = [
-  ['streamStatus', 'hasError'],
-  hasError => !!hasError,
+  'streamStatus',
+  'hasError',
 ];

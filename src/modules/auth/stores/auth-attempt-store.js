@@ -34,7 +34,7 @@ function startValidate(state, {authToken, host}) {
   return toImmutable({
     authToken,
     host,
-    isValidating: 'true',
+    isValidating: true,
     isInvalid: false,
     errorMessage: '',
   });
@@ -48,7 +48,7 @@ function validateFail(state, {errorMessage}) {
   return state.withMutations(mState => {
     return mState
       .set('isValidating', false)
-      .set('isInvalid', 'true')
+      .set('isInvalid', true)
       .set('errorMessage', errorMessage);
   });
 }

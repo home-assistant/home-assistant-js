@@ -19,7 +19,7 @@ const INSTANCE = new ShowSidebarStore();
 export default INSTANCE;
 
 function showSidebar(state, {show}) {
-  return show && 'true';
+  return show;
 }
 
 function logOut() {

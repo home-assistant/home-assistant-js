@@ -1,9 +1,6 @@
-import debounce from 'lodash/function/debounce';
 import {actions as serviceActions} from '../service';
 import actionTypes from './action-types';
 
-// Time to wait after last result to start processing.
-const NO_RESULT_TIMEOUT = 3000;
 const RESULTS = {};
 
 function getResult(reactor) {
@@ -12,6 +9,9 @@ function getResult(reactor) {
 
 function process(reactor) {
   const recognition = getResult(reactor);
+
+  if (!recognition) return;
+
   const text = recognition.finalTranscript || recognition.interimTranscript;
 
   reactor.dispatch(actionTypes.VOICE_TRANSMITTING, {finalTranscript: text});
@@ -27,16 +27,18 @@ export function stop(reactor) {
 
   if (result) {
     result.recognition.stop();
-    process(reactor);
     RESULTS[reactor.hassId] = false;
   }
 }
 
-export function listen(reactor) {
-  const stopForReactor = stop.bind(null, reactor);
-  stopForReactor();
+export function finish(reactor) {
+  process(reactor);
+  stop(reactor);
+}
 
-  const autostop = debounce(stopForReactor, NO_RESULT_TIMEOUT);
+export function listen(reactor) {
+  const finishForReactor = finish.bind(null, reactor);
+  finishForReactor();
 
   /* eslint-disable new-cap */
   const recognition = new webkitSpeechRecognition();
@@ -52,7 +54,7 @@ export function listen(reactor) {
 
   recognition.onstart = () => reactor.dispatch(actionTypes.VOICE_START);
   recognition.onerror = () => reactor.dispatch(actionTypes.VOICE_ERROR);
-  recognition.onend = stopForReactor;
+  recognition.onend = finishForReactor;
 
   recognition.onresult = (event) => {
     const result = getResult(reactor);
@@ -79,8 +81,6 @@ export function listen(reactor) {
       interimTranscript,
       finalTranscript: result.finalTranscript,
     });
-
-    autostop();
   };
 
   recognition.start();

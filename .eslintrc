@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb",
+  "extends": "airbnb/base",
   "globals": {
     "__DEV__": false,
     "__DEMO__": false,
@@ -7,6 +7,7 @@
   },
   "rules": {
     "comma-dangle": [2, "always-multiline"],
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "react/sort-comp": 0
   }
 }

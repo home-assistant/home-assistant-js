@@ -19,8 +19,7 @@
     "es6-promise": "^3.0.2",
     "keymirror": "^0.1.1",
     "lodash": "^3.10",
-    "moment": "^2.10",
-    "nuclear-js": "^1.2.0"
+    "nuclear-js": "^1.2.1"
   },
   "devDependencies": {
     "babel-core": "^5.8",

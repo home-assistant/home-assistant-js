@@ -13,15 +13,22 @@ let callApi = function callApi(reactor, method, path, parameters = null) {
     req.setRequestHeader('X-HA-access', authInfo.authToken);
 
     req.onload = () => {
-      if (req.status > 199 && req.status < 300) {
-        resolve(JSON.parse(req.responseText));
-      } else {
-        // see if we got an error back.
-        try {
-          reject(JSON.parse(req.responseText));
-        } catch (err) {
-          reject({});
+      let content;
+
+      try {
+        if (req.getResponseHeader('content-type') === 'application/json') {
+          content = JSON.parse(req.responseText);
+        } else {
+          content = req.responseText;
         }
+      } catch (err) {
+        content = req.responseText;
+      }
+
+      if (req.status > 199 && req.status < 300) {
+        resolve(content);
+      } else {
+        reject(content);
       }
     };
 

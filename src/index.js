@@ -7,6 +7,7 @@ import * as auth from './modules/auth';
 import * as config from './modules/config';
 import * as entity from './modules/entity';
 import * as entityHistory from './modules/entity-history';
+import * as errorLog from './modules/error-log';
 import * as event from './modules/event';
 import * as logbook from './modules/logbook';
 import * as moreInfo from './modules/more-info';
@@ -63,6 +64,7 @@ export default class HomeAssistant {
       config,
       entity,
       entityHistory,
+      errorLog,
       event,
       logbook,
       moreInfo,

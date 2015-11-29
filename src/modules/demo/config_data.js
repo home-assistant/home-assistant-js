@@ -14,4 +14,5 @@ export default {
   'longitude': -117.22743,
   'temperature_unit': '\u00b0F',
   'time_zone': 'America/Los_Angeles',
+  'version': '0.8'
 };

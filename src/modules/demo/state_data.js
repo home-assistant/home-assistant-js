@@ -92,6 +92,7 @@ export default [
     {
         "attributes": {
             "away_mode": "off",
+            "temperature": "21",
             "current_temperature": "18",
             "unit_of_measurement": "\u00b0C"
         },
@@ -160,19 +161,44 @@ export default [
     },
     {
         "attributes": {
+            "friendly_name": "Good Morning"
+        },
+        "entity_id": "scene.good_morning",
+        "last_changed": getRandomTime(),
+        "state": "scening"
+    },
+    {
+        "attributes": {
+            "friendly_name": "Romantic"
+        },
+        "entity_id": "scene.romantic",
+        "last_changed": getRandomTime(),
+        "state": "scening"
+    },
+    {
+        "attributes": {
+            "friendly_name": "Water lawn"
+        },
+        "entity_id": "script.water_lawn",
+        "last_changed": getRandomTime(),
+        "state": "on"
+    },
+
+    {
+        "attributes": {
             "friendly_name": "Alarm",
             "code_format": "^\\d{4}",
         },
         "entity_id": "alarm_control_panel.home",
         "last_changed": getRandomTime(),
-        "state": "armed_away"
+        "state": "armed_home"
     },
     {
         "attributes": {
             "radius": 100,
             "latitude": 32.873708,
             "longitude": -117.226590,
-            "icon": "home",
+            "icon": "mdi:home",
             "hidden": true
         },
         "entity_id": "zone.home",
@@ -184,7 +210,7 @@ export default [
             "radius": 250,
             "latitude": 32.896844,
             "longitude": -117.202204,
-            "icon": "work",
+            "icon": "mdi:worker",
             "hidden": true
         },
         "entity_id": "zone.work",
@@ -196,7 +222,7 @@ export default [
             "radius": 250,
             "latitude": 32.880834,
             "longitude": -117.237556,
-            "icon": "maps:local-library",
+            "icon": "mdi:library",
             "hidden": true
         },
         "entity_id": "zone.school",
@@ -232,6 +258,7 @@ export default [
     {
         "attributes": {
             "friendly_name": "AC",
+            "icon": "mdi:air-conditioner"
         },
         "entity_id": "switch.ac",
         "last_changed": getRandomTime(),

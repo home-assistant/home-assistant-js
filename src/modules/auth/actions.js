@@ -1,5 +1,6 @@
 import actionTypes from './action-types';
 
+import { callApi } from '../api';
 import { getters as streamGetters } from '../stream';
 import { actions as streamActions } from '../stream';
 import { actions as syncActions } from '../sync';
@@ -45,5 +46,6 @@ export function validate(reactor, authToken, {
 }
 
 export function logOut(reactor) {
+  callApi(reactor, 'POST', 'log_out');
   reactor.dispatch(actionTypes.LOG_OUT, {});
 }

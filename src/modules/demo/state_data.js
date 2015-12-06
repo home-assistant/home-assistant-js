@@ -7,6 +7,31 @@ function getRandomTime() {
 export default [
     {
         "attributes": {
+            "auto": false,
+            "entity_id": [
+                "lock.kitchen_door",
+                "rollershutter.kitchen_window"
+            ]
+        },
+        "entity_id": "group.kitchen",
+        "last_changed": getRandomTime(),
+        "state": "closed"
+    },
+    {
+        "entity_id": "lock.kitchen_door",
+        "last_changed": getRandomTime(),
+        "state": "on"
+    },
+    {
+        "attributes": {
+            "current_position": 0
+        },
+        "entity_id": "rollershutter.kitchen_window",
+        "last_changed": getRandomTime(),
+        "state": "closed"
+    },
+    {
+        "attributes": {
             "friendly_name": "Ceiling Lights",
             "brightness": 200,
             "xy_color": [
@@ -153,7 +178,7 @@ export default [
                 "switch.ac",
                 "media_player.living_room",
             ],
-            "friendly_name": "living room"
+            "friendly_name": "_living room"
         },
         "entity_id": "group.living_room",
         "last_changed": getRandomTime(),

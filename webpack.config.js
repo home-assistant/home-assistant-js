@@ -1,6 +1,6 @@
 'use strict';
-
-var webpack = require("webpack");
+var path = require('path');
+var webpack = require('webpack');
 
 var definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
@@ -8,21 +8,25 @@ var definePlugin = new webpack.DefinePlugin({
 });
 
 module.exports = {
-  entry: "./src/export_window.js",
+  entry: './src/index.js',
   output: {
-      path: 'dist',
-      filename: "homeassistant.min.js"
+    library: 'HomeAssistantJS',
+    libraryTarget: 'commonjs2',
+    path: 'dist',
+    filename: 'homeassistant.min.js',
   },
   module: {
     loaders: [
       {
-        loader: "babel-loader",
-        test: /.js$/,
-        exclude: /node_modules/
-      }
-    ]
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: [
+          path.resolve(__dirname, 'src'),
+        ],
+      },
+    ],
   },
   plugins: [
     definePlugin,
-  ]
+  ],
 };

@@ -1,10 +1,10 @@
 import { Store } from 'nuclear-js';
 import actionTypes from '../action-types';
 
-class IsLoadingEntityHistoryEntries extends Store {
+const INSTANCE = new Store({
   getInitialState() {
     return false;
-  }
+  },
 
   initialize() {
     this.on(actionTypes.ENTITY_HISTORY_FETCH_START,
@@ -22,9 +22,7 @@ class IsLoadingEntityHistoryEntries extends Store {
             () => false);
 
     this.on(actionTypes.LOG_OUT, () => false);
-  }
-}
-
-const INSTANCE = new IsLoadingEntityHistoryEntries();
+  },
+});
 
 export default INSTANCE;

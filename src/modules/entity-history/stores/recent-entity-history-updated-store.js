@@ -3,10 +3,10 @@ import actionTypes from '../action-types';
 
 const ALL_ENTRY_FETCH = 'ALL_ENTRY_FETCH';
 
-class RecentEntityHistoryUpdated extends Store {
+const INSTANCE = new Store({
   getInitialState() {
     return toImmutable({});
-  }
+  },
 
   initialize() {
     /* eslint-disable no-use-before-define */
@@ -14,10 +14,8 @@ class RecentEntityHistoryUpdated extends Store {
             entriesLoaded);
     this.on(actionTypes.LOG_OUT, logOut);
     /* eslint-enable no-use-before-define */
-  }
-}
-
-const INSTANCE = new RecentEntityHistoryUpdated();
+  },
+});
 
 export default INSTANCE;
 

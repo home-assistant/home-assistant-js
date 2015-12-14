@@ -2,7 +2,7 @@ import { Store, toImmutable } from 'nuclear-js';
 import actionTypes from '../action-types';
 import isSupported from '../is-supported';
 
-class StreamStatusStore extends Store {
+const INSTANCE = new Store({
   getInitialState() {
     return toImmutable({
       // is streaming supported
@@ -14,7 +14,7 @@ class StreamStatusStore extends Store {
       // if we have a streaming error
       hasError: false,
     });
-  }
+  },
 
   initialize() {
     /* eslint-disable no-use-before-define */
@@ -23,10 +23,8 @@ class StreamStatusStore extends Store {
     this.on(actionTypes.STREAM_ERROR, errorStream);
     this.on(actionTypes.LOG_OUT, logOut);
     /* eslint-enable no-use-before-define */
-  }
-}
-
-const INSTANCE = new StreamStatusStore();
+  },
+});
 
 export default INSTANCE;
 

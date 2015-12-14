@@ -1,20 +1,18 @@
 import { Store } from 'nuclear-js';
 import actionTypes from '../action-types';
 
-class CurrentEntityIdStore extends Store {
+const INSTANCE = new Store({
   getInitialState() {
     return null;
-  }
+  },
 
   initialize() {
     /* eslint-disable no-use-before-define */
     this.on(actionTypes.SELECT_ENTITY, selectEntity);
     this.on(actionTypes.LOG_OUT, logOut);
     /* eslint-enable no-use-before-define */
-  }
-}
-
-const INSTANCE = new CurrentEntityIdStore();
+  },
+});
 
 export default INSTANCE;
 

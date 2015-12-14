@@ -1,7 +1,7 @@
 import { Store, toImmutable } from 'nuclear-js';
 import actionTypes from '../action-types';
 
-class IsFetchingStore extends Store {
+const INSTANCE = new Store({
   getInitialState() {
     return toImmutable({
       isListening: false,
@@ -9,7 +9,7 @@ class IsFetchingStore extends Store {
       interimTranscript: '',
       finalTranscript: '',
     });
-  }
+  },
 
   initialize() {
     /* eslint-disable no-use-before-define */
@@ -20,10 +20,8 @@ class IsFetchingStore extends Store {
     this.on(actionTypes.VOICE_ERROR, voiceError);
     this.on(actionTypes.LOG_OUT, logOut);
     /* eslint-enable no-use-before-define */
-  }
-}
-
-const INSTANCE = new IsFetchingStore();
+  },
+});
 
 export default INSTANCE;
 

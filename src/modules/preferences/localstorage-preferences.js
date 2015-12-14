@@ -31,7 +31,13 @@ Object.keys(observe).forEach(prop => {
   }
 
   Object.defineProperty(preferences, prop, {
-    get: () => { return JSON.parse(storage[prop]); },
+    get: () => {
+      try {
+        return JSON.parse(storage[prop]);
+      } catch (err) {
+        return observe[prop].defaultValue;
+      }
+    },
   });
 });
 

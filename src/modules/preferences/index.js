@@ -1,5 +1,3 @@
-import localStoragePreferences from './localstorage-preferences';
+import _localStoragePreferences from './localstorage-preferences';
 
-export default {
-  localStoragePreferences,
-};
+export const localStoragePreferences = _localStoragePreferences;

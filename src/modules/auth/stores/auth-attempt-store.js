@@ -4,7 +4,7 @@
 import { Store, toImmutable } from 'nuclear-js';
 import actionTypes from '../action-types';
 
-class AttemptStore extends Store {
+const INSTANCE = new Store({
   getInitialState() {
     return toImmutable({
       isValidating: false,
@@ -13,7 +13,7 @@ class AttemptStore extends Store {
       isInvalid: false,
       errorMessage: '',
     });
-  }
+  },
 
   initialize() {
     /* eslint-disable no-use-before-define */
@@ -21,10 +21,8 @@ class AttemptStore extends Store {
     this.on(actionTypes.VALID_AUTH_TOKEN, validateSuccess);
     this.on(actionTypes.INVALID_AUTH_TOKEN, validateFail);
     /* eslint-enable no-use-before-define */
-  }
-}
-
-const INSTANCE = new AttemptStore();
+  },
+});
 
 export default INSTANCE;
 

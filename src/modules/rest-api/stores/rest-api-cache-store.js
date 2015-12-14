@@ -5,10 +5,10 @@ import isArray from 'lodash/lang/isArray';
 import { Store, toImmutable } from 'nuclear-js';
 import actionTypes from '../action-types';
 
-class RestApiCacheStore extends Store {
+const INSTANCE = new Store({
   getInitialState() {
     return toImmutable({});
-  }
+  },
 
   initialize() {
     /* eslint-disable no-use-before-define */
@@ -17,10 +17,8 @@ class RestApiCacheStore extends Store {
     this.on(actionTypes.API_DELETE_SUCCESS, removeData);
     this.on(actionTypes.LOG_OUT, () => this.getInitialState());
     /* eslint-enable no-use-before-define */
-  }
-}
-
-const INSTANCE = new RestApiCacheStore();
+  },
+});
 
 export default INSTANCE;
 

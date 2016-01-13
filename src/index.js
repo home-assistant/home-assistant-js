@@ -16,6 +16,7 @@ import * as notification from './modules/notification';
 import * as service from './modules/service';
 import * as stream from './modules/stream';
 import * as sync from './modules/sync';
+import * as template from './modules/template';
 import * as voice from './modules/voice';
 import * as restApi from './modules/rest-api';
 
@@ -73,6 +74,7 @@ export default class HomeAssistant {
       service,
       stream,
       sync,
+      template,
       voice,
       restApi,
     });

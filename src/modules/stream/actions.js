@@ -1,12 +1,13 @@
 import debounce from 'lodash/function/debounce';
-import {getters as authGetters} from '../auth';
-import {actions as syncActions} from '../sync';
+import { getters as authGetters } from '../auth';
+import { actions as syncActions } from '../sync';
 import actionTypes from './action-types';
 import handleRemoteEvent from './handle-remote-event';
 
 // maximum time we can go without receiving anything from the server
 const MAX_INACTIVITY_TIME = 60000;
 const STREAMS = {};
+const EVENTS = ['state_changed', 'component_loaded', 'service_registered'].join(',');
 
 function stopStream(reactor) {
   const stream = STREAMS[reactor.hassId];
@@ -20,7 +21,7 @@ function stopStream(reactor) {
   STREAMS[reactor.hassId] = false;
 }
 
-export function start(reactor, {syncOnInitialConnect = true} = {}) {
+export function start(reactor, { syncOnInitialConnect = true } = {}) {
   stopStream(reactor);
 
   // Called on each interaction with EventSource
@@ -28,7 +29,7 @@ export function start(reactor, {syncOnInitialConnect = true} = {}) {
   // Why? Because the error event listener on EventSource cannot be trusted.
   const scheduleHealthCheck = debounce(start.bind(null, reactor), MAX_INACTIVITY_TIME);
   const authToken = reactor.evaluate(authGetters.authToken);
-  const source = new EventSource(`/api/stream?api_password=${authToken}&restrict=state_changed,component_loaded,service_registered`);
+  const source = new EventSource(`/api/stream?api_password=${authToken}&restrict=${EVENTS}`);
   let syncOnConnect = syncOnInitialConnect;
 
   STREAMS[reactor.hassId] = {

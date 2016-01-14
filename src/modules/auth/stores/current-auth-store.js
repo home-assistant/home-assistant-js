@@ -19,8 +19,8 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function validateSuccess(state, {authToken, host}) {
-  return toImmutable({authToken, host});
+function validateSuccess(state, { authToken, host }) {
+  return toImmutable({ authToken, host });
 }
 
 function logOut() {

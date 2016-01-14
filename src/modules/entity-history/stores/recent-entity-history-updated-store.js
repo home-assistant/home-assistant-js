@@ -19,7 +19,7 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function entriesLoaded(state, {stateHistory}) {
+function entriesLoaded(state, { stateHistory }) {
   const now = (new Date()).getTime();
 
   return state.withMutations(mState => {

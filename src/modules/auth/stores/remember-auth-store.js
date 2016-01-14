@@ -18,6 +18,6 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function storeRememberAuth(state, {rememberAuth}) {
+function storeRememberAuth(state, { rememberAuth }) {
   return rememberAuth;
 }

@@ -28,7 +28,7 @@ export default INSTANCE;
 
 // using True as string to workaround a bug.
 
-function startValidate(state, {authToken, host}) {
+function startValidate(state, { authToken, host }) {
   return toImmutable({
     authToken,
     host,
@@ -42,7 +42,7 @@ function validateSuccess(state, {}) {
   return INSTANCE.getInitialState();
 }
 
-function validateFail(state, {errorMessage}) {
+function validateFail(state, { errorMessage }) {
   return state.withMutations(mState => {
     return mState
       .set('isValidating', false)

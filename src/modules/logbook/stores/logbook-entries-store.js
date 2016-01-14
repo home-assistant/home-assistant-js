@@ -17,7 +17,7 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function entriesLoaded(state, {date, entries}) {
+function entriesLoaded(state, { date, entries }) {
   return state.set(date, toImmutable(entries.map(model.fromJSON)));
 }
 

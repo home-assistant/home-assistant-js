@@ -54,4 +54,3 @@ function errorStream(state) {
 function logOut() {
   return INSTANCE.getInitialState();
 }
-

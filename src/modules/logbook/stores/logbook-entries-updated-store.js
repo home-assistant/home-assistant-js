@@ -16,7 +16,7 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function entriesLoaded(state, {date}) {
+function entriesLoaded(state, { date }) {
   return state.set(date, new Date().getTime());
 }
 

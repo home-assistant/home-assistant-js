@@ -9,10 +9,10 @@ const ImmutableService = new Immutable.Record({
 }, 'ServiceDomain');
 
 export default class ServiceDomain extends ImmutableService {
-  static entity = ENTITY
+  static entity = ENTITY;
 
   constructor(domain, services) {
-    super({domain, services});
+    super({ domain, services });
   }
 
   get id() {
@@ -23,7 +23,7 @@ export default class ServiceDomain extends ImmutableService {
     return callApi('GET', 'services');
   }
 
-  static fromJSON({domain, services}) {
+  static fromJSON({ domain, services }) {
     return new ServiceDomain(domain, toImmutable(services));
   }
 

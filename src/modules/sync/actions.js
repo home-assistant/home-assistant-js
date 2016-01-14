@@ -51,7 +51,7 @@ export function fetchAll(reactor) {
 
     scheduleSync(reactor);
   }, message => {
-    reactor.dispatch(actionTypes.API_FETCH_ALL_FAIL, {message});
+    reactor.dispatch(actionTypes.API_FETCH_ALL_FAIL, { message });
 
     scheduleSync(reactor);
 
@@ -59,7 +59,7 @@ export function fetchAll(reactor) {
   });
 }
 
-export function start(reactor, {skipInitialSync = false} = {}) {
+export function start(reactor, { skipInitialSync = false } = {}) {
   reactor.dispatch(actionTypes.SYNC_SCHEDULED);
 
   if (skipInitialSync) {

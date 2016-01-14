@@ -16,7 +16,7 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function navigate(state, {pane}) {
+function navigate(state, { pane }) {
   return pane;
 }
 

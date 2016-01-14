@@ -11,5 +11,5 @@ export function fetchAll(reactor) {
 }
 
 export function componentLoaded(reactor, component) {
-  reactor.dispatch(actionTypes.COMPONENT_LOADED, {component});
+  reactor.dispatch(actionTypes.COMPONENT_LOADED, { component });
 }

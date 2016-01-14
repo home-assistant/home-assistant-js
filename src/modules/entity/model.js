@@ -19,7 +19,7 @@ const ImmutableEntity = new Immutable.Record({
 }, 'Entity');
 
 export default class State extends ImmutableEntity {
-  static entity = ENTITY
+  static entity = ENTITY;
 
   constructor(entityId, state, lastChanged, attributes = {}) {
     const [domain, objectId] = entityId.split('.');
@@ -55,8 +55,8 @@ export default class State extends ImmutableEntity {
   // }
 
   static save(reactor, instance) {
-    const {entityId, state, attributes = {}} = toJS(instance);
-    const payload = {state, attributes};
+    const { entityId, state, attributes = {} } = toJS(instance);
+    const payload = { state, attributes };
 
     return callApi(reactor, 'POST', `states/${entityId}`, payload);
   }
@@ -69,7 +69,7 @@ export default class State extends ImmutableEntity {
     return callApi(reactor, 'GET', 'states');
   }
 
-  static fromJSON({entity_id, state, last_changed, attributes}) {
+  static fromJSON({ entity_id, state, last_changed, attributes }) {
     /* eslint-disable camelcase */
     return new State(entity_id, state, last_changed, attributes);
     /* eslint-enable camelcase */

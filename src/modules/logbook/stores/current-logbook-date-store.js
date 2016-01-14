@@ -17,7 +17,7 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function dateSelected(state, {date}) {
+function dateSelected(state, { date }) {
   return dateToStr(date);
 }
 

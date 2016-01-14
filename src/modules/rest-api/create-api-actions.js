@@ -17,15 +17,15 @@ export default function createApiActions(model) {
   };
 
   apiActions.replaceData = function pushNewData(reactor, data, params = {}) {
-    onFetchSuccess(reactor, model, {...params, replace: true}, data);
+    onFetchSuccess(reactor, model, { ...params, replace: true }, data);
   };
 
   if (model.fetch) {
     apiActions.fetch = function fetchAction(reactor, params = {}) {
       reactor.dispatch(actionTypes.API_FETCH_START, {
-        model: model,
+        model,
+        params,
         method: 'fetch',
-        params: params,
       });
       return model.fetch(reactor, params).then(
         onFetchSuccess.bind(null, reactor, model, params),
@@ -36,12 +36,12 @@ export default function createApiActions(model) {
 
   apiActions.fetchAll = function fetchAllAction(reactor, params = {}) {
     reactor.dispatch(actionTypes.API_FETCH_START, {
-      model: model,
+      model,
+      params,
       method: 'fetchAll',
-      params: params,
     });
     return model.fetchAll(reactor, params).then(
-      onFetchSuccess.bind(null, reactor, model, {...params, replace: true}),
+      onFetchSuccess.bind(null, reactor, model, { ...params, replace: true }),
       onFetchFail.bind(null, reactor, model, params)
     );
   };
@@ -49,7 +49,7 @@ export default function createApiActions(model) {
   if (model.save) {
     apiActions.save = function saveAction(reactor, params = {}) {
       reactor.dispatch(actionTypes.API_SAVE_START, {
-        params: params,
+        params,
       });
       return model.save(reactor, params).then(
         onSaveSuccess.bind(null, reactor, model, params),
@@ -62,7 +62,7 @@ export default function createApiActions(model) {
   if (model.delete) {
     apiActions['delete'] = function deleteAction(reactor, params = {}) {
       reactor.dispatch(actionTypes.API_DELETE_START, {
-        params: params,
+        params,
       });
       return model['delete'](reactor, params).then(
         onDeleteSuccess.bind(null, reactor, model, params),

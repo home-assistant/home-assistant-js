@@ -9,10 +9,10 @@ const ImmutableEvent = new Immutable.Record({
 }, 'Event');
 
 export default class Event extends ImmutableEvent {
-  static entity = ENTITY
+  static entity = ENTITY;
 
   constructor(event, listenerCount = 0) {
-    super({event, listenerCount});
+    super({ event, listenerCount });
   }
 
   get id() {
@@ -23,7 +23,7 @@ export default class Event extends ImmutableEvent {
     return callApi(reactor, 'GET', 'events');
   }
 
-  static fromJSON({event, listener_count}) {
+  static fromJSON({ event, listener_count }) {
     /* eslint-disable camelcase */
     return new Event(event, listener_count);
     /* eslint-enable camelcase */

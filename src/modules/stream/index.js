@@ -3,7 +3,7 @@ import * as _actions from './actions';
 import * as _getters from './getters';
 
 export function register(reactor) {
-  reactor.registerStores({streamStatus});
+  reactor.registerStores({ streamStatus });
 }
 
 export const actions = _actions;

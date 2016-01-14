@@ -16,7 +16,7 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function selectEntity(state, {entityId}) {
+function selectEntity(state, { entityId }) {
   return entityId;
 }
 

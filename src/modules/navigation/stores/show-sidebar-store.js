@@ -16,7 +16,7 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function showSidebar(state, {show}) {
+function showSidebar(state, { show }) {
   return !!show;
 }
 

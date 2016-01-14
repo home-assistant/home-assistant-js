@@ -20,7 +20,7 @@ export default class LogbookEntry extends ImmutableLogbookEntry {
     });
   }
 
-  static fromJSON({when, name, message, domain, entity_id}) {
+  static fromJSON({ when, name, message, domain, entity_id }) {
     /* eslint-disable camelcase */
     return new LogbookEntry(parseDateTime(when), name, message, domain, entity_id);
     /* eslint-enable camelcase */

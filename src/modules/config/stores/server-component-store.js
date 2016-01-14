@@ -17,11 +17,11 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function componentLoaded(state, {component}) {
+function componentLoaded(state, { component }) {
   return state.push(component);
 }
 
-function serverConfigLoaded(state, {components}) {
+function serverConfigLoaded(state, { components }) {
   return toImmutable(components);
 }
 

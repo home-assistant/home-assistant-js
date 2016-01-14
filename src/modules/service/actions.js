@@ -24,12 +24,12 @@ serviceApiActions.serviceRegistered = function serviceRegistered(reactor, domain
 
 serviceApiActions.callTurnOn = function callTurnOn(reactor, entityId, params = {}) {
   return serviceApiActions.callService(
-    reactor, 'homeassistant', 'turn_on', {...params, entity_id: entityId});
+    reactor, 'homeassistant', 'turn_on', { ...params, entity_id: entityId });
 };
 
 serviceApiActions.callTurnOff = function callTurnOff(reactor, entityId, params = {}) {
   return serviceApiActions.callService(
-    reactor, 'homeassistant', 'turn_off', {...params, entity_id: entityId});
+    reactor, 'homeassistant', 'turn_off', { ...params, entity_id: entityId });
 };
 
 serviceApiActions.callService = function callService(reactor, domain, service, params = {}) {

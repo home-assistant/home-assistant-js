@@ -29,7 +29,7 @@ export default INSTANCE;
  * @param {any} payload.params
  * @param {Object|Array} payload.result
  */
-function loadData(state, {model, result, params}) {
+function loadData(state, { model, result, params }) {
   const entity = model.entity;
 
   if (!result) {
@@ -56,6 +56,6 @@ function loadData(state, {model, result, params}) {
  * @param {any} payload.params
  * @param {Object|Array} payload.result
  */
-function removeData(state, {model, params}) {
+function removeData(state, { model, params }) {
   return state.removeIn([model.entity, params.id]);
 }

@@ -52,17 +52,17 @@ if (__DEMO__) {
       const component = path.split('/', 1)[0];
 
       switch (component) {
-      case 'bootstrap':
-        resolve(require('../demo/bootstrap_data.js'));
-        break;
-      case 'logbook':
-        resolve(require('../demo/logbook_data.js'));
-        break;
-      case 'history':
-        resolve(require('../demo/state_history_data.js'));
-        break;
-      default:
-        throw new Error(`URL not implemented in demo mode /api/${path}`);
+        case 'bootstrap':
+          resolve(require('../demo/bootstrap_data.js'));
+          break;
+        case 'logbook':
+          resolve(require('../demo/logbook_data.js'));
+          break;
+        case 'history':
+          resolve(require('../demo/state_history_data.js'));
+          break;
+        default:
+          throw new Error(`URL not implemented in demo mode /api/${path}`);
       }
     });
   };

@@ -19,11 +19,11 @@ export function validate(reactor, authToken, {
     rememberAuth = false,
     host = '',
   } = {}) {
-  reactor.dispatch(actionTypes.VALIDATING_AUTH_TOKEN, {authToken, host});
+  reactor.dispatch(actionTypes.VALIDATING_AUTH_TOKEN, { authToken, host });
 
   syncActions.fetchAll(reactor).then(
     () => {
-      reactor.dispatch(actionTypes.VALID_AUTH_TOKEN, {authToken, host, rememberAuth});
+      reactor.dispatch(actionTypes.VALID_AUTH_TOKEN, { authToken, host, rememberAuth });
 
       if (__DEMO__) {
         // Show as if streaming active in UI
@@ -33,14 +33,14 @@ export function validate(reactor, authToken, {
       }
 
       if (useStreaming) {
-        streamActions.start(reactor, {syncOnInitialConnect: false});
+        streamActions.start(reactor, { syncOnInitialConnect: false });
       } else {
-        syncActions.start(reactor, {skipInitialSync: true});
+        syncActions.start(reactor, { skipInitialSync: true });
       }
     },
 
-    ({message = DEFAULT_ERROR_MSG} = {}) => {
-      reactor.dispatch(actionTypes.INVALID_AUTH_TOKEN, {errorMessage: message});
+    ({ message = DEFAULT_ERROR_MSG } = {}) => {
+      reactor.dispatch(actionTypes.INVALID_AUTH_TOKEN, { errorMessage: message });
     }
   );
 }

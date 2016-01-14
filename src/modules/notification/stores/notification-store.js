@@ -16,7 +16,7 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function notificationCreated(state, {message}) {
+function notificationCreated(state, { message }) {
   return state.set(state.size, message);
 }
 

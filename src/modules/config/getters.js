@@ -2,7 +2,7 @@
 export const locationGPS = [
   ['serverConfig', 'latitude'],
   ['serverConfig', 'longitude'],
-  (latitude, longitude) => { return {latitude, longitude}; },
+  (latitude, longitude) => { return { latitude, longitude }; },
 ];
 
 export const locationName = [

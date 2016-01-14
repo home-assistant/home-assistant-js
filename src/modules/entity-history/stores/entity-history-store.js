@@ -17,7 +17,7 @@ const INSTANCE = new Store({
 
 export default INSTANCE;
 
-function entriesLoaded(state, {date, stateHistory}) {
+function entriesLoaded(state, { date, stateHistory }) {
   // set an empty map to indicate that data was loaded
   if (stateHistory.length === 0) {
     return state.set(date, toImmutable({}));

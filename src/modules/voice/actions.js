@@ -1,4 +1,4 @@
-import {actions as serviceActions} from '../service';
+import { actions as serviceActions } from '../service';
 import actionTypes from './action-types';
 
 const RESULTS = {};
@@ -14,9 +14,9 @@ function process(reactor) {
 
   const text = recognition.finalTranscript || recognition.interimTranscript;
 
-  reactor.dispatch(actionTypes.VOICE_TRANSMITTING, {finalTranscript: text});
+  reactor.dispatch(actionTypes.VOICE_TRANSMITTING, { finalTranscript: text });
 
-  serviceActions.callService(reactor, 'conversation', 'process', {text}).then(
+  serviceActions.callService(reactor, 'conversation', 'process', { text }).then(
     () => { reactor.dispatch(actionTypes.VOICE_DONE); },
     () => { reactor.dispatch(actionTypes.VOICE_ERROR); }
   );

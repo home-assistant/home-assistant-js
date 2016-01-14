@@ -21,7 +21,7 @@ export const rememberAuth = [
 export const attemptAuthInfo = [
   ['authAttempt', 'authToken'],
   ['authAttempt', 'host'],
-  (authToken, host) => { return {authToken, host}; },
+  (authToken, host) => { return { authToken, host }; },
 ];
 
 export const currentAuthToken = [
@@ -32,7 +32,7 @@ export const currentAuthToken = [
 export const currentAuthInfo = [
   currentAuthToken,
   ['authCurrent', 'host'],
-  (authToken, host) => { return {authToken, host}; },
+  (authToken, host) => { return { authToken, host }; },
 ];
 
 export const authToken = [

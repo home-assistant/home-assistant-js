@@ -1,4 +1,4 @@
-import {toImmutable} from 'nuclear-js';
+import { toImmutable } from 'nuclear-js';
 
 const STALE_TIME = 60000;
 

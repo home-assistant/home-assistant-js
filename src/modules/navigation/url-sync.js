@@ -25,11 +25,11 @@ function initialSync(reactor) {
     url = location.pathname;
     navigate(reactor, pane);
   }
-  history.replaceState({pane}, PAGE_TITLE, url);
+  history.replaceState({ pane }, PAGE_TITLE, url);
 }
 
 function popstateChangeListener(reactor, ev) {
-  const {pane} = ev.state;
+  const { pane } = ev.state;
 
   if (reactor.evaluate(moreInfoGetters.hasCurrentEntityId)) {
     getSync(reactor).ignoreNextDeselectEntity = true;
@@ -49,7 +49,7 @@ export function startSync(reactor) {
   // keep url in sync with state
   const unwatchNavigationObserver = reactor.observe(activePane, (pane) => {
     if (pane !== history.state.pane) {
-      history.pushState({pane}, pane, `/${pane}`);
+      history.pushState({ pane }, pane, `/${pane}`);
     }
   });
   const unwatchMoreInfoObserver = reactor.observe(

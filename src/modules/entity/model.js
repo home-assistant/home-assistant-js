@@ -14,6 +14,8 @@ const ImmutableEntity = new Immutable.Record({
   stateDisplay: null,
   lastChanged: null,
   lastChangedAsDate: null,
+  lastUpdated: null,
+  lastUpdatedAsDate: null,
   attributes: {},
   isCustomGroup: null,
 }, 'Entity');
@@ -21,7 +23,7 @@ const ImmutableEntity = new Immutable.Record({
 export default class State extends ImmutableEntity {
   static entity = ENTITY;
 
-  constructor(entityId, state, lastChanged, attributes = {}) {
+  constructor(entityId, state, lastChanged, lastUpdated, attributes = {}) {
     const [domain, objectId] = entityId.split('.');
     let stateDisplay = state.replace(/_/g, ' ');
 
@@ -36,9 +38,11 @@ export default class State extends ImmutableEntity {
       state,
       stateDisplay,
       lastChanged,
+      lastUpdated,
       attributes,
       entityDisplay: attributes.friendly_name || objectId.replace(/_/g, ' '),
       lastChangedAsDate: parseDateTime(lastChanged),
+      lastUpdatedAsDate: parseDateTime(lastUpdated),
       isCustomGroup: domain === 'group' && !attributes.auto,
     });
   }
@@ -69,9 +73,9 @@ export default class State extends ImmutableEntity {
     return callApi(reactor, 'GET', 'states');
   }
 
-  static fromJSON({ entity_id, state, last_changed, attributes }) {
+  static fromJSON({ entity_id, state, last_changed, last_updated, attributes }) {
     /* eslint-disable camelcase */
-    return new State(entity_id, state, last_changed, attributes);
+    return new State(entity_id, state, last_changed, last_updated, attributes);
     /* eslint-enable camelcase */
   }
 

@@ -2,7 +2,25 @@ import { getters as authGetters } from '../auth';
 import { getters as streamGetters } from '../stream';
 import { getters as navigationGetters } from '../navigation';
 
-const storage = 'localStorage' in window ? localStorage : {};
+function getLocalStorage() {
+  if (!('localStorage' in window)) {
+    return {};
+  }
+
+  const storage = window.localStorage;
+  const testKey = '___test';
+
+  try {
+    // Safari throws exception in private mode
+    storage.setItem(testKey, testKey);
+    storage.removeItem(testKey);
+    return storage;
+  } catch (err) {
+    return {};
+  }
+}
+
+const storage = getLocalStorage();
 
 const observe = {
   authToken: {

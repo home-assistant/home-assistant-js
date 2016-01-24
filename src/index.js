@@ -13,6 +13,7 @@ import * as logbook from './modules/logbook';
 import * as moreInfo from './modules/more-info';
 import * as navigation from './modules/navigation';
 import * as notification from './modules/notification';
+import * as section from './modules/section';
 import * as service from './modules/service';
 import * as stream from './modules/stream';
 import * as sync from './modules/sync';
@@ -71,6 +72,7 @@ export default class HomeAssistant {
       moreInfo,
       navigation,
       notification,
+      section,
       service,
       stream,
       sync,

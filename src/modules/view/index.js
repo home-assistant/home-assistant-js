@@ -1,9 +1,9 @@
-import currentSection from './stores/current-section-store';
+import currentView from './stores/current-view-store';
 import * as _actions from './actions';
 import * as _getters from './getters';
 
 export function register(reactor) {
-  reactor.registerStores({ currentSection });
+  reactor.registerStores({ currentView });
 }
 
 export const actions = _actions;

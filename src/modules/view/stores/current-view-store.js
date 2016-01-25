@@ -9,18 +9,18 @@ const INSTANCE = new Store({
 
   initialize() {
     /* eslint-disable no-use-before-define */
-    this.on(actionTypes.SELECT_SECTION, (state, { section }) => section);
-    this.on(restApiActionTypes.API_FETCH_SUCCESS, validateSection);
+    this.on(actionTypes.SELECT_VIEW, (state, { view }) => view);
+    this.on(restApiActionTypes.API_FETCH_SUCCESS, validateView);
     /* eslint-enable no-use-before-define */
   },
 });
 
-function validateSection(state, { model, result, params }) {
+function validateView(state, { model, result, params }) {
   if (state === null || model.entity !== 'entity' || !params.replace) {
     return state;
   }
 
-  // Validate that current section exists in the new states
+  // Validate that current view exists in the new states
   for (let i = 0; i < result.length; i++) {
     if (result[i].entity_id === state) {
       return state;

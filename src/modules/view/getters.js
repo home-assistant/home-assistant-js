@@ -17,6 +17,8 @@ function addToMap(map, entities, groupEntity) {
 
     const entity = entities.get(entityId);
 
+    if (!entity) return;
+
     map.set(entityId, entity);
 
     if (entity.domain === 'group') {

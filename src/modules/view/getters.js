@@ -17,7 +17,7 @@ function addToMap(map, entities, groupEntity) {
 
     const entity = entities.get(entityId);
 
-    if (!entity) return;
+    if (!entity || entity.attributes.hidden) return;
 
     map.set(entityId, entity);
 

@@ -3,6 +3,10 @@ import {
   getters as moreInfoGetters,
   actions as moreInfoActions,
 } from '../more-info';
+import {
+  getters as viewGetters,
+  actions as viewActions,
+} from '../view';
 import { activePane } from './getters';
 import { navigate } from './actions';
 
@@ -14,28 +18,58 @@ function getSync(reactor) {
   return SYNCS[reactor.hassId];
 }
 
+function pageState(pane, view) {
+  const state = { pane };
+  if (pane === 'states') {
+    state.view = view;
+  }
+  return state;
+}
+
+function pageUrl(pane, view) {
+  return pane === 'states' && view ?
+    `/${pane}/${view}` : `/${pane}`;
+}
+
+
 function initialSync(reactor) {
   let pane;
-  let url;
+  let view;
   // store current state in url or set state based on url
-  if (location.pathname === '/') {
-    pane = url = reactor.evaluate(activePane);
+  if (window.location.pathname === '/') {
+    pane = reactor.evaluate(activePane);
+    view = reactor.evaluate(viewGetters.currentView);
   } else {
-    pane = location.pathname.substr(1);
-    url = location.pathname;
-    navigate(reactor, pane);
+    const parts = window.location.pathname.substr(1).split('/');
+    pane = parts[0];
+    if (pane === 'states' && parts.length > 1) {
+      view = parts[1];
+    } else {
+      view = null;
+    }
+    reactor.batch(() => {
+      navigate(reactor, pane);
+      if (view) {
+        viewActions.selectView(reactor, view);
+      }
+    });
   }
-  history.replaceState({ pane }, PAGE_TITLE, url);
+  history.replaceState(pageState(pane, view), PAGE_TITLE, pageUrl(pane, view));
 }
 
 function popstateChangeListener(reactor, ev) {
-  const { pane } = ev.state;
+  const { pane, view } = ev.state;
 
   if (reactor.evaluate(moreInfoGetters.hasCurrentEntityId)) {
     getSync(reactor).ignoreNextDeselectEntity = true;
     moreInfoActions.deselectEntity(reactor);
   } else {
-    navigate(reactor, pane);
+    reactor.batch(() => {
+      navigate(reactor, pane);
+      if (view !== undefined) {
+        viewActions.selectView(reactor, view);
+      }
+    });
   }
 }
 
@@ -46,38 +80,39 @@ export function startSync(reactor) {
 
   initialSync(reactor);
 
-  // keep url in sync with state
-  const unwatchNavigationObserver = reactor.observe(activePane, (pane) => {
-    if (pane !== history.state.pane) {
-      history.pushState({ pane }, pane, `/${pane}`);
-    }
-  });
-  const unwatchMoreInfoObserver = reactor.observe(
-    moreInfoGetters.hasCurrentEntityId,
-    (moreInfoEntitySelected) => {
-      if (moreInfoEntitySelected) {
-        history.pushState(history.state, PAGE_TITLE, location.pathname);
-      /* eslint-disable no-use-before-define */
-      } else if (sync.ignoreNextDeselectEntity) {
-        sync.ignoreNextDeselectEntity = false;
-      /* eslint-enable no-use-before-define */
-      } else {
-        history.back();
-      }
-    }
-  );
-  const boundPopstateChangeListener = popstateChangeListener.bind(null, reactor);
   const sync = {
-    unwatchNavigationObserver,
-    unwatchMoreInfoObserver,
-    popstateChangeListener: boundPopstateChangeListener,
     ignoreNextDeselectEntity: false,
+    popstateChangeListener: popstateChangeListener.bind(null, reactor),
+    unwatchNavigationObserver: reactor.observe(activePane, pane => {
+      if (pane !== history.state.pane) {
+        history.pushState(pageState(pane, history.state.view), PAGE_TITLE,
+                          pageUrl(pane, history.state.view));
+      }
+    }),
+    unwatchViewObserver: reactor.observe(viewGetters.currentView, view => {
+      if (view !== history.state.view) {
+        history.pushState(pageState(history.state.pane, view), PAGE_TITLE,
+                          pageUrl(history.state.pane, view));
+      }
+    }),
+    unwatchMoreInfoObserver: reactor.observe(
+      moreInfoGetters.hasCurrentEntityId,
+      (moreInfoEntitySelected) => {
+        if (moreInfoEntitySelected) {
+          history.pushState(history.state, PAGE_TITLE, window.location.pathname);
+        } else if (sync.ignoreNextDeselectEntity) {
+          sync.ignoreNextDeselectEntity = false;
+        } else {
+          history.back();
+        }
+      }
+    ),
   };
 
   SYNCS[reactor.hassId] = sync;
 
   // keep state in sync when url changes via forward/back buttons
-  window.addEventListener('popstate', boundPopstateChangeListener);
+  window.addEventListener('popstate', sync.popstateChangeListener);
 }
 
 export function stopSync(reactor) {
@@ -91,6 +126,7 @@ export function stopSync(reactor) {
   }
 
   sync.unwatchNavigationObserver();
+  sync.unwatchViewObserver();
   sync.unwatchMoreInfoObserver();
   window.removeEventListener('popstate', sync.popstateChangeListener);
   SYNCS[reactor.hassId] = false;

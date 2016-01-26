@@ -63,7 +63,8 @@ function popstateChangeListener(reactor, ev) {
   if (reactor.evaluate(moreInfoGetters.hasCurrentEntityId)) {
     getSync(reactor).ignoreNextDeselectEntity = true;
     moreInfoActions.deselectEntity(reactor);
-  } else if (pane !== history.state.pane || view !== history.state.view) {
+  } else if (pane !== reactor.evaluate(activePane) ||
+             view !== reactor.evaluate(viewGetters.currentView)) {
     reactor.batch(() => {
       navigate(reactor, pane);
       if (view !== undefined) {

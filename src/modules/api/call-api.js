@@ -53,13 +53,13 @@ if (__DEMO__) {
 
       switch (component) {
         case 'bootstrap':
-          resolve(require('../demo/bootstrap_data.js'));
+          resolve(require('../demo/bootstrap_data.js').default);
           break;
         case 'logbook':
-          resolve(require('../demo/logbook_data.js'));
+          resolve(require('../demo/logbook_data.js').default);
           break;
         case 'history':
-          resolve(require('../demo/state_history_data.js'));
+          resolve(require('../demo/state_history_data.js').default);
           break;
         default:
           throw new Error(`URL not implemented in demo mode /api/${path}`);

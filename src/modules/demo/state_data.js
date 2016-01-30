@@ -15,11 +15,13 @@ export default [
         },
         "entity_id": "group.kitchen",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "closed"
     },
     {
         "entity_id": "lock.kitchen_door",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "on"
     },
     {
@@ -28,6 +30,7 @@ export default [
         },
         "entity_id": "rollershutter.kitchen_window",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "closed"
     },
     {
@@ -41,6 +44,7 @@ export default [
         },
         "entity_id": "light.ceiling",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "on"
     },
     {
@@ -52,6 +56,7 @@ export default [
         },
         "entity_id": "media_player.living_room",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "playing"
     },
     {
@@ -61,6 +66,7 @@ export default [
         },
         "entity_id": "sensor.outside_humidity",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "54"
     },
     {
@@ -70,6 +76,7 @@ export default [
         },
         "entity_id": "sensor.outside_temperature",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "15.6"
     },
     {
@@ -82,17 +89,20 @@ export default [
         },
         "entity_id": "group.all_devices",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "home"
     },
     {
         "attributes": {},
         "entity_id": "light.bed_light",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "off"
     },
     {
         "attributes": {
             "auto": true,
+            "hidden": true,
             "entity_id": [
                 "light.bowl",
                 "light.ceiling",
@@ -103,6 +113,23 @@ export default [
         },
         "entity_id": "group.all_lights",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
+        "state": "on"
+    },
+    {
+        "attributes": {
+            "entity_id": [
+                "group.living_room",
+                "group.kitchen"
+            ],
+            "view": true,
+            "hidden": true,
+            "order": 0,
+            "friendly_name": "Downstairs"
+        },
+        "entity_id": "group.downstairs",
+        "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "on"
     },
     {
@@ -112,6 +139,7 @@ export default [
         },
         "entity_id": "light.bowl",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "on"
     },
     {
@@ -123,12 +151,14 @@ export default [
         },
         "entity_id": "thermostat.nest",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "23"
     },
     {
         "attributes": {},
         "entity_id": "a.demo_mode",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "Enabled"
     },
     {
@@ -141,12 +171,14 @@ export default [
         },
         "entity_id": "configurator.philips_hue",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "configure"
     },
     {
         "attributes": {},
         "entity_id": "switch.decorative_lights",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "off"
     },
     {
@@ -156,16 +188,19 @@ export default [
                 "light.bed_light",
                 "switch.decorative_lights"
             ],
-            "friendly_name": "bedroom"
+            "friendly_name": "bedroom",
+            "order": 2
         },
         "entity_id": "group.bedroom",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "off"
     },
     {
         "attributes": {"friendly_name": "TV Ambient Light"},
         "entity_id": "light.tv_back_light",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "off"
     },
     {
@@ -178,10 +213,12 @@ export default [
                 "switch.ac",
                 "media_player.living_room",
             ],
-            "friendly_name": "_living room"
+            "friendly_name": "Living Room",
+            "order": 1,
         },
         "entity_id": "group.living_room",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "on"
     },
     {
@@ -190,6 +227,7 @@ export default [
         },
         "entity_id": "scene.good_morning",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "scening"
     },
     {
@@ -198,6 +236,7 @@ export default [
         },
         "entity_id": "scene.romantic",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "scening"
     },
     {
@@ -206,6 +245,7 @@ export default [
         },
         "entity_id": "script.water_lawn",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "on"
     },
 
@@ -216,6 +256,7 @@ export default [
         },
         "entity_id": "alarm_control_panel.home",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "armed_home"
     },
     {
@@ -228,6 +269,7 @@ export default [
         },
         "entity_id": "zone.home",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "zoning"
     },
     {
@@ -240,6 +282,7 @@ export default [
         },
         "entity_id": "zone.work",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "zoning"
     },
     {
@@ -252,6 +295,7 @@ export default [
         },
         "entity_id": "zone.school",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "zoning"
     },
     {
@@ -265,6 +309,7 @@ export default [
         },
         "entity_id": "device_tracker.paulus",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "not_home"
     },
     {
@@ -278,6 +323,7 @@ export default [
         },
         "entity_id": "device_tracker.anne_therese",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "school"
     },
     {
@@ -287,6 +333,7 @@ export default [
         },
         "entity_id": "switch.ac",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "on"
     },
     {
@@ -296,6 +343,7 @@ export default [
         },
         "entity_id": "camera.ip_camera",
         "last_changed": getRandomTime(),
+        "last_updated": getRandomTime(),
         "state": "idle"
     }
 ];

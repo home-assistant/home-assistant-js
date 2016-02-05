@@ -101,11 +101,11 @@ export function startSync(reactor) {
       (moreInfoEntitySelected) => {
         if (moreInfoEntitySelected) {
           history.pushState(history.state, PAGE_TITLE, window.location.pathname);
-        } else if (sync.ignoreNextDeselectEntity) {
-          sync.ignoreNextDeselectEntity = false;
-        } else {
+        } else if (!sync.ignoreNextDeselectEntity) {
+          sync.ignoreNextDeselectEntity = true;
           history.back();
         }
+        sync.ignoreNextDeselectEntity = false;
       }
     ),
   };

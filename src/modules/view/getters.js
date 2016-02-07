@@ -1,6 +1,8 @@
 import { Immutable } from 'nuclear-js';
 import { getters as entityGetters } from '../entity';
 
+const DEFAULT_VIEW_ENTITY_ID = 'group.default_view';
+
 export const currentView = [
   'currentView',
 ];
@@ -8,7 +10,8 @@ export const currentView = [
 export const views = [
   entityGetters.entityMap,
   entities => entities.filter(entity => entity.domain === 'group' &&
-                                        entity.attributes.view),
+                                        entity.attributes.view &&
+                                        entity.entityId !== DEFAULT_VIEW_ENTITY_ID),
 ];
 
 function addToMap(map, entities, groupEntity) {
@@ -35,6 +38,9 @@ export const currentViewEntities = [
 
     if (view) {
       viewEntity = entities.get(view);
+    } else {
+      // will be undefined if entity does not exist
+      viewEntity = entities.get(DEFAULT_VIEW_ENTITY_ID);
     }
 
     if (!viewEntity) {

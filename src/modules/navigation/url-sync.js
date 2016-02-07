@@ -21,7 +21,7 @@ function getSync(reactor) {
 function pageState(pane, view) {
   const state = { pane };
   if (pane === 'states') {
-    state.view = view;
+    state.view = view || null;
   }
   return state;
 }
@@ -40,13 +40,7 @@ function initialSync(reactor) {
     pane = reactor.evaluate(activePane);
     view = reactor.evaluate(viewGetters.currentView);
   } else {
-    const parts = window.location.pathname.substr(1).split('/');
-    pane = parts[0];
-    if (pane === 'states' && parts.length > 1) {
-      view = parts[1];
-    } else {
-      view = null;
-    }
+    [pane, view] = window.location.pathname.substr(1).split('/');
     reactor.batch(() => {
       navigate(reactor, pane);
       if (view) {
@@ -104,7 +98,8 @@ export function startSync(reactor) {
         } else if (sync.ignoreNextDeselectEntity) {
           sync.ignoreNextDeselectEntity = false;
         } else {
-          history.back();
+          // Otherwise SELECT_ENTITY: null will happen 2+ times on Firefox
+          setTimeout(() => history.back(), 0);
         }
       }
     ),

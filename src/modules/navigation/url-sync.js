@@ -19,10 +19,7 @@ function getSync(reactor) {
 }
 
 function pageState(pane, view) {
-  const state = { pane };
-  if (pane === 'states') {
-    state.view = view;
-  }
+  const state = { pane, view };
   return state;
 }
 

@@ -26,7 +26,6 @@ export const finalTranscript = [
 export const extraInterimTranscript = [
   interimTranscript,
   finalTranscript,
-  (interimTranscript_, finalTranscript_) => {
-    return interimTranscript_.slice(finalTranscript_.length);
-  },
+  (interimTranscript_, finalTranscript_) =>
+    interimTranscript_.slice(finalTranscript_.length),
 ];

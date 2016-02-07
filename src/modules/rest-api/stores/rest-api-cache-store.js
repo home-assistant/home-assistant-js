@@ -41,12 +41,12 @@ function loadData(state, { model, result, params }) {
   const data = isArray(result) ? result : [result];
   const fromJSON = model.fromJSON || toImmutable;
 
-  return newState.withMutations(function mutateState(mState) {
-    data.forEach(function jsonObjIterator(jsonObj) {
+  return newState.withMutations(mState =>
+    data.forEach(jsonObj => {
       const entry = fromJSON(jsonObj);
       mState.setIn([entity, entry.id], entry);
-    });
-  });
+    })
+  );
 }
 
 /**

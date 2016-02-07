@@ -7,7 +7,7 @@ let callApi = function callApi(reactor, method, path, parameters = null) {
 
   const url = `${authInfo.host}/api/${path}`;
 
-  return new Promise(function apiResponse(resolve, reject) {
+  return new Promise((resolve, reject) => {
     const req = new XMLHttpRequest();
     req.open(method, url, true);
     req.setRequestHeader('X-HA-access', authInfo.authToken);
@@ -44,7 +44,7 @@ let callApi = function callApi(reactor, method, path, parameters = null) {
 
 if (__DEMO__) {
   callApi = function demoCallAPI(reactor, method, path) {
-    return new Promise(function demoAPIResponse(resolve) {
+    return new Promise(resolve => {
       if (method !== 'GET') {
         throw new Error(`Method ${method} not allowed in demo mode.`);
       }

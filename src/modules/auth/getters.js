@@ -21,7 +21,7 @@ export const rememberAuth = [
 export const attemptAuthInfo = [
   ['authAttempt', 'authToken'],
   ['authAttempt', 'host'],
-  (authToken, host) => { return { authToken, host }; },
+  (authToken, host) => ({ authToken, host }),
 ];
 
 export const currentAuthToken = [
@@ -32,23 +32,21 @@ export const currentAuthToken = [
 export const currentAuthInfo = [
   currentAuthToken,
   ['authCurrent', 'host'],
-  (authToken, host) => { return { authToken, host }; },
+  (authToken, host) => ({ authToken, host }),
 ];
 
 export const authToken = [
   isValidating,
   ['authAttempt', 'authToken'],
   ['authCurrent', 'authToken'],
-  (isValidating_, attemptToken_, currentToken_) => {
-    return isValidating_ ? attemptToken_ : currentToken_;
-  },
+  (isValidating_, attemptToken_, currentToken_) =>
+    isValidating_ ? attemptToken_ : currentToken_,
 ];
 
 export const authInfo = [
   isValidating,
   attemptAuthInfo,
   currentAuthInfo,
-  (isValidating_, attemptAuthInfo_, currentAuthInfo_) => {
-    return isValidating_ ? attemptAuthInfo_ : currentAuthInfo_;
-  },
+  (isValidating_, attemptAuthInfo_, currentAuthInfo_) =>
+    isValidating_ ? attemptAuthInfo_ : currentAuthInfo_,
 ];

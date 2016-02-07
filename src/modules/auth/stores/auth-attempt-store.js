@@ -43,10 +43,10 @@ function validateSuccess(state, {}) {
 }
 
 function validateFail(state, { errorMessage }) {
-  return state.withMutations(mState => {
-    return mState
+  return state.withMutations(mState =>
+    mState
       .set('isValidating', false)
       .set('isInvalid', true)
-      .set('errorMessage', errorMessage);
-  });
+      .set('errorMessage', errorMessage)
+  );
 }

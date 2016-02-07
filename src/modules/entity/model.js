@@ -28,7 +28,7 @@ export default class State extends ImmutableEntity {
     let stateDisplay = state.replace(/_/g, ' ');
 
     if (attributes.unit_of_measurement) {
-      stateDisplay += ' ' + attributes.unit_of_measurement;
+      stateDisplay += ` ${attributes.unit_of_measurement}`;
     }
 
     super({

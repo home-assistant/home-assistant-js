@@ -6,9 +6,8 @@ export const isDataLoaded = [
   entityGetters.hasData,
   eventGetters.hasData,
   serviceGetters.hasData,
-  (hasEntityData, hasEventData, hasServiceData) => {
-    return hasEntityData && hasEventData && hasServiceData;
-  },
+  (hasEntityData, hasEventData, hasServiceData) =>
+    hasEntityData && hasEventData && hasServiceData,
 ];
 
 export const isFetching = [

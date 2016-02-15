@@ -12,12 +12,16 @@ import actionTypes from './action-types';
 export default function createApiActions(model) {
   const apiActions = {};
   /* eslint-disable no-use-before-define */
-  apiActions.incrementData = function pushNewData(reactor, data, params = {}) {
+  apiActions.incrementData = function incrementData(reactor, data, params = {}) {
     onFetchSuccess(reactor, model, params, data);
   };
 
-  apiActions.replaceData = function pushNewData(reactor, data, params = {}) {
+  apiActions.replaceData = function replaceData(reactor, data, params = {}) {
     onFetchSuccess(reactor, model, { ...params, replace: true }, data);
+  };
+
+  apiActions.removeData = function removeData(reactor, id) {
+    onDeleteSuccess(reactor, model, { id });
   };
 
   if (model.fetch) {

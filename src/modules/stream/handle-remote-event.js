@@ -11,7 +11,12 @@ export default function (reactor, event) {
 
   switch (event.event_type) {
     case 'state_changed':
-      entityActions.incrementData(reactor, event.data.new_state);
+      if (event.data.new_state) {
+        entityActions.incrementData(reactor, event.data.new_state);
+      } else {
+        entityActions.removeData(reactor, event.data.entity_id);
+      }
+
       break;
 
     case 'component_loaded':

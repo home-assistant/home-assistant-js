@@ -1,5 +1,5 @@
 export default {
-  'components': [
+  components: [
     'configurator',
     'http',
     'api',
@@ -9,10 +9,10 @@ export default {
     'logbook',
     'introduction',
   ],
-  'latitude': 32.87336,
-  'location_name': 'Home',
-  'longitude': -117.22743,
-  'temperature_unit': '\u00b0F',
-  'time_zone': 'America/Los_Angeles',
-  'version': '0.9'
+  latitude: 32.87336,
+  location_name: 'Home',
+  longitude: -117.22743,
+  temperature_unit: '\u00b0F',
+  time_zone: 'America/Los_Angeles',
+  version: '0.9',
 };

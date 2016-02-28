@@ -245,7 +245,9 @@ addEntity(
 if (__DEV__) {
   for (const entity of stateData) {
     if (!(entity.entity_id in seen)) {
+      /* eslint-disable no-console */
       console.warn(`Missing history for ${entity.entity_id}`);
+      /* eslint-enable no-console */
     }
   }
 }

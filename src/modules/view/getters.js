@@ -14,7 +14,7 @@ export const views = [
                                         entity.entityId !== DEFAULT_VIEW_ENTITY_ID),
 ];
 
-function addToMap(map, entities, groupEntity) {
+function addToMap(map, entities, groupEntity, recurse = true) {
   groupEntity.attributes.entity_id.forEach(entityId => {
     if (map.has(entityId)) return;
 
@@ -24,8 +24,8 @@ function addToMap(map, entities, groupEntity) {
 
     map.set(entityId, entity);
 
-    if (entity.domain === 'group') {
-      addToMap(map, entities, entity);
+    if (entity.domain === 'group' && recurse) {
+      addToMap(map, entities, entity, false);
     }
   });
 }

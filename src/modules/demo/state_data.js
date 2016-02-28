@@ -91,7 +91,7 @@ addEntity('device_tracker.anne_therese', 'school', {
   battery: 76,
 });
 
-addEntity('device_tracker.paulus', 'not_Home', {
+addEntity('device_tracker.paulus', 'not_home', {
   entity_picture: 'https://graph.facebook.com/297400035/picture',
   friendly_name: 'Paulus',
   gps_accuracy: 75,

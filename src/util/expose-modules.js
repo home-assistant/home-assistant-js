@@ -1,4 +1,4 @@
-import isFunction from 'lodash/lang/isFunction';
+import isFunction from 'lodash/isFunction';
 
 export default function exposeModules(target, reactor, modules) {
   Object.keys(modules).forEach(name => {

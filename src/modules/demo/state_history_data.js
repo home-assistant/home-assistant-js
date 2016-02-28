@@ -55,7 +55,8 @@ function addEntity(state, deltas) {
         attributes = { ...state.attributes, ...change.attributes };
       }
 
-      const time = getTime(maxTime - index * timeDiff + randomTimeAdjustment(timeDiff));
+      const time = index === 0 ? getTime(maxTime) : getTime(maxTime - index * timeDiff +
+                                                    randomTimeAdjustment(timeDiff));
 
       return {
         attributes,

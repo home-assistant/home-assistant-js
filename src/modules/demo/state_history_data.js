@@ -1,1021 +1,252 @@
+import stateData from './state_data';
+
 function getTime(minutesAgo) {
   const ts = new Date(Date.now() - (minutesAgo * 60 * 1000));
   return `${ts.getUTCHours()}:${ts.getUTCMinutes()}:${ts.getUTCSeconds()} ` +
          `${ts.getUTCDate()}-${ts.getUTCMonth() + 1}-${ts.getUTCFullYear()}`;
 }
 
-export default [
-    [
-        {
-            "attributes": {
-                "next_rising": "06:38:23 08-02-2015",
-                "next_setting": "17:28:06 08-02-2015"
-            },
-            "entity_id": "sun.sun",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "below_horizon"
-        },
-        {
-            "attributes": {
-                "next_rising": "06:37:32 09-02-2015",
-                "next_setting": "17:28:06 08-02-2015"
-            },
-            "entity_id": "sun.sun",
-            "last_changed": getTime(940),
-            last_updated: getTime(940),
-            "state": "above_horizon"
-        },
-        {
-            "attributes": {
-                "next_rising": "06:37:32 09-02-2015",
-                "next_setting": "17:29:01 09-02-2015"
-            },
-            "entity_id": "sun.sun",
-            "last_changed": getTime(720),
-            last_updated: getTime(720),
-            "state": "below_horizon"
-        },
-        {
-            "attributes": {
-                "next_rising": "06:37:32 09-02-2015",
-                "next_setting": "17:29:01 09-02-2015"
-            },
-            "entity_id": "sun.sun",
-            "last_changed": getTime(420),
-            last_updated: getTime(420),
-            "state": "below_horizon"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "light.tv_back_light",
-                    "light.ceiling",
-                    "light.bowl",
-                    "light.bed_light"
-                ],
-                "friendly_name": "all lights"
-            },
-            "entity_id": "group.all_lights",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "light.tv_back_light",
-                    "light.ceiling",
-                    "light.bowl",
-                    "light.bed_light"
-                ],
-                "friendly_name": "all lights"
-            },
-            "entity_id": "group.all_lights",
-            "last_changed": getTime(1100),
-            last_updated: getTime(1100),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "light.tv_back_light",
-                    "light.ceiling",
-                    "light.bowl",
-                    "light.bed_light"
-                ],
-                "friendly_name": "all lights"
-            },
-            "entity_id": "group.all_lights",
-            "last_changed": getTime(900),
-            last_updated: getTime(900),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "light.tv_back_light",
-                    "light.ceiling",
-                    "light.bowl",
-                    "light.bed_light"
-                ],
-                "friendly_name": "all lights"
-            },
-            "entity_id": "group.all_lights",
-            "last_changed": getTime(600),
-            last_updated: getTime(600),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "light.tv_back_light",
-                    "light.ceiling",
-                    "light.bowl",
-                    "light.bed_light"
-                ],
-                "friendly_name": "all lights"
-            },
-            "entity_id": "group.all_lights",
-            "last_changed": getTime(400),
-            last_updated: getTime(400),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "light.tv_back_light",
-                    "light.ceiling",
-                    "light.bowl",
-                    "light.bed_light"
-                ],
-                "friendly_name": "all lights"
-            },
-            "entity_id": "group.all_lights",
-            "last_changed": getTime(200),
-            last_updated: getTime(200),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "light.tv_back_light",
-                    "light.ceiling",
-                    "light.bowl",
-                    "light.bed_light"
-                ],
-                "friendly_name": "all lights"
-            },
-            "entity_id": "group.all_lights",
-            "last_changed": getTime(100),
-            last_updated: getTime(100),
-            "state": "on"
-        },
-    ],
-    [
-        {
-            "attributes": {
-                "friendly_name": "Bed light"
-            },
-            "entity_id": "light.bed_light",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 254,
-                "friendly_name": "Bed light",
-                "xy_color": [
-                    0.4595,
-                    0.4105
-                ]
-            },
-            "entity_id": "light.bed_light",
-            "last_changed": getTime(720),
-            last_updated: getTime(720),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Bed light"
-            },
-            "entity_id": "light.bed_light",
-            "last_changed": getTime(130),
-            last_updated: getTime(130),
-            "state": "off"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "auto": false,
-                "entity_id": [
-                    "light.Bed_light"
-                ],
-                "friendly_name": "bedroom"
-            },
-            "entity_id": "group.bedroom",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "auto": false,
-                "entity_id": [
-                    "light.Bed_light"
-                ],
-                "friendly_name": "bedroom"
-            },
-            "entity_id": "group.bedroom",
-            "last_changed": getTime(1300),
-            last_updated: getTime(1300),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "auto": false,
-                "entity_id": [
-                    "light.Bed_light"
-                ],
-                "friendly_name": "bedroom"
-            },
-            "entity_id": "group.bedroom",
-            "last_changed": getTime(1000),
-            last_updated: getTime(1000),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "auto": false,
-                "entity_id": [
-                    "light.bed_light"
-                ],
-                "friendly_name": "bedroom"
-            },
-            "entity_id": "group.bedroom",
-            "last_changed": getTime(100),
-            last_updated: getTime(100),
-            "state": "on"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "Ceiling",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "light.ceiling",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Ceiling"
-            },
-            "entity_id": "light.ceiling",
-            "last_changed": getTime(1220),
-            last_updated: getTime(1220),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "Ceiling",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "light.ceiling",
-            "last_changed": getTime(1000),
-            last_updated: getTime(1000),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Ceiling"
-            },
-            "entity_id": "light.ceiling",
-            "last_changed": getTime(700),
-            last_updated: getTime(700),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "Ceiling",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "light.ceiling",
-            "last_changed": getTime(560),
-            last_updated: getTime(560),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Ceiling"
-            },
-            "entity_id": "light.ceiling",
-            "last_changed": getTime(300),
-            last_updated: getTime(300),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "Ceiling",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "light.ceiling",
-            "last_changed": getTime(150),
-            last_updated: getTime(150),
-            "state": "on"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "TV Ambient Light",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "light.tv_back_light",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "TV Ambient Light"
-            },
-            "entity_id": "light.tv_back_light",
-            "last_changed": getTime(800),
-            last_updated: getTime(800),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "TV Ambient Light",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "light.tv_back_light",
-            "last_changed": getTime(500),
-            last_updated: getTime(500),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "TV Ambient Light"
-            },
-            "entity_id": "light.tv_back_light",
-            "last_changed": getTime(300),
-            last_updated: getTime(300),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "TV Ambient Light",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "light.tv_back_light",
-            "last_changed": getTime(100),
-            last_updated: getTime(100),
-            "state": "on"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "AC",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "switch.ac",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "TV Ambient Light"
-            },
-            "entity_id": "switch.ac",
-            "last_changed": getTime(800),
-            last_updated: getTime(800),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "TV Ambient Light",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "switch.ac",
-            "last_changed": getTime(500),
-            last_updated: getTime(500),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "TV Ambient Light"
-            },
-            "entity_id": "switch.ac",
-            "last_changed": getTime(300),
-            last_updated: getTime(300),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "TV Ambient Light",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "switch.ac",
-            "last_changed": getTime(100),
-            last_updated: getTime(100),
-            "state": "on"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "Decorative Lights",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "switch.decorative_lights",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "TV Ambient Light"
-            },
-            "entity_id": "switch.decorative_lights",
-            "last_changed": getTime(800),
-            last_updated: getTime(800),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "TV Ambient Light",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "switch.decorative_lights",
-            "last_changed": getTime(500),
-            last_updated: getTime(500),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "TV Ambient Light"
-            },
-            "entity_id": "switch.decorative_lights",
-            "last_changed": getTime(300),
-            last_updated: getTime(300),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "TV Ambient Light",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "switch.decorative_lights",
-            "last_changed": getTime(100),
-            last_updated: getTime(100),
-            "state": "on"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "Table Lamp",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "light.bowl",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Table Lamp"
-            },
-            "entity_id": "light.bowl",
-            "last_changed": getTime(1200),
-            last_updated: getTime(1200),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Table Lamp"
-            },
-            "entity_id": "light.bowl",
-            "last_changed": getTime(1000),
-            last_updated: getTime(1000),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "Table Lamp",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "light.bowl",
-            "last_changed": getTime(700),
-            last_updated: getTime(700),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Table Lamp"
-            },
-            "entity_id": "light.bowl",
-            "last_changed": getTime(500),
-            last_updated: getTime(500),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "brightness": 144,
-                "friendly_name": "Table Lamp",
-                "xy_color": [
-                    0.5119,
-                    0.4147
-                ]
-            },
-            "entity_id": "light.bowl",
-            "last_changed": getTime(300),
-            last_updated: getTime(300),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Table Lamp"
-            },
-            "entity_id": "light.bowl",
-            "last_changed": getTime(200),
-            last_updated: getTime(200),
-            "state": "off"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "auto": false,
-                "entity_id": [
-                    "light.Bowl",
-                    "light.TV_back_light",
-                    "light.Ceiling"
-                ],
-                "friendly_name": "living room"
-            },
-            "entity_id": "group.living_room",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "auto": false,
-                "entity_id": [
-                    "light.Bowl",
-                    "light.TV_back_light",
-                    "light.Ceiling"
-                ],
-                "friendly_name": "living room"
-            },
-            "entity_id": "group.living_room",
-            "last_changed": getTime(1000),
-            last_updated: getTime(1000),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "auto": false,
-                "entity_id": [
-                    "light.Bowl",
-                    "light.TV_back_light",
-                    "light.Ceiling"
-                ],
-                "friendly_name": "living room"
-            },
-            "entity_id": "group.living_room",
-            "last_changed": getTime(700),
-            last_updated: getTime(700),
-            "state": "on"
-        },
-        {
-            "attributes": {
-                "auto": false,
-                "entity_id": [
-                    "light.Bowl",
-                    "light.TV_back_light",
-                    "light.Ceiling"
-                ],
-                "friendly_name": "living room"
-            },
-            "entity_id": "group.living_room",
-            "last_changed": getTime(200),
-            last_updated: getTime(200),
-            "state": "off"
-        },
-        {
-            "attributes": {
-                "auto": false,
-                "entity_id": [
-                    "light.Bowl",
-                    "light.TV_back_light",
-                    "light.Ceiling"
-                ],
-                "friendly_name": "living room"
-            },
-            "entity_id": "group.living_room",
-            "last_changed": getTime(100),
-            last_updated: getTime(100),
-            "state": "on"
-        },
-    ],
-    [
-        {
-            "attributes": {
-                "entity_picture": "http://graph.facebook.com/anne.t.frederiksen/picture",
-                "friendly_name": "Anne Therese"
-            },
-            "entity_id": "device_tracker.anne_therese",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "home"
-        },
-        {
-            "attributes": {
-                "entity_picture": "http://graph.facebook.com/anne.t.frederiksen/picture",
-                "friendly_name": "Anne Therese"
-            },
-            "entity_id": "device_tracker.anne_therese",
-            "last_changed": getTime(1200),
-            last_updated: getTime(1200),
-            "state": "not_home"
-        },
-        {
-            "attributes": {
-                "entity_picture": "http://graph.facebook.com/anne.t.frederiksen/picture",
-                "friendly_name": "Anne Therese"
-            },
-            "entity_id": "device_tracker.anne_therese",
-            "last_changed": getTime(100),
-            last_updated: getTime(100),
-            "state": "home"
-        },
-        {
-            "attributes": {
-                "entity_picture": "http://graph.facebook.com/anne.t.frederiksen/picture",
-                "friendly_name": "Anne Therese"
-            },
-            "entity_id": "device_tracker.anne_therese",
-            "last_changed": getTime(50),
-            last_updated: getTime(50),
-            "state": "not_home"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "entity_picture": "http://graph.facebook.com/schoutsen/picture",
-                "friendly_name": "Paulus"
-            },
-            "entity_id": "device_tracker.paulus",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "home"
-        },
-        {
-            "attributes": {
-                "entity_picture": "http://graph.facebook.com/schoutsen/picture",
-                "friendly_name": "Paulus"
-            },
-            "entity_id": "device_tracker.paulus",
-            "last_changed": getTime(1130),
-            last_updated: getTime(1130),
-            "state": "not_home"
-        },
-        {
-            "attributes": {
-                "entity_picture": "http://graph.facebook.com/schoutsen/picture",
-                "friendly_name": "Paulus"
-            },
-            "entity_id": "device_tracker.paulus",
-            "last_changed": getTime(1020),
-            last_updated: getTime(1020),
-            "state": "home"
-        },
-        {
-            "attributes": {
-                "entity_picture": "http://graph.facebook.com/schoutsen/picture",
-                "friendly_name": "Paulus"
-            },
-            "entity_id": "device_tracker.paulus",
-            "last_changed": getTime(780),
-            last_updated: getTime(780),
-            "state": "not_home"
-        },
-        {
-            "attributes": {
-                "entity_picture": "http://graph.facebook.com/schoutsen/picture",
-                "friendly_name": "Paulus"
-            },
-            "entity_id": "device_tracker.paulus",
-            "last_changed": getTime(500),
-            last_updated: getTime(500),
-            "state": "home"
-        },
-        {
-            "attributes": {
-                "entity_picture": "http://graph.facebook.com/schoutsen/picture",
-                "friendly_name": "Paulus"
-            },
-            "entity_id": "device_tracker.paulus",
-            "last_changed": getTime(200),
-            last_updated: getTime(200),
-            "state": "home"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "device_tracker.Anne_Therese",
-                    "device_tracker.Paulus"
-                ],
-                "friendly_name": "all devices"
-            },
-            "entity_id": "group.all_devices",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "home"
-        },
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "device_tracker.Anne_Therese",
-                    "device_tracker.Paulus"
-                ],
-                "friendly_name": "all devices"
-            },
-            "entity_id": "group.all_devices",
-            "last_changed": getTime(700),
-            last_updated: getTime(700),
-            "state": "not_home"
-        },
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "device_tracker.Anne_Therese",
-                    "device_tracker.Paulus"
-                ],
-                "friendly_name": "all devices"
-            },
-            "entity_id": "group.all_devices",
-            "last_changed": getTime(400),
-            last_updated: getTime(400),
-            "state": "home"
-        },
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "device_tracker.anne_therese",
-                    "device_tracker.paulus"
-                ],
-                "friendly_name": "all devices"
-            },
-            "entity_id": "group.all_devices",
-            "last_changed": getTime(100),
-            last_updated: getTime(100),
-            "state": "not_home"
-        },
-        {
-            "attributes": {
-                "auto": true,
-                "entity_id": [
-                    "device_tracker.anne_therese",
-                    "device_tracker.paulus"
-                ],
-                "friendly_name": "all devices"
-            },
-            "entity_id": "group.all_devices",
-            "last_changed": getTime(50),
-            last_updated: getTime(50),
-            "state": "home"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "friendly_name": "Chromecast"
-            },
-            "entity_id": "media_player.living_room",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "Plex"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Chromecast"
-            },
-            "entity_id": "media_player.living_room",
-            "last_changed": getTime(900),
-            last_updated: getTime(900),
-            "state": "idle"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Chromecast"
-            },
-            "entity_id": "media_player.living_room",
-            "last_changed": getTime(800),
-            last_updated: getTime(800),
-            "state": "YouTube"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Chromecast"
-            },
-            "entity_id": "media_player.living_room",
-            "last_changed": getTime(300),
-            last_updated: getTime(300),
-            "state": "idle"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "friendly_name": "Outside temperature",
-                "unit_of_measurement": "\u00b0C"
-            },
-            "entity_id": "sensor.outside_temperature",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "23"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Outside temperature",
-                "unit_of_measurement": "\u00b0C"
-            },
-            "entity_id": "sensor.outside_temperature",
-            "last_changed": getTime(900),
-            last_updated: getTime(900),
-            "state": "27"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Outside temperature",
-                "unit_of_measurement": "\u00b0C"
-            },
-            "entity_id": "sensor.outside_temperature",
-            "last_changed": getTime(800),
-            last_updated: getTime(800),
-            "state": "25"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Outside temperature",
-                "unit_of_measurement": "\u00b0C"
-            },
-            "entity_id": "sensor.outside_temperature",
-            "last_changed": getTime(300),
-            last_updated: getTime(300),
-            "state": "23"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "friendly_name": "Nest",
-                "unit_of_measurement": "\u00b0C"
-            },
-            "entity_id": "thermostat.nest",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "18"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Nest",
-                "unit_of_measurement": "\u00b0C"
-            },
-            "entity_id": "thermostat.nest",
-            "last_changed": getTime(1020),
-            last_updated: getTime(1020),
-            "state": "20"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Nest",
-                "unit_of_measurement": "\u00b0C"
-            },
-            "entity_id": "thermostat.nest",
-            "last_changed": getTime(800),
-            last_updated: getTime(800),
-            "state": "23"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Nest",
-                "unit_of_measurement": "\u00b0C"
-            },
-            "entity_id": "thermostat.nest",
-            "last_changed": getTime(300),
-            last_updated: getTime(300),
-            "state": "26"
-        }
-    ],
-    [
-        {
-            "attributes": {
-                "friendly_name": "Outside humidity",
-                "unit_of_measurement": "%"
-            },
-            "entity_id": "sensor.outside_humidity",
-            "last_changed": getTime(1440),
-            last_updated: getTime(1440),
-            "state": "45"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Outside humidity",
-                "unit_of_measurement": "%"
-            },
-            "entity_id": "sensor.outside_humidity",
-            "last_changed": getTime(900),
-            last_updated: getTime(900),
-            "state": "49"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Outside humidity",
-                "unit_of_measurement": "%"
-            },
-            "entity_id": "sensor.outside_humidity",
-            "last_changed": getTime(800),
-            last_updated: getTime(800),
-            "state": "58"
-        },
-        {
-            "attributes": {
-                "friendly_name": "Outside humidity",
-                "unit_of_measurement": "%"
-            },
-            "entity_id": "sensor.outside_humidity",
-            "last_changed": getTime(300),
-            last_updated: getTime(300),
-            "state": "52"
-        }
-    ],
+// prefill with entities we do not want to track
+const seen = {
+  'a.demo_mode': true,
+  'configurator.philips_hue': true,
+  'group.default_view': true,
+  'group.rooms_view': true,
+  'group.rooms': true,
+  'zone.school': true,
+  'zone.work': true,
+  'zone.home': true,
+  'group.general': true,
+  'camera.roundabout': true,
+  'script.water_lawn': true,
+  'scene.romantic': true,
+  'scene.good_morning': true,
+  'group.cooking': true,
+};
+const history = [];
 
-];
+function randomTimeAdjustment(diff) {
+  return Math.random() * diff - (diff / 2);
+}
+
+const maxTime = 1440;
+
+function addEntity(state, deltas) {
+  seen[state.entity_id] = true;
+  let changes;
+  if (typeof deltas[0] === 'string') {
+    changes = deltas.map(state_ => ({ state: state_ }));
+  } else {
+    changes = deltas;
+  }
+
+  const timeDiff = (900 / changes.length);
+
+  history.push(changes.map(
+    (change, index) => {
+      let attributes;
+      if (!change.attributes && !state.attributes) {
+        attributes = {};
+      } else if (!change.attributes) {
+        attributes = state.attributes;
+      } else if (!state.attributes) {
+        attributes = change.attributes;
+      } else {
+        attributes = { ...state.attributes, ...change.attributes };
+      }
+
+      const time = getTime(maxTime - index * timeDiff + randomTimeAdjustment(timeDiff));
+
+      return {
+        attributes,
+        entity_id: state.entity_id,
+        state: change.state || state.state,
+        last_changed: time,
+        last_updated: time,
+      };
+    }));
+}
+
+addEntity(
+  {
+    entity_id: 'sensor.humidity',
+    attributes: {
+      unit_of_measurement: '%',
+    },
+  }, ['45', '49', '52', '49', '52', '49', '45', '42']
+);
+
+addEntity(
+  {
+    entity_id: 'sensor.temperature',
+    attributes: {
+      unit_of_measurement: '\u00b0C',
+    },
+  }, ['23', '27', '25', '23', '24']
+);
+
+addEntity(
+  {
+    entity_id: 'thermostat.nest',
+    attributes: {
+      unit_of_measurement: '\u00b0C',
+    },
+  }, [
+    {
+      state: '23',
+      attributes: {
+        current_temperature: 20,
+        temperature: 23,
+      },
+    },
+    {
+      state: '23',
+      attributes: {
+        current_temperature: 22,
+        temperature: 23,
+      },
+    },
+    {
+      state: '20',
+      attributes: {
+        current_temperature: 21,
+        temperature: 20,
+      },
+    },
+    {
+      state: '20',
+      attributes: {
+        current_temperature: 20,
+        temperature: 20,
+      },
+    },
+    {
+      state: '20',
+      attributes: {
+        current_temperature: 19,
+        temperature: 20,
+      },
+    },
+  ]
+);
+
+addEntity(
+  {
+    entity_id: 'media_player.living_room',
+    attributes: {
+      friendly_name: 'Chromecast',
+    },
+  }, ['Plex', 'idle', 'YouTube', 'Netflix', 'idle', 'Plex']
+);
+
+addEntity(
+  {
+    entity_id: 'group.all_devices',
+  }, ['home', 'not_home', 'home']
+);
+
+addEntity(
+  {
+    entity_id: 'device_tracker.paulus',
+  }, ['home', 'not_home', 'work', 'not_home']
+);
+
+addEntity(
+  {
+    entity_id: 'device_tracker.anne_therese',
+  }, ['home', 'not_home', 'home', 'not_home', 'school']
+);
+
+addEntity(
+  {
+    entity_id: 'garage_door.garage_door',
+  }, ['open', 'closed', 'open']
+);
+
+addEntity(
+  {
+    entity_id: 'alarm_control_panel.home',
+  }, ['disarmed', 'pending', 'armed_home', 'pending', 'disarmed', 'pending', 'armed_home']
+);
+
+addEntity(
+  {
+    entity_id: 'lock.kitchen_door',
+  }, ['unlocked', 'locked', 'unlocked', 'locked']
+);
+
+addEntity(
+  {
+    entity_id: 'light.tv_back_light',
+  }, ['on', 'off', 'on', 'off']
+);
+
+addEntity(
+  {
+    entity_id: 'light.ceiling',
+  }, ['on', 'off', 'on']
+);
+
+addEntity(
+  {
+    entity_id: 'light.table_lamp',
+  }, ['on', 'off', 'on']
+);
+
+addEntity(
+  {
+    entity_id: 'switch.ac',
+  }, ['on', 'off', 'on']
+);
+
+addEntity(
+  {
+    entity_id: 'group.bedroom',
+  }, ['on', 'off', 'on', 'off']
+);
+
+addEntity(
+  {
+    entity_id: 'group.living_room',
+  }, ['on', 'off', 'on']
+);
+
+addEntity(
+  {
+    entity_id: 'switch.decorative_lights',
+  }, ['on', 'off', 'on', 'off']
+);
+
+addEntity(
+  {
+    entity_id: 'light.bed_light',
+  }, ['on', 'off', 'on', 'off']
+);
+
+addEntity(
+  {
+    entity_id: 'rollershutter.bedroom_window',
+  }, ['open', 'closed', 'open', 'closed']
+);
+
+addEntity(
+  {
+    entity_id: 'input_select.cook_today',
+  }, ['Anne Therese', 'Paulus']
+);
+
+addEntity(
+  {
+    entity_id: 'input_boolean.notify_cook',
+  }, ['off', 'on']
+);
+
+if (__DEV__) {
+  for (const entity of stateData) {
+    if (!(entity.entity_id in seen)) {
+      console.warn(`Missing history for ${entity.entity_id}`);
+    }
+  }
+}
+
+export default history;

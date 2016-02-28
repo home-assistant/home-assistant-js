@@ -1,5 +1,5 @@
 function getTime(minutesAgo) {
-  let ts = new Date(Date.now() - (minutesAgo * 60 * 1000));
+  const ts = new Date(Date.now() - (minutesAgo * 60 * 1000));
   return `${ts.getUTCHours()}:${ts.getUTCMinutes()}:${ts.getUTCSeconds()} ` +
          `${ts.getUTCDate()}-${ts.getUTCMonth() + 1}-${ts.getUTCFullYear()}`;
 }
@@ -13,6 +13,7 @@ export default [
             },
             "entity_id": "sun.sun",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "below_horizon"
         },
         {
@@ -22,6 +23,7 @@ export default [
             },
             "entity_id": "sun.sun",
             "last_changed": getTime(940),
+            last_updated: getTime(940),
             "state": "above_horizon"
         },
         {
@@ -31,6 +33,7 @@ export default [
             },
             "entity_id": "sun.sun",
             "last_changed": getTime(720),
+            last_updated: getTime(720),
             "state": "below_horizon"
         },
         {
@@ -40,6 +43,7 @@ export default [
             },
             "entity_id": "sun.sun",
             "last_changed": getTime(420),
+            last_updated: getTime(420),
             "state": "below_horizon"
         }
     ],
@@ -57,6 +61,7 @@ export default [
             },
             "entity_id": "group.all_lights",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "on"
         },
         {
@@ -72,6 +77,7 @@ export default [
             },
             "entity_id": "group.all_lights",
             "last_changed": getTime(1100),
+            last_updated: getTime(1100),
             "state": "off"
         },
         {
@@ -87,6 +93,7 @@ export default [
             },
             "entity_id": "group.all_lights",
             "last_changed": getTime(900),
+            last_updated: getTime(900),
             "state": "on"
         },
         {
@@ -102,6 +109,7 @@ export default [
             },
             "entity_id": "group.all_lights",
             "last_changed": getTime(600),
+            last_updated: getTime(600),
             "state": "off"
         },
         {
@@ -117,6 +125,7 @@ export default [
             },
             "entity_id": "group.all_lights",
             "last_changed": getTime(400),
+            last_updated: getTime(400),
             "state": "on"
         },
         {
@@ -132,6 +141,7 @@ export default [
             },
             "entity_id": "group.all_lights",
             "last_changed": getTime(200),
+            last_updated: getTime(200),
             "state": "off"
         },
         {
@@ -147,6 +157,7 @@ export default [
             },
             "entity_id": "group.all_lights",
             "last_changed": getTime(100),
+            last_updated: getTime(100),
             "state": "on"
         },
     ],
@@ -157,6 +168,7 @@ export default [
             },
             "entity_id": "light.bed_light",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "off"
         },
         {
@@ -170,6 +182,7 @@ export default [
             },
             "entity_id": "light.bed_light",
             "last_changed": getTime(720),
+            last_updated: getTime(720),
             "state": "on"
         },
         {
@@ -178,6 +191,7 @@ export default [
             },
             "entity_id": "light.bed_light",
             "last_changed": getTime(130),
+            last_updated: getTime(130),
             "state": "off"
         }
     ],
@@ -192,6 +206,7 @@ export default [
             },
             "entity_id": "group.bedroom",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "off"
         },
         {
@@ -204,6 +219,7 @@ export default [
             },
             "entity_id": "group.bedroom",
             "last_changed": getTime(1300),
+            last_updated: getTime(1300),
             "state": "on"
         },
         {
@@ -216,6 +232,7 @@ export default [
             },
             "entity_id": "group.bedroom",
             "last_changed": getTime(1000),
+            last_updated: getTime(1000),
             "state": "off"
         },
         {
@@ -228,6 +245,7 @@ export default [
             },
             "entity_id": "group.bedroom",
             "last_changed": getTime(100),
+            last_updated: getTime(100),
             "state": "on"
         }
     ],
@@ -243,6 +261,7 @@ export default [
             },
             "entity_id": "light.ceiling",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "on"
         },
         {
@@ -251,6 +270,7 @@ export default [
             },
             "entity_id": "light.ceiling",
             "last_changed": getTime(1220),
+            last_updated: getTime(1220),
             "state": "off"
         },
         {
@@ -264,6 +284,7 @@ export default [
             },
             "entity_id": "light.ceiling",
             "last_changed": getTime(1000),
+            last_updated: getTime(1000),
             "state": "on"
         },
         {
@@ -272,6 +293,7 @@ export default [
             },
             "entity_id": "light.ceiling",
             "last_changed": getTime(700),
+            last_updated: getTime(700),
             "state": "off"
         },
         {
@@ -285,6 +307,7 @@ export default [
             },
             "entity_id": "light.ceiling",
             "last_changed": getTime(560),
+            last_updated: getTime(560),
             "state": "on"
         },
         {
@@ -293,6 +316,7 @@ export default [
             },
             "entity_id": "light.ceiling",
             "last_changed": getTime(300),
+            last_updated: getTime(300),
             "state": "off"
         },
         {
@@ -306,6 +330,7 @@ export default [
             },
             "entity_id": "light.ceiling",
             "last_changed": getTime(150),
+            last_updated: getTime(150),
             "state": "on"
         }
     ],
@@ -321,6 +346,7 @@ export default [
             },
             "entity_id": "light.tv_back_light",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "on"
         },
         {
@@ -329,6 +355,7 @@ export default [
             },
             "entity_id": "light.tv_back_light",
             "last_changed": getTime(800),
+            last_updated: getTime(800),
             "state": "off"
         },
         {
@@ -342,6 +369,7 @@ export default [
             },
             "entity_id": "light.tv_back_light",
             "last_changed": getTime(500),
+            last_updated: getTime(500),
             "state": "on"
         },
         {
@@ -350,6 +378,7 @@ export default [
             },
             "entity_id": "light.tv_back_light",
             "last_changed": getTime(300),
+            last_updated: getTime(300),
             "state": "off"
         },
         {
@@ -363,6 +392,7 @@ export default [
             },
             "entity_id": "light.tv_back_light",
             "last_changed": getTime(100),
+            last_updated: getTime(100),
             "state": "on"
         }
     ],
@@ -378,6 +408,7 @@ export default [
             },
             "entity_id": "switch.ac",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "on"
         },
         {
@@ -386,6 +417,7 @@ export default [
             },
             "entity_id": "switch.ac",
             "last_changed": getTime(800),
+            last_updated: getTime(800),
             "state": "off"
         },
         {
@@ -399,6 +431,7 @@ export default [
             },
             "entity_id": "switch.ac",
             "last_changed": getTime(500),
+            last_updated: getTime(500),
             "state": "on"
         },
         {
@@ -407,6 +440,7 @@ export default [
             },
             "entity_id": "switch.ac",
             "last_changed": getTime(300),
+            last_updated: getTime(300),
             "state": "off"
         },
         {
@@ -420,6 +454,7 @@ export default [
             },
             "entity_id": "switch.ac",
             "last_changed": getTime(100),
+            last_updated: getTime(100),
             "state": "on"
         }
     ],
@@ -435,6 +470,7 @@ export default [
             },
             "entity_id": "switch.decorative_lights",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "on"
         },
         {
@@ -443,6 +479,7 @@ export default [
             },
             "entity_id": "switch.decorative_lights",
             "last_changed": getTime(800),
+            last_updated: getTime(800),
             "state": "off"
         },
         {
@@ -456,6 +493,7 @@ export default [
             },
             "entity_id": "switch.decorative_lights",
             "last_changed": getTime(500),
+            last_updated: getTime(500),
             "state": "on"
         },
         {
@@ -464,6 +502,7 @@ export default [
             },
             "entity_id": "switch.decorative_lights",
             "last_changed": getTime(300),
+            last_updated: getTime(300),
             "state": "off"
         },
         {
@@ -477,6 +516,7 @@ export default [
             },
             "entity_id": "switch.decorative_lights",
             "last_changed": getTime(100),
+            last_updated: getTime(100),
             "state": "on"
         }
     ],
@@ -492,6 +532,7 @@ export default [
             },
             "entity_id": "light.bowl",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "on"
         },
         {
@@ -500,6 +541,7 @@ export default [
             },
             "entity_id": "light.bowl",
             "last_changed": getTime(1200),
+            last_updated: getTime(1200),
             "state": "off"
         },
         {
@@ -508,6 +550,7 @@ export default [
             },
             "entity_id": "light.bowl",
             "last_changed": getTime(1000),
+            last_updated: getTime(1000),
             "state": "off"
         },
         {
@@ -521,6 +564,7 @@ export default [
             },
             "entity_id": "light.bowl",
             "last_changed": getTime(700),
+            last_updated: getTime(700),
             "state": "on"
         },
         {
@@ -529,6 +573,7 @@ export default [
             },
             "entity_id": "light.bowl",
             "last_changed": getTime(500),
+            last_updated: getTime(500),
             "state": "off"
         },
         {
@@ -542,6 +587,7 @@ export default [
             },
             "entity_id": "light.bowl",
             "last_changed": getTime(300),
+            last_updated: getTime(300),
             "state": "on"
         },
         {
@@ -550,6 +596,7 @@ export default [
             },
             "entity_id": "light.bowl",
             "last_changed": getTime(200),
+            last_updated: getTime(200),
             "state": "off"
         }
     ],
@@ -566,6 +613,7 @@ export default [
             },
             "entity_id": "group.living_room",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "on"
         },
         {
@@ -580,6 +628,7 @@ export default [
             },
             "entity_id": "group.living_room",
             "last_changed": getTime(1000),
+            last_updated: getTime(1000),
             "state": "off"
         },
         {
@@ -594,6 +643,7 @@ export default [
             },
             "entity_id": "group.living_room",
             "last_changed": getTime(700),
+            last_updated: getTime(700),
             "state": "on"
         },
         {
@@ -608,6 +658,7 @@ export default [
             },
             "entity_id": "group.living_room",
             "last_changed": getTime(200),
+            last_updated: getTime(200),
             "state": "off"
         },
         {
@@ -622,6 +673,7 @@ export default [
             },
             "entity_id": "group.living_room",
             "last_changed": getTime(100),
+            last_updated: getTime(100),
             "state": "on"
         },
     ],
@@ -633,6 +685,7 @@ export default [
             },
             "entity_id": "device_tracker.anne_therese",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "home"
         },
         {
@@ -642,6 +695,7 @@ export default [
             },
             "entity_id": "device_tracker.anne_therese",
             "last_changed": getTime(1200),
+            last_updated: getTime(1200),
             "state": "not_home"
         },
         {
@@ -651,6 +705,7 @@ export default [
             },
             "entity_id": "device_tracker.anne_therese",
             "last_changed": getTime(100),
+            last_updated: getTime(100),
             "state": "home"
         },
         {
@@ -660,6 +715,7 @@ export default [
             },
             "entity_id": "device_tracker.anne_therese",
             "last_changed": getTime(50),
+            last_updated: getTime(50),
             "state": "not_home"
         }
     ],
@@ -671,6 +727,7 @@ export default [
             },
             "entity_id": "device_tracker.paulus",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "home"
         },
         {
@@ -680,6 +737,7 @@ export default [
             },
             "entity_id": "device_tracker.paulus",
             "last_changed": getTime(1130),
+            last_updated: getTime(1130),
             "state": "not_home"
         },
         {
@@ -689,6 +747,7 @@ export default [
             },
             "entity_id": "device_tracker.paulus",
             "last_changed": getTime(1020),
+            last_updated: getTime(1020),
             "state": "home"
         },
         {
@@ -698,6 +757,7 @@ export default [
             },
             "entity_id": "device_tracker.paulus",
             "last_changed": getTime(780),
+            last_updated: getTime(780),
             "state": "not_home"
         },
         {
@@ -707,6 +767,7 @@ export default [
             },
             "entity_id": "device_tracker.paulus",
             "last_changed": getTime(500),
+            last_updated: getTime(500),
             "state": "home"
         },
         {
@@ -716,6 +777,7 @@ export default [
             },
             "entity_id": "device_tracker.paulus",
             "last_changed": getTime(200),
+            last_updated: getTime(200),
             "state": "home"
         }
     ],
@@ -731,6 +793,7 @@ export default [
             },
             "entity_id": "group.all_devices",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "home"
         },
         {
@@ -744,6 +807,7 @@ export default [
             },
             "entity_id": "group.all_devices",
             "last_changed": getTime(700),
+            last_updated: getTime(700),
             "state": "not_home"
         },
         {
@@ -757,6 +821,7 @@ export default [
             },
             "entity_id": "group.all_devices",
             "last_changed": getTime(400),
+            last_updated: getTime(400),
             "state": "home"
         },
         {
@@ -770,6 +835,7 @@ export default [
             },
             "entity_id": "group.all_devices",
             "last_changed": getTime(100),
+            last_updated: getTime(100),
             "state": "not_home"
         },
         {
@@ -783,6 +849,7 @@ export default [
             },
             "entity_id": "group.all_devices",
             "last_changed": getTime(50),
+            last_updated: getTime(50),
             "state": "home"
         }
     ],
@@ -793,6 +860,7 @@ export default [
             },
             "entity_id": "media_player.living_room",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "Plex"
         },
         {
@@ -801,6 +869,7 @@ export default [
             },
             "entity_id": "media_player.living_room",
             "last_changed": getTime(900),
+            last_updated: getTime(900),
             "state": "idle"
         },
         {
@@ -809,6 +878,7 @@ export default [
             },
             "entity_id": "media_player.living_room",
             "last_changed": getTime(800),
+            last_updated: getTime(800),
             "state": "YouTube"
         },
         {
@@ -817,6 +887,7 @@ export default [
             },
             "entity_id": "media_player.living_room",
             "last_changed": getTime(300),
+            last_updated: getTime(300),
             "state": "idle"
         }
     ],
@@ -828,6 +899,7 @@ export default [
             },
             "entity_id": "sensor.outside_temperature",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "23"
         },
         {
@@ -837,6 +909,7 @@ export default [
             },
             "entity_id": "sensor.outside_temperature",
             "last_changed": getTime(900),
+            last_updated: getTime(900),
             "state": "27"
         },
         {
@@ -846,6 +919,7 @@ export default [
             },
             "entity_id": "sensor.outside_temperature",
             "last_changed": getTime(800),
+            last_updated: getTime(800),
             "state": "25"
         },
         {
@@ -855,6 +929,7 @@ export default [
             },
             "entity_id": "sensor.outside_temperature",
             "last_changed": getTime(300),
+            last_updated: getTime(300),
             "state": "23"
         }
     ],
@@ -866,6 +941,7 @@ export default [
             },
             "entity_id": "thermostat.nest",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "18"
         },
         {
@@ -875,6 +951,7 @@ export default [
             },
             "entity_id": "thermostat.nest",
             "last_changed": getTime(1020),
+            last_updated: getTime(1020),
             "state": "20"
         },
         {
@@ -884,6 +961,7 @@ export default [
             },
             "entity_id": "thermostat.nest",
             "last_changed": getTime(800),
+            last_updated: getTime(800),
             "state": "23"
         },
         {
@@ -893,6 +971,7 @@ export default [
             },
             "entity_id": "thermostat.nest",
             "last_changed": getTime(300),
+            last_updated: getTime(300),
             "state": "26"
         }
     ],
@@ -904,6 +983,7 @@ export default [
             },
             "entity_id": "sensor.outside_humidity",
             "last_changed": getTime(1440),
+            last_updated: getTime(1440),
             "state": "45"
         },
         {
@@ -913,6 +993,7 @@ export default [
             },
             "entity_id": "sensor.outside_humidity",
             "last_changed": getTime(900),
+            last_updated: getTime(900),
             "state": "49"
         },
         {
@@ -922,6 +1003,7 @@ export default [
             },
             "entity_id": "sensor.outside_humidity",
             "last_changed": getTime(800),
+            last_updated: getTime(800),
             "state": "58"
         },
         {
@@ -931,6 +1013,7 @@ export default [
             },
             "entity_id": "sensor.outside_humidity",
             "last_changed": getTime(300),
+            last_updated: getTime(300),
             "state": "52"
         }
     ],

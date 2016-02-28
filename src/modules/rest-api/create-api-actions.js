@@ -1,3 +1,5 @@
+import objectAssign from 'object-assign';
+
 import actionTypes from './action-types';
 
 /**
@@ -17,7 +19,7 @@ export default function createApiActions(model) {
   };
 
   apiActions.replaceData = function replaceData(reactor, data, params = {}) {
-    onFetchSuccess(reactor, model, { ...params, replace: true }, data);
+    onFetchSuccess(reactor, model, objectAssign({}, params, { replace: true }), data);
   };
 
   apiActions.removeData = function removeData(reactor, id) {
@@ -45,7 +47,7 @@ export default function createApiActions(model) {
       method: 'fetchAll',
     });
     return model.fetchAll(reactor, params).then(
-      onFetchSuccess.bind(null, reactor, model, { ...params, replace: true }),
+      onFetchSuccess.bind(null, reactor, model, objectAssign({}, params, { replace: true })),
       onFetchFail.bind(null, reactor, model, params)
     );
   };

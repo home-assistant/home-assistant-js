@@ -8,9 +8,7 @@ const ImmutableService = new Immutable.Record({
   services: [],
 }, 'ServiceDomain');
 
-export default class ServiceDomain extends ImmutableService {
-  static entity = ENTITY;
-
+class ServiceDomain extends ImmutableService {
   constructor(domain, services) {
     super({ domain, services });
   }
@@ -28,3 +26,7 @@ export default class ServiceDomain extends ImmutableService {
   }
 
 }
+
+ServiceDomain.entity = ENTITY;
+
+export default ServiceDomain;

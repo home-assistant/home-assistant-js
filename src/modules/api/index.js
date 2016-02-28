@@ -1,1 +1,3 @@
-export callApi from './call-api';
+import _callApi from './call-api';
+
+export const callApi = _callApi;

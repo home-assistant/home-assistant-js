@@ -20,9 +20,7 @@ const ImmutableEntity = new Immutable.Record({
   isCustomGroup: null,
 }, 'Entity');
 
-export default class State extends ImmutableEntity {
-  static entity = ENTITY;
-
+class State extends ImmutableEntity {
   constructor(entityId, state, lastChanged, lastUpdated, attributes = {}) {
     const [domain, objectId] = entityId.split('.');
     let stateDisplay = state.replace(/_/g, ' ');
@@ -80,3 +78,7 @@ export default class State extends ImmutableEntity {
   }
 
 }
+
+State.entity = ENTITY;
+
+export default State;

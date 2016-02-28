@@ -8,9 +8,7 @@ const ImmutableEvent = new Immutable.Record({
   listenerCount: 0,
 }, 'Event');
 
-export default class Event extends ImmutableEvent {
-  static entity = ENTITY;
-
+class Event extends ImmutableEvent {
   constructor(event, listenerCount = 0) {
     super({ event, listenerCount });
   }
@@ -30,3 +28,7 @@ export default class Event extends ImmutableEvent {
   }
 
 }
+
+Event.entity = ENTITY;
+
+export default Event;

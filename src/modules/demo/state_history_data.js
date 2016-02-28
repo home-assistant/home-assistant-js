@@ -1,3 +1,5 @@
+import objectAssign from 'object-assign';
+
 import stateData from './state_data';
 
 function getTime(minutesAgo) {
@@ -52,7 +54,7 @@ function addEntity(state, deltas) {
       } else if (!state.attributes) {
         attributes = change.attributes;
       } else {
-        attributes = { ...state.attributes, ...change.attributes };
+        attributes = objectAssign({}, state.attributes, change.attributes);
       }
 
       const time = index === 0 ? getTime(maxTime) : getTime(maxTime - index * timeDiff +

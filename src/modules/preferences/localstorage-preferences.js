@@ -27,7 +27,7 @@ const observe = {
     getter: [
       authGetters.currentAuthToken,
       authGetters.rememberAuth,
-      (authToken, rememberAuth) => rememberAuth ? authToken : null,
+      (authToken, rememberAuth) => (rememberAuth ? authToken : null),
     ],
     defaultValue: null,
   },

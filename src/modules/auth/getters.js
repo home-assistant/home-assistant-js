@@ -40,7 +40,7 @@ export const authToken = [
   ['authAttempt', 'authToken'],
   ['authCurrent', 'authToken'],
   (isValidating_, attemptToken_, currentToken_) =>
-    isValidating_ ? attemptToken_ : currentToken_,
+    (isValidating_ ? attemptToken_ : currentToken_),
 ];
 
 export const authInfo = [
@@ -48,5 +48,5 @@ export const authInfo = [
   attemptAuthInfo,
   currentAuthInfo,
   (isValidating_, attemptAuthInfo_, currentAuthInfo_) =>
-    isValidating_ ? attemptAuthInfo_ : currentAuthInfo_,
+    (isValidating_ ? attemptAuthInfo_ : currentAuthInfo_),
 ];

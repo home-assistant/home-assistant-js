@@ -1,6 +1,6 @@
 import { Immutable, toJS } from 'nuclear-js';
+import MediaPlayer from './domain-model/media_player';
 import parseDateTime from '../../util/parse-date-time-str';
-
 import { callApi } from '../api';
 
 const ENTITY = 'entity';
@@ -55,6 +55,13 @@ class State extends ImmutableEntity {
   //            (this.state === 'on' || this.state === 'off')) ||
   //           serviceStore.has(this.domain, 'turn_on'));
   // }
+
+  domainModel(hass) {
+    if (this.domain !== 'media_player') {
+      throw new Error('Domain does not have a model');
+    }
+    return new MediaPlayer(hass, this);
+  }
 
   static save(reactor, instance) {
     const { entityId, state, attributes = {} } = toJS(instance);

@@ -65,6 +65,7 @@ addGroup(
     'group.general',
     'group.rooms',
     'camera.roundabout',
+    'media_player.living_room',
     'scene.romantic',
     'scene.good_morning',
     'script.water_lawn',
@@ -188,10 +189,15 @@ addEntity('switch.ac', 'on', {
   icon: 'mdi:air-conditioner',
 });
 addEntity('media_player.living_room', 'playing', {
-  entity_picture: 'https://graph.facebook.com/KillBillMovie/picture',
+  entity_picture: '/demo/images/thrones.jpg',
   friendly_name: 'Chromecast',
   supported_media_commands: 509,
-  media_title: 'Kill Bill',
+  media_content_type: 'tvshow',
+  media_title: 'The Dance of Dragons',
+  media_series_title: 'Game of Thrones',
+  media_season: 5,
+  media_episode: 9,
+  app_name: 'HBO Now',
 });
 
 // ---------------------------------------------------

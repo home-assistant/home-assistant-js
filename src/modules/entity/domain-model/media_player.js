@@ -70,6 +70,10 @@ export default class MediaPlayer {
     return (this.stateObj.attributes.supported_media_commands & 1024) !== 0;
   }
 
+  get supportsSelectInputSource() {
+    return (this.stateObj.attributes.supported_media_commands & 2048) !== 0;
+  }
+
   get primaryText() {
     return this.stateObj.attributes.media_title ||
            this.stateObj.stateDisplay;
@@ -145,6 +149,10 @@ export default class MediaPlayer {
 
   volumeUp() {
     this.callService('volume_down');
+  }
+
+  input(input) {
+    this.callService('select_source', { source: input });
   }
 
   // helper method

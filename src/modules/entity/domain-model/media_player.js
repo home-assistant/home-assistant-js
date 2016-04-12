@@ -10,6 +10,10 @@ export default class MediaPlayer {
     return this.stateObj.state === 'off';
   }
 
+  get isIdle() {
+    return this.stateObj.state === 'idle';
+  }
+
   get isMuted() {
     return this.stateObj.attributes.is_volume_muted;
   }

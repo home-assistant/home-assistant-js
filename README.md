@@ -1,4 +1,4 @@
-# home-assistant-js [![Build Status](https://travis-ci.org/balloob/home-assistant-js.svg?branch=master)](https://travis-ci.org/balloob/home-assistant-js)
+# home-assistant-js [![Build Status](https://travis-ci.org/home-assistant/home-assistant-js.svg?branch=master)](https://travis-ci.org/home-assistant/home-assistant-js)
 JavaScript backend in [NuclearJS][nuclear-js] for [Home Assistant][home-assistant]. Used by [the Home Assistant Polymer frontend][home-assistant-polymer].
 
 To see it in action, [check out the demo][home-assistant-demo]. Debug mode has been enabled for NuclearJS so make sure to open your developer tools!
@@ -23,20 +23,20 @@ Home Assistant JS can be compiled with the DEMO flag enabled. This will override
 
 [nuclear-js]: http://optimizely.github.io/nuclear-js/
 [home-assistant]: https://home-assistant.io
-[home-assistant-polymer]: https://github.com/balloob/home-assistant-polymer
+[home-assistant-polymer]: https://github.com/home-assistant/home-assistant-polymer
 [home-assistant-demo]: https://home-assistant.io/demo/
 
-[module-rest-api]: https://github.com/balloob/home-assistant-js/tree/master/src/modules/rest-api
-[module-entity]: https://github.com/balloob/home-assistant-js/tree/master/src/modules/entity
-[module-event]: https://github.com/balloob/home-assistant-js/tree/master/src/modules/event
-[module-service]: https://github.com/balloob/home-assistant-js/tree/master/src/modules/service
-[module-more-info]: https://github.com/balloob/home-assistant-js/blob/master/src/modules/more-info/getters.js
-[module-config]: https://github.com/balloob/home-assistant-js/blob/master/src/modules/config/getters.js
-[module-stream]: https://github.com/balloob/home-assistant-js/blob/master/src/modules/stream/actions.js
-[module-voice]: https://github.com/balloob/home-assistant-js/blob/master/src/modules/voice/actions.js
-[module-preferences]: https://github.com/balloob/home-assistant-js/blob/master/src/modules/preferences/localstorage-preferences.js
-[module-navigation]: https://github.com/balloob/home-assistant-js/blob/master/src/modules/navigation/url-sync.js
-[module-api]: https://github.com/balloob/home-assistant-js/blob/master/src/modules/api/call-api.js
+[module-rest-api]: https://github.com/home-assistant/home-assistant-js/tree/master/src/modules/rest-api
+[module-entity]: https://github.com/home-assistant/home-assistant-js/tree/master/src/modules/entity
+[module-event]: https://github.com/home-assistant/home-assistant-js/tree/master/src/modules/event
+[module-service]: https://github.com/home-assistant/home-assistant-js/tree/master/src/modules/service
+[module-more-info]: https://github.com/home-assistant/home-assistant-js/blob/master/src/modules/more-info/getters.js
+[module-config]: https://github.com/home-assistant/home-assistant-js/blob/master/src/modules/config/getters.js
+[module-stream]: https://github.com/home-assistant/home-assistant-js/blob/master/src/modules/stream/actions.js
+[module-voice]: https://github.com/home-assistant/home-assistant-js/blob/master/src/modules/voice/actions.js
+[module-preferences]: https://github.com/home-assistant/home-assistant-js/blob/master/src/modules/preferences/localstorage-preferences.js
+[module-navigation]: https://github.com/home-assistant/home-assistant-js/blob/master/src/modules/navigation/url-sync.js
+[module-api]: https://github.com/home-assistant/home-assistant-js/blob/master/src/modules/api/call-api.js
 
 [immutablejs-record]: http://facebook.github.io/immutable-js/docs/#/Record
 [mdn-eventsource]: https://developer.mozilla.org/en-US/docs/Web/API/EventSource

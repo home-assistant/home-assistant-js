@@ -1,8 +1,10 @@
 import actionTypes from './action-types';
 
 import { callApi } from '../api';
-import { getters as streamGetters } from '../stream';
-import { actions as streamActions } from '../stream';
+import {
+  getters as streamGetters,
+  actions as streamActions,
+} from '../stream';
 import { actions as syncActions } from '../sync';
 
 const DEFAULT_ERROR_MSG = 'Unexpected result from API';

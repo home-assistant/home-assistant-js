@@ -5,7 +5,7 @@ import actionTypes from '../action-types';
 const INSTANCE = new Store({
   getInitialState() {
     const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setDate(yesterday.getUTCDate() - 1);
     return dateToStr(yesterday);
   },
 

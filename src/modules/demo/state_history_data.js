@@ -4,8 +4,7 @@ import stateData from './state_data';
 
 function getTime(minutesAgo) {
   const ts = new Date(Date.now() - (minutesAgo * 60 * 1000));
-  return `${ts.getUTCHours()}:${ts.getUTCMinutes()}:${ts.getUTCSeconds()} ` +
-         `${ts.getUTCDate()}-${ts.getUTCMonth() + 1}-${ts.getUTCFullYear()}`;
+  return ts.toISOString();
 }
 
 // prefill with entities we do not want to track

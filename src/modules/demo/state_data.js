@@ -1,7 +1,6 @@
 function getRandomTime() {
   const ts = new Date(new Date().getTime() - (Math.random() * 80 * 60 * 1000));
-  return `${ts.getHours()}:${ts.getMinutes()}:${ts.getSeconds()} ` +
-         `${ts.getDate()}-${ts.getMonth() + 1}-${ts.getFullYear()}`;
+  return ts.toISOString();
 }
 
 const entities = [];

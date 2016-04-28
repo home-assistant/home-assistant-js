@@ -38,7 +38,7 @@ function startValidate(state, { authToken, host }) {
   });
 }
 
-function validateSuccess(state, {}) {
+function validateSuccess() {
   return INSTANCE.getInitialState();
 }
 

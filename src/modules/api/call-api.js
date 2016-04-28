@@ -51,6 +51,7 @@ if (__DEMO__) {
 
       const component = path.split('/', 1)[0];
 
+      /* eslint-disable global-require */
       switch (component) {
         case 'bootstrap':
           resolve(require('../demo/bootstrap_data.js').default);

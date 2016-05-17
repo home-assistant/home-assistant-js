@@ -63,7 +63,7 @@ addGroup(
     'group.cooking',
     'group.general',
     'group.rooms',
-    'camera.roundabout',
+    'camera.living_room',
     'media_player.living_room',
     'scene.romantic',
     'scene.good_morning',
@@ -127,15 +127,15 @@ addEntity('zone.home', 'zoning', {
 // ---------------------------------------------------
 //    GENERAL
 // ---------------------------------------------------
-addGroup('general', 'off', [
+addGroup('general', 'on', [
   'alarm_control_panel.home',
   'garage_door.garage_door',
   'lock.kitchen_door',
   'thermostat.nest',
-  'camera.roundabout',
+  'camera.living_room',
 ]);
 
-addEntity('camera.roundabout', 'idle', {
+addEntity('camera.living_room', 'idle', {
   entity_picture: '/demo/webcam.jpg',
 });
 
@@ -152,9 +152,15 @@ addEntity('lock.kitchen_door', 'open');
 //    PRESETS
 // ---------------------------------------------------
 
-addEntity('script.water_lawn', 'off');
-addEntity('scene.romantic', 'scening');
-addEntity('scene.good_morning', 'scening');
+addEntity('script.water_lawn', 'off', {
+  friendly_name: 'Water Lawn',
+});
+addEntity('scene.romantic', 'scening', {
+  friendly_name: 'Romantic',
+});
+// addEntity('scene.good_morning', 'scening', {
+//   friendly_name: 'Good Morning',
+// });
 
 // ---------------------------------------------------
 //    LIVING ROOM
@@ -195,7 +201,7 @@ addEntity('media_player.living_room', 'playing', {
   media_title: 'The Dance of Dragons',
   media_series_title: 'Game of Thrones',
   media_season: 5,
-  media_episode: 9,
+  media_episode: '09',
   app_name: 'HBO Now',
 });
 

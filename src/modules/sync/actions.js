@@ -1,4 +1,4 @@
-import debounce from 'lodash/debounce';
+import debounce from 'debounce';
 import actionTypes from './action-types';
 import * as getters from './getters';
 import { callApi } from '../api';

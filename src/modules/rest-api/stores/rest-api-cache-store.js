@@ -1,7 +1,6 @@
 /**
  * Stores cached entities for the Rest API
  */
-import isArray from 'lodash/isArray';
 import { Store, toImmutable } from 'nuclear-js';
 import actionTypes from '../action-types';
 
@@ -38,7 +37,7 @@ function loadData(state, { model, result, params }) {
   }
 
   const newState = params.replace ? state.set(entity, toImmutable({})) : state;
-  const data = isArray(result) ? result : [result];
+  const data = Array.isArray(result) ? result : [result];
   const fromJSON = model.fromJSON || toImmutable;
 
   return newState.withMutations(mState =>

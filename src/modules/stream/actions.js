@@ -1,4 +1,4 @@
-import debounce from 'lodash/debounce';
+import debounce from 'debounce';
 import { getters as authGetters } from '../auth';
 import { actions as syncActions } from '../sync';
 import actionTypes from './action-types';

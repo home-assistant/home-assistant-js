@@ -1,5 +1,3 @@
-import isFunction from 'lodash/isFunction';
-
 export default function exposeModules(target, reactor, modules) {
   Object.keys(modules).forEach(name => {
     const module = modules[name];
@@ -19,7 +17,7 @@ export default function exposeModules(target, reactor, modules) {
       const actions = {};
 
       Object.getOwnPropertyNames(module.actions).forEach(actionKey => {
-        if (isFunction(module.actions[actionKey])) {
+        if (typeof module.actions[actionKey] === 'function') {
           Object.defineProperty(actions, actionKey, {
             value: module.actions[actionKey].bind(null, reactor),
             enumerable: true,

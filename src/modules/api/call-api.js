@@ -1,7 +1,6 @@
-import { Promise } from 'es6-promise';
-
 import { getters as authGetters } from '../auth';
 
+/* eslint-disable import/no-mutable-exports */
 let callApi = function callApi(reactor, method, path, parameters = null) {
   const authInfo = reactor.evaluate(authGetters.authInfo);
 

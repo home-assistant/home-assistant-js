@@ -136,7 +136,7 @@ addGroup('general', 'on', [
 ]);
 
 addEntity('camera.living_room', 'idle', {
-  entity_picture: '/demo/webcam.jpg',
+  entity_picture: '/demo/webcam.jpg?',
 });
 
 addEntity('garage_door.garage_door', 'open');

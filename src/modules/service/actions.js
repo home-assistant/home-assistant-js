@@ -53,4 +53,4 @@ serviceApiActions.callService = function callService(reactor, domain, service, p
   );
 };
 
-module.exports = serviceApiActions;
+export default serviceApiActions;

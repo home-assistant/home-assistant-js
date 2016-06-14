@@ -7635,30 +7635,7 @@ function callApi$1(reactor, method, path, parameters = null) {
   const authInfo = reactor.evaluate(authGetters.authInfo);
   const url = `${authInfo.host}/api/${path}`;
 
-  if (__DEMO__) {
-    const component = path.split('/', 1)[0];
-    let data;
-    switch (component) {
-      case 'bootstrap':
-        data = window.hassDemoData.bootstrap;
-        break;
-      case 'logbook':
-        data = window.hassDemoData.logbook;
-        break;
-      case 'history':
-        data = window.hassDemoData.stateHistory;
-        break;
-      default:
-        data = false;
-    }
-    return new Promise((resolve, reject) => {
-      if (data) {
-        resolve(data);
-      } else {
-        reject('Request not allowed in demo mode.');
-      }
-    });
-  }
+  if (false) {}
 
   return new Promise((resolve, reject) => {
     const req = new XMLHttpRequest();
@@ -8323,7 +8300,7 @@ var sync = Object.freeze({
 });
 
 function handleRemoteEvent (reactor, event) {
-  if (__DEV__) {
+  if (true) {
     /* eslint-disable no-console */
     console.log(`Remote event received: ${event.event_type}`, event);
     /* eslint-enable no-console */
@@ -8490,12 +8467,7 @@ function validate(reactor, authToken, {
     rememberAuth = false,
     host = '',
   } = {}) {
-  if (__DEMO__) {
-    /* eslint-disable no-param-reassign */
-    host = __DEV__ ? '/static/home-assistant-polymer/node_modules/home-assistant-js/demo_data' :
-                     '/demo';
-    /* eslint-enable no-param-reassign */
-  }
+  if (false) {}
 
   reactor.dispatch(actionTypes.VALIDATING_AUTH_TOKEN, { authToken, host });
 
@@ -8503,12 +8475,7 @@ function validate(reactor, authToken, {
     () => {
       reactor.dispatch(actionTypes.VALID_AUTH_TOKEN, { authToken, host, rememberAuth });
 
-      if (__DEMO__) {
-        // Show as if streaming active in UI
-        reactor.dispatch('STREAM_START');
-        // No need to start streaming/syncing
-        return;
-      }
+      if (false) {}
 
       if (useStreaming) {
         actions$1.start(reactor, { syncOnInitialConnect: false });
@@ -9198,7 +9165,7 @@ var view = Object.freeze({
   getters: getters$9
 });
 
-const IS_SUPPORTED = history.pushState && !__DEMO__;
+const IS_SUPPORTED = history.pushState && !false;
 const PAGE_TITLE = 'Home Assistant';
 const SYNCS = {};
 
@@ -9416,7 +9383,7 @@ let reactorCount = 0;
 
 function createReactor() {
   const reactor = new Reactor({
-    debug: __DEV__ || __DEMO__,
+    debug: true || false,
   });
 
   reactor.hassId = reactorCount++;
@@ -9934,7 +9901,7 @@ class HomeAssistant {
     Object.defineProperties(this, {
       // attributes
       demo: {
-        value: __DEMO__,
+        value: false,
         enumerable: true,
       },
 

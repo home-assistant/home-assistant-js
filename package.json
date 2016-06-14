@@ -10,10 +10,15 @@
     "url": "https://github.com/balloob/home-assistant-js"
   },
   "scripts": {
-    "dev": "webpack --color --progress -d --watch",
-    "dev_demo": "BUILD_DEMO=1 webpack --color --progress -d --watch",
-    "prod": "BUILD_DEV=0 webpack --color --progress -p",
-    "demo": "BUILD_DEV=0 BUILD_DEMO=1 webpack --color --progress -p",
+    "dev": "rollup -c rollup.config.js --watch --output dist/homeassistant.es6.js",
+    "dev_demo": "BUILD_DEMO=1 rollup -c rollup.config.js --watch --output dist/homeassistant.es6.js",
+    "prod": "BUILD_DEV=0 rollup -c rollup.config.js --watch --output dist/homeassistant.es6.js",
+    "demo": "BUILD_DEV=0 BUILD_DEMO=1 rollup -c rollup.config.js --watch --output dist/homeassistant.es6.js",
+
+    "wp_dev_demo": "BUILD_DEMO=1 webpack --color --progress -d --watch",
+    "wp_prod": "BUILD_DEV=0 webpack --color --progress -p",
+    "wp_demo": "BUILD_DEV=0 BUILD_DEMO=1 webpack --color --progress -p",
+    "wp_dev": "webpack --color --progress -d --watch",
     "test": "eslint src"
   },
   "dependencies": {
@@ -32,6 +37,8 @@
     "rollup": "^0.31.2",
     "rollup-plugin-commonjs": "^3.0.0",
     "rollup-plugin-node-resolve": "^1.7.0",
+    "rollup-plugin-replace": "^1.1.0",
+    "rollup-watch": "^2.4.0",
     "webpack": "^2.1.0-beta.7"
   }
 }

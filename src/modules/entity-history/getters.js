@@ -1,4 +1,6 @@
-import { toImmutable } from 'nuclear-js';
+import nuclearJS from 'nuclear-js';
+
+const { toImmutable } = nuclearJS;
 
 export const isLoadingEntityHistory = [
   'isLoadingEntityHistory',

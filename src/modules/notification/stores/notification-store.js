@@ -1,5 +1,7 @@
-import { Store, Immutable } from 'nuclear-js';
+import nuclearJS from 'nuclear-js';
 import actionTypes from '../action-types';
+
+const { Store, Immutable } = nuclearJS;
 
 const INSTANCE = new Store({
   getInitialState() {

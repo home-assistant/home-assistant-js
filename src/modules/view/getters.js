@@ -1,6 +1,7 @@
-import { Immutable } from 'nuclear-js';
+import nuclearJS from 'nuclear-js';
 import { getters as entityGetters } from '../entity';
 
+const { Immutable } = nuclearJS;
 const DEFAULT_VIEW_ENTITY_ID = 'group.default_view';
 
 export const currentView = [

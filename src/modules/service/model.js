@@ -1,6 +1,7 @@
-import { Immutable, toImmutable } from 'nuclear-js';
+import nuclearJS from 'nuclear-js';
 import { callApi } from '../api';
 
+const { Immutable, toImmutable } = nuclearJS;
 const ENTITY = 'service';
 
 const ImmutableService = new Immutable.Record({

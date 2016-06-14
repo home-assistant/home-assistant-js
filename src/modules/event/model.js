@@ -1,6 +1,7 @@
-import { Immutable } from 'nuclear-js';
+import nuclearJS from 'nuclear-js';
 import { callApi } from '../api';
 
+const { Immutable } = nuclearJS;
 const ENTITY = 'event';
 
 const ImmutableEvent = new Immutable.Record({

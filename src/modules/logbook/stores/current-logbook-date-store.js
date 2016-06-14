@@ -1,6 +1,8 @@
-import { Store } from 'nuclear-js';
+import nuclearJS from 'nuclear-js';
 import dateToStr from '../../../util/date-to-str';
 import actionTypes from '../action-types';
+
+const { Store } = nuclearJS;
 
 const INSTANCE = new Store({
   getInitialState() {

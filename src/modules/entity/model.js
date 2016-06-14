@@ -1,8 +1,9 @@
-import { Immutable, toJS } from 'nuclear-js';
+import nuclearJS from 'nuclear-js';
 import MediaPlayer from './domain-model/media_player';
 import parseDateTime from '../../util/parse-date-time-str';
 import { callApi } from '../api';
 
+const { Immutable, toJS } = nuclearJS;
 const ENTITY = 'entity';
 
 const ImmutableEntity = new Immutable.Record({

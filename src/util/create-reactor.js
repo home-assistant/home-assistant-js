@@ -1,5 +1,6 @@
-import { Reactor } from 'nuclear-js';
+import nuclearJS from 'nuclear-js';
 
+const { Reactor } = nuclearJS;
 let reactorCount = 0;
 
 export default function createReactor() {

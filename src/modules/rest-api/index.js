@@ -1,7 +1,9 @@
-import { toImmutable } from 'nuclear-js';
+import nuclearJS from 'nuclear-js';
 import RestApiCacheStore from './stores/rest-api-cache-store';
 
 import _createApiActions from './create-api-actions';
+
+const { toImmutable } = nuclearJS;
 
 export const createApiActions = _createApiActions;
 

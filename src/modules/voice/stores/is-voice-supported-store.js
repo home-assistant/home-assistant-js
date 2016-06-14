@@ -1,4 +1,6 @@
-import { Store } from 'nuclear-js';
+import nuclearJS from 'nuclear-js';
+
+const { Store } = nuclearJS;
 
 const INSTANCE = new Store({
   getInitialState() {

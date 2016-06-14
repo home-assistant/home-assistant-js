@@ -1,6 +1,8 @@
 // Returns Immutable list with group states.
 // Entities that can't be found will be skipped.
-import { toImmutable } from 'nuclear-js';
+import nuclearJS from 'nuclear-js';
+
+const { toImmutable } = nuclearJS;
 
 export default function expandGroup(groupState, entityMap) {
   return toImmutable(groupState.attributes.entity_id.map(

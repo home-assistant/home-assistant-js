@@ -20,6 +20,13 @@ export function validate(reactor, authToken, {
     rememberAuth = false,
     host = '',
   } = {}) {
+  if (__DEMO__) {
+    /* eslint-disable no-param-reassign */
+    host = __DEV__ ? '/static/home-assistant-polymer/node_modules/home-assistant-js/demo_data' :
+                     '/demo';
+    /* eslint-enable no-param-reassign */
+  }
+
   reactor.dispatch(actionTypes.VALIDATING_AUTH_TOKEN, { authToken, host });
 
   syncActions.fetchAll(reactor).then(

@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "rollup -c rollup.config.js --watch --output dist/homeassistant.es6.js",
     "dev_demo": "BUILD_DEMO=1 rollup -c rollup.config.js --watch --output dist/homeassistant.es6.js",
-    "prod": "BUILD_DEV=0 rollup -c rollup.config.js --watch --output dist/homeassistant.es6.js",
+    "prod": "BUILD_DEV=0 rollup -c rollup.config.js --output dist/homeassistant.es6.js",
     "demo": "BUILD_DEV=0 BUILD_DEMO=1 rollup -c rollup.config.js --watch --output dist/homeassistant.es6.js",
 
     "wp_dev_demo": "BUILD_DEMO=1 webpack --color --progress -d --watch",

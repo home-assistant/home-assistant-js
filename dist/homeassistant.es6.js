@@ -8300,11 +8300,7 @@ var sync = Object.freeze({
 });
 
 function handleRemoteEvent (reactor, event) {
-  if (true) {
-    /* eslint-disable no-console */
-    console.log(`Remote event received: ${event.event_type}`, event);
-    /* eslint-enable no-console */
-  }
+  if (false) {}
 
   switch (event.event_type) {
     case 'state_changed':
@@ -9383,7 +9379,7 @@ let reactorCount = 0;
 
 function createReactor() {
   const reactor = new Reactor({
-    debug: true || false,
+    debug: false || false,
   });
 
   reactor.hassId = reactorCount++;

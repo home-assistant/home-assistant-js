@@ -50,18 +50,15 @@ class State extends ImmutableEntity {
     return this.entityId;
   }
 
-  // get canToggle() {
-  //   // groups that have the on/off state or if there is a turn_on service
-  //   return ((this.domain === 'group' &&
-  //            (this.state === 'on' || this.state === 'off')) ||
-  //           serviceStore.has(this.domain, 'turn_on'));
-  // }
-
   domainModel(hass) {
     if (this.domain !== 'media_player') {
       throw new Error('Domain does not have a model');
     }
     return new MediaPlayer(hass, this);
+  }
+
+  static delete(reactor, instance) {
+    return callApi(reactor, 'DELETE', `states/${instance.entityId}`);
   }
 
   static save(reactor, instance) {

@@ -1,7 +1,7 @@
-import debounce from 'debounce';
 import actionTypes from './action-types';
 import * as getters from './getters';
 import { callApi } from '../api';
+import debounce from '../../util/debounce';
 
 import { actions as entityActions } from '../entity';
 import { actions as serviceActions } from '../service';
@@ -32,7 +32,7 @@ function unscheduleSync(reactor) {
   const sync = SCHEDULED_SYNCS[reactor.hassId];
 
   if (sync) {
-    sync.cancel();
+    sync.clear();
   }
 }
 

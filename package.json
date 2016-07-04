@@ -24,8 +24,7 @@
   "dependencies": {
     "keymirror": "^0.1.1",
     "nuclear-js": "^1.3.0",
-    "object-assign": "^4.1.0",
-    "debounce": "^1.0.0"
+    "object-assign": "^4.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.9",

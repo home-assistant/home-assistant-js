@@ -6969,73 +6969,6 @@ function logOut$2() {
   return INSTANCE$3.getInitialState();
 }
 
-var index$2 = createCommonjsModule(function (module) {
-module.exports = Date.now || now
-
-function now() {
-    return new Date().getTime()
-}
-});
-
-var require$$0 = (index$2 && typeof index$2 === 'object' && 'default' in index$2 ? index$2['default'] : index$2);
-
-var index$1 = createCommonjsModule(function (module) {
-/**
- * Module dependencies.
- */
-
-var now = require$$0;
-
-/**
- * Returns a function, that, as long as it continues to be invoked, will not
- * be triggered. The function will be called after it stops being called for
- * N milliseconds. If `immediate` is passed, trigger the function on the
- * leading edge, instead of the trailing.
- *
- * @source underscore.js
- * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
- * @param {Function} function to wrap
- * @param {Number} timeout in ms (`100`)
- * @param {Boolean} whether to execute at the beginning (`false`)
- * @api public
- */
-
-module.exports = function debounce(func, wait, immediate){
-  var timeout, args, context, timestamp, result;
-  if (null == wait) wait = 100;
-
-  function later() {
-    var last = now() - timestamp;
-
-    if (last < wait && last > 0) {
-      timeout = setTimeout(later, wait - last);
-    } else {
-      timeout = null;
-      if (!immediate) {
-        result = func.apply(context, args);
-        if (!timeout) context = args = null;
-      }
-    }
-  };
-
-  return function debounced() {
-    context = this;
-    args = arguments;
-    timestamp = now();
-    var callNow = immediate && !timeout;
-    if (!timeout) timeout = setTimeout(later, wait);
-    if (callNow) {
-      result = func.apply(context, args);
-      context = args = null;
-    }
-
-    return result;
-  };
-};
-});
-
-var debounce = (index$1 && typeof index$1 === 'object' && 'default' in index$1 ? index$1['default'] : index$1);
-
 var actionTypes$2 = keyMirror({
   API_FETCH_ALL_START: null,
   API_FETCH_ALL_SUCCESS: null,
@@ -7145,7 +7078,7 @@ function removeData(state, { model, params }) {
   return state.removeIn([model.entity, params.id]);
 }
 
-var index$3 = createCommonjsModule(function (module) {
+var index$1 = createCommonjsModule(function (module) {
 'use strict';
 /* eslint-disable no-unused-vars */
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -7231,7 +7164,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 };
 });
 
-var objectAssign = (index$3 && typeof index$3 === 'object' && 'default' in index$3 ? index$3['default'] : index$3);
+var objectAssign = (index$1 && typeof index$1 === 'object' && 'default' in index$1 ? index$1['default'] : index$1);
 
 /**
  * @param {Object} model
@@ -8071,6 +8004,67 @@ var _getters = Object.freeze({
   isSyncScheduled: isSyncScheduled
 });
 
+/* eslint-disable */
+// Forked while waiting for this PR to land:
+// https://github.com/component/debounce/pull/10
+// MIT License
+/**
+ * Returns a function, that, as long as it continues to be invoked, will not
+ * be triggered. The function will be called after it stops being called for
+ * N milliseconds. If `immediate` is passed, trigger the function on the
+ * leading edge, instead of the trailing. The function also has a property 'clear' 
+ * that is a function which will clear the timer to prevent previously scheduled executions. 
+ *
+ * @source underscore.js
+ * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+ * @param {Function} function to wrap
+ * @param {Number} timeout in ms (`100`)
+ * @param {Boolean} whether to execute at the beginning (`false`)
+ * @api public
+ */
+
+function debounce(func, wait, immediate){
+  var timeout, args, context, timestamp, result;
+  if (null == wait) wait = 100;
+
+  function later() {
+    var last = new Date().getTime() - timestamp;
+
+    if (last < wait && last > 0) {
+      timeout = setTimeout(later, wait - last);
+    } else {
+      timeout = null;
+      if (!immediate) {
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+      }
+    }
+  };
+
+  var debounced = function(){
+    context = this;
+    args = arguments;
+    timestamp = new Date().getTime();
+    var callNow = immediate && !timeout;
+    if (!timeout) timeout = setTimeout(later, wait);
+    if (callNow) {
+      result = func.apply(context, args);
+      context = args = null;
+    }
+
+    return result;
+  };
+
+  debounced.clear = function() {
+    if (timeout) {
+      clearTimeout(timeout);
+      timeout = null;
+    }
+  };
+
+  return debounced;
+};
+
 var actionTypes$4 = keyMirror({
   SERVER_CONFIG_LOADED: null,
   COMPONENT_LOADED: null,
@@ -8233,7 +8227,7 @@ function unscheduleSync(reactor) {
   const sync = SCHEDULED_SYNCS[reactor.hassId];
 
   if (sync) {
-    sync.cancel();
+    sync.clear();
   }
 }
 
@@ -8323,6 +8317,7 @@ function handleRemoteEvent (reactor, event) {
 
 // maximum time we can go without receiving anything from the server
 const MAX_INACTIVITY_TIME = 60000;
+const RETRY_TIME = 3000;
 const STREAMS = {};
 const EVENTS = ['state_changed', 'component_loaded', 'service_registered'].join(',');
 
@@ -8333,7 +8328,7 @@ function stopStream$1(reactor) {
     return;
   }
 
-  stream.scheduleHealthCheck.cancel();
+  stream.scheduleHealthCheck.clear();
   stream.source.close();
   STREAMS[reactor.hassId] = false;
 }
@@ -8344,6 +8339,7 @@ function start(reactor, { syncOnInitialConnect = true } = {}) {
   // Called on each interaction with EventSource
   // When debounce is done we exceeded MAX_INACTIVITY_TIME.
   // Why? Because the error event listener on EventSource cannot be trusted.
+  const reconnect = debounce(start.bind(null, reactor), RETRY_TIME);
   const scheduleHealthCheck = debounce(start.bind(null, reactor), MAX_INACTIVITY_TIME);
   const authToken = reactor.evaluate(authGetters.authToken);
   const source = new EventSource(`/api/stream?api_password=${authToken}&restrict=${EVENTS}`);
@@ -8380,7 +8376,7 @@ function start(reactor, { syncOnInitialConnect = true } = {}) {
   }, false);
 
   source.addEventListener('error', () => {
-    scheduleHealthCheck();
+    reconnect();
 
     if (source.readyState !== EventSource.CLOSED) {
       reactor.dispatch(actionTypes$1.STREAM_ERROR);

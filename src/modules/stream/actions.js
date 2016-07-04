@@ -1,11 +1,12 @@
-import debounce from 'debounce';
 import { getters as authGetters } from '../auth';
 import { actions as syncActions } from '../sync';
 import actionTypes from './action-types';
 import handleRemoteEvent from './handle-remote-event';
+import debounce from '../../util/debounce';
 
 // maximum time we can go without receiving anything from the server
 const MAX_INACTIVITY_TIME = 60000;
+const RETRY_TIME = 3000;
 const STREAMS = {};
 const EVENTS = ['state_changed', 'component_loaded', 'service_registered'].join(',');
 
@@ -16,7 +17,7 @@ function stopStream(reactor) {
     return;
   }
 
-  stream.scheduleHealthCheck.cancel();
+  stream.scheduleHealthCheck.clear();
   stream.source.close();
   STREAMS[reactor.hassId] = false;
 }
@@ -27,6 +28,7 @@ export function start(reactor, { syncOnInitialConnect = true } = {}) {
   // Called on each interaction with EventSource
   // When debounce is done we exceeded MAX_INACTIVITY_TIME.
   // Why? Because the error event listener on EventSource cannot be trusted.
+  const reconnect = debounce(start.bind(null, reactor), RETRY_TIME);
   const scheduleHealthCheck = debounce(start.bind(null, reactor), MAX_INACTIVITY_TIME);
   const authToken = reactor.evaluate(authGetters.authToken);
   const source = new EventSource(`/api/stream?api_password=${authToken}&restrict=${EVENTS}`);
@@ -63,7 +65,7 @@ export function start(reactor, { syncOnInitialConnect = true } = {}) {
   }, false);
 
   source.addEventListener('error', () => {
-    scheduleHealthCheck();
+    reconnect();
 
     if (source.readyState !== EventSource.CLOSED) {
       reactor.dispatch(actionTypes.STREAM_ERROR);

@@ -4,5 +4,8 @@
     "__DEV__": false,
     "__DEMO__": false,
     "webkitSpeechRecognition": false
+  },
+  "rules": {
+    "import/prefer-default-export": 0
   }
 }

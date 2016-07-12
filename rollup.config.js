@@ -4,7 +4,7 @@ import replace from 'rollup-plugin-replace';
 
 export default {
   entry: 'src/index.js',
-  format: 'es6',
+  format: 'es',
   treeshake: true,
   plugins: [
     nodeResolve({

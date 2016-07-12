@@ -27,17 +27,17 @@
     "object-assign": "^4.1.0"
   },
   "devDependencies": {
-    "babel-core": "^6.9",
+    "babel-core": "^6.10",
     "babel-loader": "^6.2",
     "babel-preset-es2015-webpack": "^6.4.1",
-    "eslint": "^2.11.0",
-    "eslint-config-airbnb-base": "^3.0.1",
-    "eslint-plugin-import": "^1.8.1",
-    "rollup": "^0.31.2",
-    "rollup-plugin-commonjs": "^3.0.0",
-    "rollup-plugin-node-resolve": "^1.7.0",
-    "rollup-plugin-replace": "^1.1.0",
-    "rollup-watch": "^2.4.0",
+    "eslint": "^3.0.1",
+    "eslint-config-airbnb-base": "^4.0.0",
+    "eslint-plugin-import": "^1.10.2",
+    "rollup": "^0.34.1",
+    "rollup-plugin-commonjs": "^3.1.0",
+    "rollup-plugin-node-resolve": "^1.7.1",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-watch": "^2.5.0",
     "webpack": "^2.1.0-beta.7"
   }
 }

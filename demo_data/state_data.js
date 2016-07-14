@@ -46,6 +46,7 @@ addEntity('configurator.philips_hue', 'configure', {
   description_image: '/demo/images/config_philips_hue.jpg',
   fields: [],
   submit_caption: 'I have pressed the button',
+  friendly_name: 'Philips Hue',
 });
 
 // ---------------------------------------------------
@@ -139,14 +140,18 @@ addEntity('camera.living_room', 'idle', {
   entity_picture: '/demo/webcam.jpg?',
 });
 
-addEntity('garage_door.garage_door', 'open');
+addEntity('garage_door.garage_door', 'open', {
+  friendly_name: 'Garage Door',
+});
 
 addEntity('alarm_control_panel.home', 'armed_home', {
   friendly_name: 'Alarm',
   code_format: '^\\d{4}',
 });
 
-addEntity('lock.kitchen_door', 'open');
+addEntity('lock.kitchen_door', 'open', {
+  friendly_name: 'Kitchen Door',
+});
 
 // ---------------------------------------------------
 //    PRESETS
@@ -174,7 +179,8 @@ addGroup(
     'light.tv_back_light',
     'switch.ac',
     'media_player.living_room',
-  ]
+  ],
+  'Living Room'
 );
 
 addEntity('light.tv_back_light', 'off', {
@@ -188,6 +194,7 @@ addEntity('light.ceiling', 'on', {
 addEntity('light.table_lamp', 'on', {
   brightness: 200,
   rgb_color: [150, 212, 94],
+  friendly_name: 'Table Lamp',
 });
 addEntity('switch.ac', 'on', {
   friendly_name: 'AC',
@@ -215,11 +222,16 @@ addGroup(
     'light.bed_light',
     'switch.decorative_lights',
     'rollershutter.bedroom_window',
-  ]
+  ],
+  'Bedroom'
 );
 
-addEntity('switch.decorative_lights', 'off');
-addEntity('light.bed_light', 'off');
+addEntity('switch.decorative_lights', 'off', {
+  friendly_name: 'Decorative Lights',
+});
+addEntity('light.bed_light', 'off', {
+  friendly_name: 'Bed Light',
+});
 addEntity('rollershutter.bedroom_window', 'closed', {
   friendly_name: 'Window',
   current_position: 0,
@@ -243,6 +255,7 @@ addEntity('thermostat.nest', '23', {
   temperature: '21',
   current_temperature: '18',
   unit_of_measurement: '\u00b0C',
+  friendly_name: 'Nest',
 });
 
 // ---------------------------------------------------
@@ -255,6 +268,7 @@ addEntity('input_select.cook_today', 'Paulus', {
 
 addEntity('input_boolean.notify_cook', 'on', {
   icon: 'mdi:alarm',
+  friendly_name: 'Notify Cook',
 });
 
 addGroup(

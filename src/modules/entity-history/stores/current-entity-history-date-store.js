@@ -7,8 +7,8 @@ const { Store } = nuclearJS;
 const INSTANCE = new Store({
   getInitialState() {
     const yesterday = new Date();
-    yesterday.setDate(yesterday.getUTCDate() - 1);
-    return dateToStr(yesterday);
+    yesterday.setDate(yesterday.getDate() - 1);
+    return dateToStr(yesterday, true);
   },
 
   initialize() {
@@ -22,7 +22,7 @@ const INSTANCE = new Store({
 export default INSTANCE;
 
 function dateSelected(state, { date }) {
-  return dateToStr(date);
+  return dateToStr(date, true);
 }
 
 function logOut() {

@@ -8709,8 +8709,10 @@ function isStaleTime(time) {
   return !time || (new Date()).getTime() - time > 60000;
 }
 
-function dateToStr(date) {
-  return `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`;
+function dateToStr(date, local) {
+  return local ?
+    `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}` :
+    `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`;
 }
 
 var actionTypes$7 = keyMirror({
@@ -8732,8 +8734,8 @@ const { Store: Store$13 } = nuclearJS;
 const INSTANCE$13 = new Store$13({
   getInitialState() {
     const yesterday = new Date();
-    yesterday.setDate(yesterday.getUTCDate() - 1);
-    return dateToStr(yesterday);
+    yesterday.setDate(yesterday.getDate() - 1);
+    return dateToStr(yesterday, true);
   },
 
   initialize() {
@@ -8745,7 +8747,7 @@ const INSTANCE$13 = new Store$13({
 });
 
 function dateSelected(state, { date }) {
-  return dateToStr(date);
+  return dateToStr(date, true);
 }
 
 function logOut$9() {
@@ -9463,7 +9465,7 @@ const { Store: Store$19 } = nuclearJS;
 
 const INSTANCE$19 = new Store$19({
   getInitialState() {
-    return dateToStr(new Date());
+    return dateToStr(new Date(), true);
   },
 
   initialize() {
@@ -9475,7 +9477,7 @@ const INSTANCE$19 = new Store$19({
 });
 
 function dateSelected$1(state, { date }) {
-  return dateToStr(date);
+  return dateToStr(date, true);
 }
 
 function logOut$13() {

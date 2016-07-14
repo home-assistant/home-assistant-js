@@ -244,7 +244,8 @@ addEntity(
 );
 
 if (__DEV__) {
-  for (const entity of stateData) {
+  for (let i = 0; i < stateData.length; i++) {
+    const entity = stateData[i];
     if (!(entity.entity_id in seen)) {
       /* eslint-disable no-console */
       console.warn(`Missing history for ${entity.entity_id}`);

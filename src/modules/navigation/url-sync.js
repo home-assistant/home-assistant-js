@@ -40,7 +40,9 @@ function initialSync(reactor) {
     pane = reactor.evaluate(activePane);
     view = reactor.evaluate(viewGetters.currentView);
   } else {
-    [pane, view] = window.location.pathname.substr(1).split('/');
+    const parts = window.location.pathname.substr(1).split('/');
+    pane = parts[0];
+    view = parts[1];
     reactor.batch(() => {
       navigate(reactor, pane);
       if (view) {

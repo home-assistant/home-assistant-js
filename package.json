@@ -2,7 +2,6 @@
   "name": "home-assistant-js",
   "description": "A JavaScript implementation of the Home Assistant API",
   "version": "0.1.0",
-  "main": "src/index.js",
   "jsnext:main": "src/index.js",
   "license": "MIT",
   "repository": {
@@ -10,15 +9,10 @@
     "url": "https://github.com/balloob/home-assistant-js"
   },
   "scripts": {
-    "dev": "rollup -c rollup.config.js --watch --output dist/homeassistant.es6.js",
-    "dev_demo": "BUILD_DEMO=1 rollup -c rollup.config.js --watch --output dist/homeassistant.es6.js",
-    "prod": "BUILD_DEV=0 rollup -c rollup.config.js --output dist/homeassistant.es6.js",
-    "demo": "BUILD_DEV=0 BUILD_DEMO=1 rollup -c rollup.config.js --watch --output dist/homeassistant.es6.js",
-
-    "wp_dev_demo": "BUILD_DEMO=1 webpack --color --progress -d --watch",
-    "wp_prod": "BUILD_DEV=0 webpack --color --progress -p",
-    "wp_demo": "BUILD_DEV=0 BUILD_DEMO=1 webpack --color --progress -p",
-    "wp_dev": "webpack --color --progress -d --watch",
+    "dev": "rollup -c rollup.config.js --watch --output build/homeassistant.es6.js",
+    "dev_demo": "BUILD_DEMO=1 rollup -c rollup.config.js --watch --output build/homeassistant.es6.js",
+    "prod": "BUILD_DEV=0 rollup -c rollup.config.js --output build/homeassistant.es6.js",
+    "demo": "BUILD_DEV=0 BUILD_DEMO=1 rollup -c rollup.config.js --watch --output build/homeassistant.es6.js",
     "test": "eslint src"
   },
   "dependencies": {
@@ -27,9 +21,6 @@
     "object-assign": "^4.1.0"
   },
   "devDependencies": {
-    "babel-core": "^6.10",
-    "babel-loader": "^6.2",
-    "babel-preset-es2015-webpack": "^6.4.1",
     "eslint": "^3.0.1",
     "eslint-config-airbnb-base": "^4.0.0",
     "eslint-plugin-import": "^1.10.2",
@@ -37,7 +28,6 @@
     "rollup-plugin-commonjs": "^3.1.0",
     "rollup-plugin-node-resolve": "^1.7.1",
     "rollup-plugin-replace": "^1.1.1",
-    "rollup-watch": "^2.5.0",
-    "webpack": "^2.1.0-beta.7"
+    "rollup-watch": "^2.5.0"
   }
 }

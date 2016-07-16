@@ -33,6 +33,11 @@ export default class HomeAssistant {
         enumerable: true,
       },
 
+      dev: {
+        value: __DEV__,
+        enumerable: true,
+      },
+
       localStoragePreferences: {
         value: localStoragePreferences,
         enumerable: true,

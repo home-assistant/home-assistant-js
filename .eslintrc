@@ -5,6 +5,9 @@
     "__DEMO__": false,
     "webkitSpeechRecognition": false
   },
+  "env": {
+    "browser": true
+  },
   "rules": {
     "import/prefer-default-export": 0
   }

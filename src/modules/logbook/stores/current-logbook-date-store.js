@@ -1,12 +1,13 @@
 import nuclearJS from 'nuclear-js';
-import dateToStr from '../../../util/date-to-str';
 import actionTypes from '../action-types';
 
 const { Store } = nuclearJS;
 
 const INSTANCE = new Store({
   getInitialState() {
-    return dateToStr(new Date(), true);
+    var date = new Date();
+    date.setHours(0, 0, 0, 0);
+    return date.toISOString();
   },
 
   initialize() {
@@ -20,7 +21,7 @@ const INSTANCE = new Store({
 export default INSTANCE;
 
 function dateSelected(state, { date }) {
-  return dateToStr(date, true);
+  return date.toISOString();
 }
 
 function logOut() {

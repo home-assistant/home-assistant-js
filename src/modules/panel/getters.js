@@ -7,5 +7,5 @@ export const panels = [
 export const activePanel = [
   panels,
   navigationGetters.activePane,
-  (pnls, activePane) => pnls.get(activePane),
+  (pnls, activePane) => pnls.get(activePane) || null,
 ];

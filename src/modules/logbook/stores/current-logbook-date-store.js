@@ -5,7 +5,7 @@ const { Store } = nuclearJS;
 
 const INSTANCE = new Store({
   getInitialState() {
-    var date = new Date();
+    const date = new Date();
     date.setHours(0, 0, 0, 0);
     return date.toISOString();
   },

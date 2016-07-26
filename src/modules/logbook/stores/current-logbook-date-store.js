@@ -5,9 +5,9 @@ const { Store } = nuclearJS;
 
 const INSTANCE = new Store({
   getInitialState() {
-    const date = new Date();
-    date.setHours(0, 0, 0, 0);
-    return date.toISOString();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today.toISOString();
   },
 
   initialize() {

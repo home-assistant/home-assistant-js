@@ -32,24 +32,27 @@ export default INSTANCE;
 
 function startStream(state) {
   return state.withMutations(map => {
-    map.set('isStreaming', true)
-       .set('useStreaming', true)
-       .set('hasError', false);
+    map
+      .set('isStreaming', true)
+      .set('useStreaming', true)
+      .set('hasError', false);
   });
 }
 
 function stopStream(state) {
   return state.withMutations(map => {
-    map.set('isStreaming', false)
-       .set('useStreaming', false)
-       .set('hasError', false);
+    map
+      .set('isStreaming', false)
+      .set('useStreaming', false)
+      .set('hasError', false);
   });
 }
 
 function errorStream(state) {
   return state.withMutations(map => {
-    map.set('isStreaming', false)
-       .set('hasError', true);
+    map
+      .set('isStreaming', false)
+      .set('hasError', true);
   });
 }
 

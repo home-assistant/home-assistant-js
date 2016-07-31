@@ -33,19 +33,21 @@ function voiceStart(state) {
 
 function voiceResult(state, { interimTranscript, finalTranscript }) {
   return state.withMutations(map =>
-    map.set('isListening', true)
-       .set('isTransmitting', false)
-       .set('interimTranscript', interimTranscript)
-       .set('finalTranscript', finalTranscript)
+    map
+      .set('isListening', true)
+      .set('isTransmitting', false)
+      .set('interimTranscript', interimTranscript)
+      .set('finalTranscript', finalTranscript)
   );
 }
 
 function voiceTransmitting(state, { finalTranscript }) {
   return state.withMutations(map =>
-    map.set('isListening', false)
-       .set('isTransmitting', true)
-       .set('interimTranscript', '')
-       .set('finalTranscript', finalTranscript)
+    map
+      .set('isListening', false)
+      .set('isTransmitting', true)
+      .set('interimTranscript', '')
+      .set('finalTranscript', finalTranscript)
   );
 }
 

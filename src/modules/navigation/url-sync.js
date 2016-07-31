@@ -7,7 +7,7 @@ import {
   getters as viewGetters,
   actions as viewActions,
 } from '../view';
-import { activePane } from './getters';
+import { activePanelName } from './getters';
 import { navigate } from './actions';
 
 const IS_SUPPORTED = history.pushState && !__DEMO__;
@@ -37,7 +37,7 @@ function initialSync(reactor) {
   let view;
   // store current state in url or set state based on url
   if (window.location.pathname === '/') {
-    pane = reactor.evaluate(activePane);
+    pane = reactor.evaluate(activePanelName);
     view = reactor.evaluate(viewGetters.currentView);
   } else {
     const parts = window.location.pathname.substr(1).split('/');
@@ -59,7 +59,7 @@ function popstateChangeListener(reactor, ev) {
   if (reactor.evaluate(moreInfoGetters.hasCurrentEntityId)) {
     getSync(reactor).ignoreNextDeselectEntity = true;
     moreInfoActions.deselectEntity(reactor);
-  } else if (pane !== reactor.evaluate(activePane) ||
+  } else if (pane !== reactor.evaluate(activePanelName) ||
              view !== reactor.evaluate(viewGetters.currentView)) {
     reactor.batch(() => {
       navigate(reactor, pane);
@@ -80,7 +80,7 @@ export function startSync(reactor) {
   const sync = {
     ignoreNextDeselectEntity: false,
     popstateChangeListener: popstateChangeListener.bind(null, reactor),
-    unwatchNavigationObserver: reactor.observe(activePane, pane => {
+    unwatchNavigationObserver: reactor.observe(activePanelName, pane => {
       if (pane !== history.state.pane) {
         history.pushState(pageState(pane, history.state.view), PAGE_TITLE,
                           pageUrl(pane, history.state.view));

@@ -7,3 +7,7 @@ export function showSidebar(reactor, show) {
 export function navigate(reactor, pane) {
   reactor.dispatch(actionTypes.NAVIGATE, { pane });
 }
+
+export function panelsLoaded(reactor, panels) {
+  reactor.dispatch(actionTypes.PANELS_LOADED, { panels });
+}

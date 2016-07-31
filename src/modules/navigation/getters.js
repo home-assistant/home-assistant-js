@@ -1,14 +1,16 @@
-// the pane that is displayed (states, history, logbook)
-export const activePane = [
-  'selectedNavigationPanel',
+export const panels = [
+  'panels',
 ];
 
-export function isActivePane(pane) {
-  return [
-    activePane,
-    activePane_ => activePane_ === pane,
-  ];
-}
+export const activePanelName = [
+  'currentPanel',
+];
+
+export const activePanel = [
+  panels,
+  activePanelName,
+  (pnls, activePane) => pnls.get(activePane) || null,
+];
 
 export const showSidebar = [
   'showSidebar',

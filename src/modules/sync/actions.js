@@ -7,7 +7,7 @@ import { actions as entityActions } from '../entity';
 import { actions as serviceActions } from '../service';
 import { actions as eventActions } from '../event';
 import { actions as configActions } from '../config';
-import { actions as panelActions } from '../panel';
+import { actions as navigationActions } from '../navigation';
 
 const SYNC_INTERVAL = 30000;
 const SCHEDULED_SYNCS = {};
@@ -46,7 +46,7 @@ export function fetchAll(reactor) {
       serviceActions.replaceData(reactor, data.services);
       eventActions.replaceData(reactor, data.events);
       configActions.configLoaded(reactor, data.config);
-      panelActions.panelsLoaded(reactor, data.panels);
+      navigationActions.panelsLoaded(reactor, data.panels);
 
       reactor.dispatch(actionTypes.API_FETCH_ALL_SUCCESS, {});
     });

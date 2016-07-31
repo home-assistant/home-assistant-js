@@ -38,16 +38,16 @@ function loadData(state, { model, result, params }) {
     return state;
   }
 
-  const newState = params.replace ? state.set(entity, toImmutable({})) : state;
+  const newState = params.replace ? toImmutable({}) : state.get(entity);
   const data = Array.isArray(result) ? result : [result];
   const fromJSON = model.fromJSON || toImmutable;
 
-  return newState.withMutations(mState =>
-    data.forEach(jsonObj => {
-      const entry = fromJSON(jsonObj);
-      mState.setIn([entity, entry.id], entry);
-    })
-  );
+  return state.set(entity, newState.withMutations(mState => {
+    for (let i = 0; i < data.length; i++) {
+      const entry = fromJSON(data[i]);
+      mState.set(entry.id, entry);
+    }
+  }));
 }
 
 /**

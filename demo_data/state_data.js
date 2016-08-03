@@ -77,7 +77,7 @@ addGroup(
     'group.bedroom',
   ], 'Rooms', true);
 
-addGroup('rooms', 'on', ['group.living_room', 'group.bedroom']);
+addGroup('rooms', 'on', ['group.living_room', 'group.bedroom'], 'Rooms');
 
 // ---------------------------------------------------
 //    DEVICE TRACKER + ZONES

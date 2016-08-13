@@ -2,6 +2,7 @@ import { localStoragePreferences } from './modules/preferences';
 import createReactor from './util/create-reactor';
 import exposeModules from './util/expose-modules';
 import util from './util/ui-util';
+import { callApi } from './modules/api';
 
 import * as auth from './modules/auth';
 import * as config from './modules/config';
@@ -53,6 +54,10 @@ export default class HomeAssistant {
       },
 
       // methods
+      callApi: {
+        value: callApi.bind(null, reactor),
+      },
+
       startLocalStoragePreferencesSync: {
         value: localStoragePreferences.startSync.bind(localStoragePreferences, reactor),
       },

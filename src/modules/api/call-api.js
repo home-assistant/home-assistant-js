@@ -57,6 +57,7 @@ export default function callApi(reactor, method, path, parameters = null) {
     req.onerror = () => reject({});
 
     if (parameters) {
+      req.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
       req.send(JSON.stringify(parameters));
     } else {
       req.send();

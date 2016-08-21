@@ -14,13 +14,14 @@ import * as logbook from './modules/logbook';
 import * as moreInfo from './modules/more-info';
 import * as navigation from './modules/navigation';
 import * as notification from './modules/notification';
-import * as view from './modules/view';
+import * as pushNotification from './modules/push-notification';
+import * as restApi from './modules/rest-api';
 import * as service from './modules/service';
 import * as stream from './modules/stream';
 import * as sync from './modules/sync';
 import * as template from './modules/template';
+import * as view from './modules/view';
 import * as voice from './modules/voice';
-import * as restApi from './modules/rest-api';
 
 export default class HomeAssistant {
   constructor() {
@@ -82,13 +83,14 @@ export default class HomeAssistant {
       moreInfo,
       navigation,
       notification,
-      view,
+      pushNotification,
+      restApi,
       service,
       stream,
       sync,
       template,
+      view,
       voice,
-      restApi,
     });
   }
 }

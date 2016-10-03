@@ -9,7 +9,7 @@ const INSTANCE = new Store({
       latitude: null,
       longitude: null,
       location_name: 'Home',
-      temperature_unit: '°C',
+      unit_system: 'metric',
       time_zone: 'UTC',
       config_dir: null,
       serverVersion: 'unknown',
@@ -27,13 +27,13 @@ const INSTANCE = new Store({
 export default INSTANCE;
 
 function serverConfigLoaded(state, {
-  latitude, longitude, location_name, temperature_unit, time_zone, config_dir, version,
+  latitude, longitude, location_name, unit_system, time_zone, config_dir, version,
 }) {
   return toImmutable({
     latitude,
     longitude,
     location_name,
-    temperature_unit,
+    unit_system,
     time_zone,
     config_dir,
     serverVersion: version,

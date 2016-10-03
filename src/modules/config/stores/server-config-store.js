@@ -11,6 +11,7 @@ const INSTANCE = new Store({
       location_name: 'Home',
       temperature_unit: '°C',
       time_zone: 'UTC',
+      config_dir: '~/.homeassistant',
       serverVersion: 'unknown',
     });
   },

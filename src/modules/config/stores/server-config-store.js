@@ -27,7 +27,11 @@ const INSTANCE = new Store({
 export default INSTANCE;
 
 function serverConfigLoaded(state, {
+<<<<<<< HEAD
   latitude, longitude, location_name, unit_system, time_zone, config_dir, version,
+=======
+  latitude, longitude, location_name, unit_system, time_zone, version,
+>>>>>>> 0a102ad000747adb2502394da3dc3f6a125cf8c6
 }) {
   return toImmutable({
     latitude,

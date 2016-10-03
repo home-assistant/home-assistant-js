@@ -13,7 +13,7 @@ export const locationName = [
 export const configDir = [
   'serverConfig',
   'config_dir',
-]
+];
 
 export const serverVersion = [
   'serverConfig',

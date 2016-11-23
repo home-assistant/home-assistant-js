@@ -2,14 +2,41 @@ import { callApi } from '../api';
 import { actions as notificationActions } from '../notification';
 import actionTypes from './action-types';
 
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, '+')
+    .replace(/_/g, '/');
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
 export function subscribePushNotifications(reactor) {
   return navigator.serviceWorker.getRegistration()
     .then(reg => {
+      return callApi(reactor, 'GET', 'notify.html5/vapid').then((vapid) => {
+        return [vapid, reg];
+      });
+    })
+    .then(resp => {
+      var vapid = resp[0];
+      var reg = resp[1];
       if (!reg) {
         throw new Error('No service worker registered.');
       }
 
+      if (!vapid) {
+        throw new Error('No VAPID key found.');
+      }
+
       return reg.pushManager.subscribe({
+        applicationServerKey: urlBase64ToUint8Array(vapid),
         userVisibleOnly: true,
       });
     })

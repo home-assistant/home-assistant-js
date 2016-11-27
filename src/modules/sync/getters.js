@@ -13,7 +13,3 @@ export const isDataLoaded = [
 export const isFetching = [
   'isFetchingData',
 ];
-
-export const isSyncScheduled = [
-  'isSyncScheduled',
-];

@@ -1,5 +1,4 @@
 import { getters as authGetters } from '../auth';
-import { getters as streamGetters } from '../stream';
 import { getters as navigationGetters } from '../navigation';
 
 function getLocalStorage() {
@@ -30,10 +29,6 @@ const observe = {
       (authToken, rememberAuth) => (rememberAuth ? authToken : null),
     ],
     defaultValue: null,
-  },
-  useStreaming: {
-    getter: streamGetters.useStreaming,
-    defaultValue: true,
   },
   showSidebar: {
     getter: navigationGetters.showSidebar,

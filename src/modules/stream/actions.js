@@ -1,14 +1,11 @@
+import { createConnection } from 'home-assistant-js-websocket';
 import { getters as authGetters } from '../auth';
 import { actions as syncActions } from '../sync';
 import actionTypes from './action-types';
 import handleRemoteEvent from './handle-remote-event';
-import debounce from '../../util/debounce';
 
-// maximum time we can go without receiving anything from the server
-const MAX_INACTIVITY_TIME = 60000;
-const RETRY_TIME = 3000;
+const EVENTS = ['state_changed', 'component_loaded', 'service_registered'];
 const STREAMS = {};
-const EVENTS = ['state_changed', 'component_loaded', 'service_registered'].join(',');
 
 function stopStream(reactor) {
   const stream = STREAMS[reactor.hassId];
@@ -17,68 +14,49 @@ function stopStream(reactor) {
     return;
   }
 
-  stream.scheduleHealthCheck.clear();
-  stream.source.close();
+  stream.socket.close();
   STREAMS[reactor.hassId] = false;
 }
 
 export function start(reactor, { syncOnInitialConnect = true } = {}) {
   stopStream(reactor);
 
-  // Called on each interaction with EventSource
-  // When debounce is done we exceeded MAX_INACTIVITY_TIME.
-  // Why? Because the error event listener on EventSource cannot be trusted.
-  const reconnect = debounce(start.bind(null, reactor), RETRY_TIME);
-  const scheduleHealthCheck = debounce(start.bind(null, reactor), MAX_INACTIVITY_TIME);
-  const authToken = encodeURIComponent(reactor.evaluate(authGetters.authToken));
-  const source = new EventSource(`/api/stream?api_password=${authToken}&restrict=${EVENTS}`);
-  let syncOnConnect = syncOnInitialConnect;
+  const authToken = reactor.evaluate(authGetters.authToken);
+  let url = document.location.protocol === 'https:' ? 'wss://' : 'ws://';
+  url += document.location.hostname;
+  if (document.location.port) {
+    url += `:${document.location.port}`;
+  }
+  url += '/api/websocket';
 
-  STREAMS[reactor.hassId] = {
-    source,
-    scheduleHealthCheck,
-  };
+  createConnection(url, { authToken }).then(
+    conn => {
+      // Websocket connection made for first time
+      window.conn = conn;  // TEMP TODO
+      STREAMS[reactor.hassId] = conn;
+      EVENTS.forEach(
+        eventType => conn.subscribeEvents(
+          handleRemoteEvent.bind(null, reactor), eventType));
 
-  source.addEventListener('open', () => {
-    scheduleHealthCheck();
+      reactor.batch(() => {
+        reactor.dispatch(actionTypes.STREAM_START);
+        if (syncOnInitialConnect) {
+          syncActions.fetchAll(reactor);
+        }
+      });
 
-    reactor.batch(() => {
-      reactor.dispatch(actionTypes.STREAM_START);
+      conn.addEventListener('disconnected', () => {
+        reactor.dispatch(actionTypes.STREAM_ERROR);
+      });
 
-      // We are streaming, fetch latest info but stop syncing
-      syncActions.stop(reactor);
+      conn.addEventListener('ready', () => {
+        reactor.batch(() => {
+          reactor.dispatch(actionTypes.STREAM_START);
 
-      if (syncOnConnect) {
-        syncActions.fetchAll(reactor);
-      } else {
-        syncOnConnect = true;
-      }
-    });
-  }, false);
-
-  source.addEventListener('message', (ev) => {
-    scheduleHealthCheck();
-
-    if (ev.data !== 'ping') {
-      handleRemoteEvent(reactor, JSON.parse(ev.data));
+          // We are streaming, fetch latest info
+          syncActions.fetchAll(reactor);
+        });
+      });
     }
-  }, false);
-
-  source.addEventListener('error', () => {
-    reconnect();
-
-    if (source.readyState !== EventSource.CLOSED) {
-      reactor.dispatch(actionTypes.STREAM_ERROR);
-    }
-  }, false);
-}
-
-export function stop(reactor) {
-  stopStream(reactor);
-
-  reactor.batch(() => {
-    reactor.dispatch(actionTypes.STREAM_STOP);
-
-    syncActions.start(reactor);
-  });
+  );
 }

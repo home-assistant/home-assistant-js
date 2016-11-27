@@ -1,22 +1,17 @@
 import actionTypes from './action-types';
 
-import {
-  getters as streamGetters,
-  actions as streamActions,
-} from '../stream';
+import { actions as streamActions } from '../stream';
 import { actions as syncActions } from '../sync';
 
-const DEFAULT_ERROR_MSG = 'Unexpected result from API';
+const DEFAULT_ERROR_MSG = 'Unexpected error';
 
 /**
  * Fetch the loaded components as a way to validate the API.
  * Second argument is optional options object:
- *   - useStreaming: to enable streaming (default: true if supported)
  *   - rememberLogin: to store login in local storage (default: false)
  *   - host: host to target for API calls
  */
 export function validate(reactor, authToken, {
-    useStreaming = reactor.evaluate(streamGetters.isSupported),
     rememberAuth = false,
     host = '',
   } = {}) {
@@ -40,11 +35,7 @@ export function validate(reactor, authToken, {
         return;
       }
 
-      if (useStreaming) {
-        streamActions.start(reactor, { syncOnInitialConnect: false });
-      } else {
-        syncActions.start(reactor, { skipInitialSync: true });
-      }
+      streamActions.start(reactor, { syncOnInitialConnect: false });
     },
 
     ({ message = DEFAULT_ERROR_MSG } = {}) => {

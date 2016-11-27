@@ -4,7 +4,7 @@ import actionTypes from './action-types';
 
 export function subscribePushNotifications(reactor) {
   return navigator.serviceWorker.getRegistration()
-    .then(reg => {
+    .then((reg) => {
       if (!reg) {
         throw new Error('No service worker registered.');
       }
@@ -13,7 +13,7 @@ export function subscribePushNotifications(reactor) {
         userVisibleOnly: true,
       });
     })
-    .then(sub => {
+    .then((sub) => {
       let browserName;
       if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
         browserName = 'firefox';
@@ -27,7 +27,7 @@ export function subscribePushNotifications(reactor) {
       }).then(() => reactor.dispatch(actionTypes.PUSH_NOTIFICATIONS_SUBSCRIBE, { }))
         .then(() => true);
     })
-    .catch(err => {
+    .catch((err) => {
       let message;
       if (err.message && err.message.indexOf('gcm_sender_id') !== -1) {
         message = 'Please setup the notify.html5 platform.';
@@ -46,7 +46,7 @@ export function subscribePushNotifications(reactor) {
 
 export function unsubscribePushNotifications(reactor) {
   return navigator.serviceWorker.getRegistration()
-    .then(reg => {
+    .then((reg) => {
       if (!reg) {
         throw new Error('No service worker registered');
       }
@@ -61,7 +61,7 @@ export function unsubscribePushNotifications(reactor) {
         .then(() => reactor.dispatch(actionTypes.PUSH_NOTIFICATIONS_UNSUBSCRIBE, { }))
         .then(() => true)
     )
-    .catch(err => {
+    .catch((err) => {
       const message = 'Failed unsubscribing for push notifications.';
 
       /* eslint-disable no-console */

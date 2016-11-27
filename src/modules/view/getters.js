@@ -16,7 +16,7 @@ export const views = [
 ];
 
 function addToMap(map, entities, groupEntity, recurse = true) {
-  groupEntity.attributes.entity_id.forEach(entityId => {
+  groupEntity.attributes.entity_id.forEach((entityId) => {
     if (map.has(entityId)) return;
 
     const entity = entities.get(entityId);
@@ -48,7 +48,7 @@ export const currentViewEntities = [
       return entities.filter(entity => !entity.attributes.hidden);
     }
 
-    return (new Immutable.Map()).withMutations(map => {
+    return (new Immutable.Map()).withMutations((map) => {
       addToMap(map, entities, viewEntity);
     });
   },

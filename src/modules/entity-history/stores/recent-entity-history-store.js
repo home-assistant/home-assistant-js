@@ -20,7 +20,7 @@ const INSTANCE = new Store({
 export default INSTANCE;
 
 function entriesLoaded(state, { stateHistory }) {
-  return state.withMutations(mState => {
+  return state.withMutations((mState) => {
     stateHistory.forEach(
       history => mState.set(
         history[0].entity_id,

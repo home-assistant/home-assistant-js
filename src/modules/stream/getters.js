@@ -4,16 +4,6 @@ export const isStreamingEvents = [
   'isStreaming',
 ];
 
-export const isSupported = [
-  'streamStatus',
-  'isSupported',
-];
-
-export const useStreaming = [
-  'streamStatus',
-  'useStreaming',
-];
-
 export const hasStreamingEventsError = [
   'streamStatus',
   'hasError',

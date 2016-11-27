@@ -1,5 +1,4 @@
 import { getters as authGetters } from '../auth';
-import { getters as streamGetters } from '../stream';
 import { getters as navigationGetters } from '../navigation';
 
 function getLocalStorage() {
@@ -31,10 +30,6 @@ const observe = {
     ],
     defaultValue: null,
   },
-  useStreaming: {
-    getter: streamGetters.useStreaming,
-    defaultValue: true,
-  },
   showSidebar: {
     getter: navigationGetters.showSidebar,
     defaultValue: false,
@@ -43,7 +38,7 @@ const observe = {
 
 const preferences = {};
 
-Object.keys(observe).forEach(prop => {
+Object.keys(observe).forEach((prop) => {
   if (!(prop in storage)) {
     storage[prop] = observe[prop].defaultValue;
   }
@@ -60,7 +55,7 @@ Object.keys(observe).forEach(prop => {
 });
 
 preferences.startSync = function startSync(reactor) {
-  Object.keys(observe).forEach(prop => {
+  Object.keys(observe).forEach((prop) => {
     const { getter } = observe[prop];
     const valueChanged = function valueChanged(value) {
       storage[prop] = JSON.stringify(value);

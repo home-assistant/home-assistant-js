@@ -42,6 +42,8 @@ export default class MediaPlayer {
     return this.stateObj.attributes.volume_level * 100;
   }
 
+  /* eslint-disable no-bitwise */
+
   get supportsPause() {
     return (this.stateObj.attributes.supported_media_commands & 1) !== 0;
   }
@@ -73,6 +75,8 @@ export default class MediaPlayer {
   get supportsVolumeButtons() {
     return (this.stateObj.attributes.supported_media_commands & 1024) !== 0;
   }
+
+  /* eslint-enable no-bitwise */
 
   get primaryText() {
     return this.stateObj.attributes.media_title ||

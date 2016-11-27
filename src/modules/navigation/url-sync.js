@@ -80,13 +80,13 @@ export function startSync(reactor) {
   const sync = {
     ignoreNextDeselectEntity: false,
     popstateChangeListener: popstateChangeListener.bind(null, reactor),
-    unwatchNavigationObserver: reactor.observe(activePanelName, pane => {
+    unwatchNavigationObserver: reactor.observe(activePanelName, (pane) => {
       if (pane !== history.state.pane) {
         history.pushState(pageState(pane, history.state.view), PAGE_TITLE,
                           pageUrl(pane, history.state.view));
       }
     }),
-    unwatchViewObserver: reactor.observe(viewGetters.currentView, view => {
+    unwatchViewObserver: reactor.observe(viewGetters.currentView, (view) => {
       if (view !== history.state.view) {
         history.pushState(pageState(history.state.pane, view), PAGE_TITLE,
                           pageUrl(history.state.pane, view));

@@ -34,7 +34,7 @@ export function start(reactor, { syncOnInitialConnect = true } = {}) {
   url += '/api/websocket';
 
   createConnection(url, { authToken }).then(
-    conn => {
+    (conn) => {
       // Websocket connection made for first time
       const scheduleHealthCheck = debounce(() => conn.ping(), MAX_INACTIVITY_TIME);
       scheduleHealthCheck();

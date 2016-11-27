@@ -1,5 +1,5 @@
 export default function exposeModules(target, reactor, modules) {
-  Object.keys(modules).forEach(name => {
+  Object.keys(modules).forEach((name) => {
     const module = modules[name];
 
     if ('register' in module) {
@@ -16,7 +16,7 @@ export default function exposeModules(target, reactor, modules) {
     if ('actions' in module) {
       const actions = {};
 
-      Object.getOwnPropertyNames(module.actions).forEach(actionKey => {
+      Object.getOwnPropertyNames(module.actions).forEach((actionKey) => {
         if (typeof module.actions[actionKey] === 'function') {
           Object.defineProperty(actions, actionKey, {
             value: module.actions[actionKey].bind(null, reactor),

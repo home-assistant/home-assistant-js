@@ -42,7 +42,7 @@ function loadData(state, { model, result, params }) {
   const data = Array.isArray(result) ? result : [result];
   const fromJSON = model.fromJSON || toImmutable;
 
-  return state.set(entity, newState.withMutations(mState => {
+  return state.set(entity, newState.withMutations((mState) => {
     for (let i = 0; i < data.length; i++) {
       const entry = fromJSON(data[i]);
       mState.set(entry.id, entry);

@@ -38,7 +38,7 @@ const observe = {
 
 const preferences = {};
 
-Object.keys(observe).forEach(prop => {
+Object.keys(observe).forEach((prop) => {
   if (!(prop in storage)) {
     storage[prop] = observe[prop].defaultValue;
   }
@@ -55,7 +55,7 @@ Object.keys(observe).forEach(prop => {
 });
 
 preferences.startSync = function startSync(reactor) {
-  Object.keys(observe).forEach(prop => {
+  Object.keys(observe).forEach((prop) => {
     const { getter } = observe[prop];
     const valueChanged = function valueChanged(value) {
       storage[prop] = JSON.stringify(value);

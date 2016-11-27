@@ -25,7 +25,7 @@ const INSTANCE = new Store({
 export default INSTANCE;
 
 function startStream(state) {
-  return state.withMutations(map => {
+  return state.withMutations((map) => {
     map
       .set('isStreaming', true)
       .set('hasError', false);
@@ -33,7 +33,7 @@ function startStream(state) {
 }
 
 function errorStream(state) {
-  return state.withMutations(map => {
+  return state.withMutations((map) => {
     map
       .set('isStreaming', false)
       .set('hasError', true);

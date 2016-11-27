@@ -10,7 +10,7 @@ import { actions as navigationActions } from '../navigation';
 export function fetchAll(reactor) {
   reactor.dispatch(actionTypes.API_FETCH_ALL_START, {});
 
-  return callApi(reactor, 'GET', 'bootstrap').then(data => {
+  return callApi(reactor, 'GET', 'bootstrap').then((data) => {
     reactor.batch(() => {
       entityActions.replaceData(reactor, data.states);
       serviceActions.replaceData(reactor, data.services);
@@ -20,7 +20,7 @@ export function fetchAll(reactor) {
 
       reactor.dispatch(actionTypes.API_FETCH_ALL_SUCCESS, {});
     });
-  }, message => {
+  }, (message) => {
     reactor.dispatch(actionTypes.API_FETCH_ALL_FAIL, { message });
 
     return Promise.reject(message);

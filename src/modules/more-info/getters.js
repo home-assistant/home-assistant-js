@@ -8,7 +8,7 @@ export const currentEntityId = [
 
 export const hasCurrentEntityId = [
   currentEntityId,
-  (entityId) => entityId !== null,
+  entityId => entityId !== null,
 ];
 
 export const currentEntity = [

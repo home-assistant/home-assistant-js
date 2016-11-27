@@ -25,7 +25,7 @@ function entriesLoaded(state, { date, stateHistory }) {
     return state.set(date, toImmutable({}));
   }
 
-  return state.withMutations(mState => {
+  return state.withMutations((mState) => {
     stateHistory.forEach(
       history => mState.setIn(
         [date, history[0].entity_id],

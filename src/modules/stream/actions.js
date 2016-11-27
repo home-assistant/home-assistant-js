@@ -22,13 +22,6 @@ function stopStream(reactor) {
   STREAMS[reactor.hassId] = false;
 }
 
-function healthTrigger(reactor) {
-  /* eslint-disable no-console, no-use-before-define */
-  console.warn('Connection idle for too long. Restarting');
-  start(reactor);
-  /* eslint-enable no-console, no-use-before-define */
-}
-
 export function start(reactor, { syncOnInitialConnect = true } = {}) {
   stopStream(reactor);
 
@@ -43,7 +36,7 @@ export function start(reactor, { syncOnInitialConnect = true } = {}) {
   createConnection(url, { authToken }).then(
     conn => {
       // Websocket connection made for first time
-      const scheduleHealthCheck = debounce(healthTrigger.bind(null, reactor), MAX_INACTIVITY_TIME);
+      const scheduleHealthCheck = debounce(() => conn.ping(), MAX_INACTIVITY_TIME);
       scheduleHealthCheck();
       conn.socket.addEventListener('message', scheduleHealthCheck);
 

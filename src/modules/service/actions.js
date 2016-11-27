@@ -13,11 +13,11 @@ serviceApiActions.serviceRegistered = function serviceRegistered(reactor, domain
   let serviceDomain = reactor.evaluateToJS(getters.byDomain(domain));
 
   if (serviceDomain) {
-    serviceDomain.services.push(service);
+    serviceDomain.services[service] = {};
   } else {
     serviceDomain = {
       domain,
-      services: [service],
+      services: { [service]: {} },
     };
   }
 

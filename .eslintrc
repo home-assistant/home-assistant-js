@@ -11,6 +11,7 @@
   "rules": {
     "import/prefer-default-export": 0,
     "comma-dangle": 0,
-    "no-plusplus": 0
+    "no-plusplus": 0,
+    "import/no-unresolved": 0
   }
 }

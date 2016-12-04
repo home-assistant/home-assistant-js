@@ -468,9 +468,9 @@ has@^1.0.1:
   dependencies:
     function-bind "^1.0.2"
 
-home-assistant-js-websocket@0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/home-assistant-js-websocket/-/home-assistant-js-websocket-0.1.4.tgz#6bfc627af4422f4301dbb61b4e9ef69de82fcc86"
+home-assistant-js-websocket@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/home-assistant-js-websocket/-/home-assistant-js-websocket-0.5.0.tgz#f78b31d160d7bdd083cf53ae01328483e7046ef5"
 
 ignore@^3.2.0:
   version "3.2.0"

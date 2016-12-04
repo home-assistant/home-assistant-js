@@ -42,6 +42,21 @@ export default class MediaPlayer {
     return this.stateObj.attributes.volume_level * 100;
   }
 
+  get showProgress() {
+    return (
+      (this.isPlaying || this.isPaused) &&
+      'media_position' in this.stateObj.attributes &&
+      'media_position_updated_at' in this.stateObj.attributes);
+  }
+
+  get currentProgress () {
+    return (
+      this.stateObj.attributes.media_position +
+      ((Date.now() -
+        new Date(this.stateObj.attributes.media_position_updated_at)) / 1000));
+
+  }
+
   /* eslint-disable no-bitwise */
 
   get supportsPause() {

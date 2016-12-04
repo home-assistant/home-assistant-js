@@ -49,12 +49,11 @@ export default class MediaPlayer {
       'media_position_updated_at' in this.stateObj.attributes);
   }
 
-  get currentProgress () {
+  get currentProgress() {
     return (
       this.stateObj.attributes.media_position +
       ((Date.now() -
         new Date(this.stateObj.attributes.media_position_updated_at)) / 1000));
-
   }
 
   /* eslint-disable no-bitwise */

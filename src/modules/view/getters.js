@@ -3,7 +3,7 @@ import { getters as entityGetters } from '../entity';
 
 const { Immutable } = nuclearJS;
 const DEFAULT_VIEW_ENTITY_ID = 'group.default_view';
-
+const ALWAYS_SHOW_DOMAIN = ['persistent_notification', 'configurator'];
 export const currentView = [
   'currentView',
 ];
@@ -50,6 +50,12 @@ export const currentViewEntities = [
 
     return (new Immutable.Map()).withMutations((map) => {
       addToMap(map, entities, viewEntity);
+
+      entities.valueSeq().forEach((entity, entityId) => {
+        if (ALWAYS_SHOW_DOMAIN.indexOf(entity.domain) !== -1) {
+          map.set(entityId, entity);
+        }
+      });
     });
   },
 ];

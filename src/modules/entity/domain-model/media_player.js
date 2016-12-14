@@ -86,6 +86,10 @@ export default class MediaPlayer {
     return (this.stateObj.attributes.supported_media_commands & 256) !== 0;
   }
 
+  get supportsPlayMedia() {
+    return (this.stateObj.attributes.supported_media_commands & 512) !== 0;
+  }
+
   get supportsVolumeButtons() {
     return (this.stateObj.attributes.supported_media_commands & 1024) !== 0;
   }

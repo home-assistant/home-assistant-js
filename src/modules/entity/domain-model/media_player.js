@@ -94,6 +94,10 @@ export default class MediaPlayer {
     return (this.stateObj.attributes.supported_media_commands & 1024) !== 0;
   }
 
+  get supportsPlay() {
+    return (this.stateObj.attributes.supported_media_commands & 16384) !== 0;
+  }
+
   /* eslint-enable no-bitwise */
 
   get primaryText() {

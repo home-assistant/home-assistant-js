@@ -22,6 +22,7 @@ import * as sync from './modules/sync';
 import * as template from './modules/template';
 import * as view from './modules/view';
 import * as voice from './modules/voice';
+import * as customUi from './modules/custom-ui';
 
 export default class HomeAssistant {
   constructor() {
@@ -75,6 +76,7 @@ export default class HomeAssistant {
     exposeModules(this, reactor, {
       auth,
       config,
+      customUi,
       entity,
       entityHistory,
       errorLog,

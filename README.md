@@ -1,7 +1,5 @@
-# home-assistant-js [![Build Status](https://travis-ci.org/home-assistant/home-assistant-js.svg?branch=master)](https://travis-ci.org/home-assistant/home-assistant-js)
-JavaScript backend in [NuclearJS][nuclear-js] for [Home Assistant][home-assistant]. Used by [the Home Assistant Polymer frontend][home-assistant-polymer].
-
-To see it in action, [check out the demo][home-assistant-demo]. Debug mode has been enabled for NuclearJS so make sure to open your developer tools!
+# home-assistant-js [![Build Status](https://travis-ci.org/home-assistant/home-assistant-js.svg?branch=master)](https://travis-ci.org/home-assistant/home-assistant-js) (deprecated)
+JavaScript backend in [NuclearJS][nuclear-js] for [Home Assistant][home-assistant]. This was used by [the Home Assistant Polymer frontend][home-assistant-polymer] till version 0.37. It has since been deprecated and is no longer under active development.
 
 ## Cool stuff
 

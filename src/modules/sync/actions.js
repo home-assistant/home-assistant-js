@@ -6,6 +6,8 @@ import { actions as serviceActions } from '../service';
 import { actions as eventActions } from '../event';
 import { actions as configActions } from '../config';
 import { actions as navigationActions } from '../navigation';
+import { actions as customUiActions } from '../custom-ui';
+
 
 export function fetchAll(reactor) {
   reactor.dispatch(actionTypes.API_FETCH_ALL_START, {});
@@ -17,6 +19,7 @@ export function fetchAll(reactor) {
       eventActions.replaceData(reactor, data.events);
       configActions.configLoaded(reactor, data.config);
       navigationActions.panelsLoaded(reactor, data.panels);
+      customUiActions.customUiLoaded(reactor, data.custom_ui);
 
       reactor.dispatch(actionTypes.API_FETCH_ALL_SUCCESS, {});
     });
